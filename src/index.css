@@ -1,2 +1,73 @@
 /* Styling for application */
 
+/* General styling */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(250, 248, 240);
+  color: rgb(51, 51, 51)
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Styling of footer */
+.footer {
+  height: 50px;
+  width: 100%;
+  background-color: rgb(111, 136, 111);
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer a:link, .footer a:visited {
+  color:rgb(250, 248, 240)
+}
+
+.footer a:hover, .footer a:active {
+  text-decoration: underline;
+}
+
+/* Styling of content div */
+
+.content {
+  text-align: center;
+}
+
+/* Styling of home page for anonymous users */
+
+.home-anonymous {
+  height: calc(100vh - 50px);
+}
+
+.home-anonymous a {
+  display: block;
+}
+
+.home-anonymous a:link, .home-anonymous a:visited {
+  color:rgb(111, 136, 111)
+}
+
+.home-anonymous a:hover, .home-anonymous a:active {
+  text-decoration: underline;
+}
+
+.home-anonymous {
+  background-image: url('../images/book-byte.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+}
+
+
+

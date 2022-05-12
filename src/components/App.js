@@ -2,15 +2,15 @@ import { useState } from 'react'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './Navbar.js'
-import Home from './Home.js'
 import Login from './Login.js'
 import Register from './Register.js'
-import Policy from './Policy.js'
+import Policy from './PrivacyPolicy.js'
 import Cookies from './Cookies.js'
 import NotFound from './NotFound.js'
 import Footer from './Footer.js'
 import Create from './Create.js'
-import About from './About.js'
+import HomeAnonymous from './HomeAnonymous.js'
+import HomeAuthenticated from './HomeAuthenticated.js'
 
 /**
  * The App component.
@@ -36,15 +36,15 @@ function App () {
   return (
     <Router>
       <div className="app">
-        <Navbar authenticated={ authenticated }/>
+        { authenticated && <Navbar /> }
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home authenticated={ authenticated }/> } />
-            <Route path="/about" element={<About /> } />
+            { !authenticated && <Route path="/" element={<HomeAnonymous /> }/>}
+            { authenticated && <Route path="/" element={<HomeAuthenticated /> }/>}
             { !authenticated && <Route path="/login" element={ <Login /> }/> }
             { !authenticated && <Route path="/register" element={ <Register /> }/> }
             { authenticated && <Route path="/create" element={ <Create /> }/> }
-            <Route path="/policy" element={<Policy />} />
+            <Route path="/privacy-policy" element={<Policy />} />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
