@@ -48,26 +48,92 @@ a {
 
 .home-anonymous {
   height: calc(100vh - 50px);
+  overflow: auto;
+}
+
+.home-anonymous p {
+  font-size: 1.5rem;
 }
 
 .home-anonymous a {
-  display: block;
+  display: inline-block;
+  border: 2px solid rgb(111, 136, 111);
+  border-radius: 15px;
+  padding: 10px;
+  font-weight: bold;
+  background-color: rgb(111, 136, 111);
+  margin: 5px;
+  width: 100px;
 }
 
 .home-anonymous a:link, .home-anonymous a:visited {
-  color:rgb(111, 136, 111)
+  color:rgb(250, 248, 240)
 }
 
 .home-anonymous a:hover, .home-anonymous a:active {
+  border: 2px solid rgb(111, 136, 111);
+  background-color: rgb(250, 248, 240);
+  color: rgb(111, 136, 111);
+}
+
+.home-anonymous img {
+  height: 50%;
+  display: block;
+  margin: 30px auto;
+}
+
+/* Styling for registration page */
+.register {
+  height: calc(100vh - 50px);
+  overflow: auto;
+  display: ;
+}
+
+.register form {
+  background-color: rgb(181, 196, 181);
+  padding: 20px;
+  width: max-content;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+
+.register label {
+  display: block;
+  margin: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.register button {
+  display: block;
+  border: 2px solid rgb(111, 136, 111);
+  border-radius: 15px;
+  padding: 10px;
+  font-weight: bold;
+  background-color: rgb(111, 136, 111);
+  margin: 5px;
+  width: 100px;
+  margin: 5px auto;
+  color:rgb(250, 248, 240);
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.register button:hover {
+  border: 2px solid rgb(111, 136, 111);
+  background-color: rgb(250, 248, 240);
+  color: rgb(111, 136, 111);
+}
+
+.register a {
+  font-size: 0.9rem;
+}
+
+.register a:link, .register a:visited {
+  color: rgb(51, 51, 51)
+}
+
+.register a:hover, .register a:active {
   text-decoration: underline;
 }
-
-.home-anonymous {
-  background-image: url('../images/book-byte.png');
-  background-repeat: no-repeat;
-  background-position: right;
-  background-size: contain;
-}
-
-
-

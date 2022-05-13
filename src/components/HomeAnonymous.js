@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom'
 function HomeAnonymous () {
   return (
     <div className="home-anonymous">
-      <h2>Welcome to BookByte</h2>
-      <p>An application that makes book swapping easy!</p>
+      <h1>Welcome to BookByte</h1>
+      <p>Makes book swapping easy!</p>
+      <img alt="Illustration of books" src="images/book-byte.png"></img>
       <Link to="/login">Login</Link>
       <Link to="/register">Register</Link>
     </div>
