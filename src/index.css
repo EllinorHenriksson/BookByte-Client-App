@@ -16,6 +16,10 @@ a {
   text-decoration: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 /* Styling of footer */
 .footer {
   height: 50px;
@@ -38,17 +42,15 @@ a {
   text-decoration: underline;
 }
 
-/* Styling of content div */
-
-.content {
-  text-align: center;
-}
-
 /* Styling of home page for anonymous users */
 
 .home-anonymous {
   height: calc(100vh - 50px);
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .home-anonymous p {
@@ -64,6 +66,7 @@ a {
   background-color: rgb(111, 136, 111);
   margin: 5px;
   width: 100px;
+  text-align: center;
 }
 
 .home-anonymous a:link, .home-anonymous a:visited {
@@ -77,32 +80,45 @@ a {
 }
 
 .home-anonymous img {
-  height: 50%;
-  display: block;
-  margin: 30px auto;
+  height: 40%;
+  min-height: 150px;
 }
 
 /* Styling for registration page */
 .register {
   height: calc(100vh - 50px);
   overflow: auto;
-  display: ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 }
 
 .register form {
   background-color: rgb(181, 196, 181);
-  padding: 20px;
+  padding: 30px;
   width: max-content;
   margin: 10px auto;
   border-radius: 15px;
+  text-align: left;
 }
 
 .register label {
   display: block;
-  margin: 10px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
+  margin-top: 5px;
+}
+
+.register input {
+  width: 250px;
+  padding: 3px;
+  font-size: 0.9rem;
+}
+
+.register div.info {
+  position: relative;
+  width: 250px;
+  font-size: 0.8rem;
 }
 
 .register button {
@@ -114,7 +130,7 @@ a {
   background-color: rgb(111, 136, 111);
   margin: 5px;
   width: 100px;
-  margin: 5px auto;
+  margin: 0 auto;
   color:rgb(250, 248, 240);
   font-size: 1rem;
   margin-top: 10px;
@@ -128,6 +144,9 @@ a {
 
 .register a {
   font-size: 0.9rem;
+  display: block;
+  text-align: center;
+  margin: 5px;
 }
 
 .register a:link, .register a:visited {
@@ -137,3 +156,5 @@ a {
 .register a:hover, .register a:active {
   text-decoration: underline;
 }
+
+

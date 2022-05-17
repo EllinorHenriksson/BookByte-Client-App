@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Navbar from './Navbar.js'
+import NavbarAuthenticated from './NavbarAuthenticated.js'
+import NavbarAnonymous from './NavbarAnonymous.js'
 import Login from './Login.js'
 import Register from './Register.js'
 import Policy from './PrivacyPolicy.js'
@@ -36,7 +37,8 @@ function App () {
   return (
     <Router>
       <div className="app">
-        { authenticated && <Navbar /> }
+        { !authenticated && <NavbarAnonymous /> }
+        { authenticated && <NavbarAuthenticated /> }
         <div className="content">
           <Routes>
             { !authenticated && <Route path="/" element={<HomeAnonymous /> }/>}
