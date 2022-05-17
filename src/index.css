@@ -20,13 +20,50 @@ button:hover {
   cursor: pointer;
 }
 
+/* Styling of navbar anonymous */
+.navbar-anonymous {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  position: sticky;
+  border-bottom: 2px solid rgb(111, 136, 111);
+}
+
+.navbar-anonymous div {
+  width: 50vw;
+  display: flex;
+}
+
+.navbar-anonymous div:last-child {
+  justify-content: flex-end;
+}
+
+.navbar-anonymous div a {
+  margin: 10px;
+}
+
+.navbar-anonymous div:first-child a {
+  font-size: 1.2rem;
+}
+
+.navbar-anonymous div:last-child a {
+  font-size: 1.1rem;
+}
+
+.navbar-anonymous a:link, .navbar-anonymous a:visited {
+  color: rgb(111, 136, 111);
+  font-weight: bold;
+}
+
+.navbar-anonymous a:hover, .navbar-anonymous a:active {
+  color: rgb(139, 151, 139);
+}
+
 /* Styling of footer */
 .footer {
   height: 50px;
   width: 100%;
   background-color: rgb(111, 136, 111);
-  position: fixed;
-  bottom: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -45,7 +82,7 @@ button:hover {
 /* Styling of home page for anonymous users */
 
 .home-anonymous {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 100px);
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -86,7 +123,7 @@ button:hover {
 
 /* Styling for registration page */
 .register {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 100px);
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -97,7 +134,7 @@ button:hover {
 
 .register form {
   background-color: rgb(181, 196, 181);
-  padding: 30px;
+  padding: 20px;
   width: max-content;
   margin: 10px auto;
   border-radius: 15px;
@@ -113,12 +150,6 @@ button:hover {
   width: 250px;
   padding: 3px;
   font-size: 0.9rem;
-}
-
-.register div.info {
-  position: relative;
-  width: 250px;
-  font-size: 0.8rem;
 }
 
 .register button {
@@ -156,5 +187,4 @@ button:hover {
 .register a:hover, .register a:active {
   text-decoration: underline;
 }
-
 

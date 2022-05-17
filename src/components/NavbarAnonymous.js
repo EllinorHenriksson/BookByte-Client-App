@@ -8,8 +8,13 @@ import { Link } from 'react-router-dom'
 function NavbarAnonymous () {
   return (
     <div className="navbar-anonymous">
-      <h2>Navbar Anonymous</h2>
-      <Link to="/">Home</Link>
+      <div>
+        <Link to="/">Home</Link>
+      </div>
+      <div>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
+      </div>
     </div>
   )
 }
