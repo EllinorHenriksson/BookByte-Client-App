@@ -1,5 +1,7 @@
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
+import FlashError from './FlashError.js'
+import FlashSuccess from './FlashSuccess.js'
 
 /**
  * The Login component.
@@ -7,13 +9,13 @@ import { useState } from 'react'
  * @returns {object} The jsx html template.
  */
 function Login () {
-  const location = useLocation()
-  const success = location.state?.success
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const location = useLocation()
+  const [success, setSuccess] = useState(location.state?.success)
   const [error, setError] = useState(null)
 
   const navigate = useNavigate()
@@ -43,6 +45,7 @@ function Login () {
         // Kom ihåg att spara undan JWT i local storage
         navigate('/home', { state: { success: 'Successfull authentication' } })
       } else {
+        setSuccess(null)
         if (res.status === 401) {
           setError('Authentication failed: Wrong username and/or password.')
         } else if (res.status === 404) {
@@ -52,6 +55,7 @@ function Login () {
         }
       }
     }).catch(err => {
+      setSuccess(null)
       console.log(err)
       setError('Authentication failed: Network error, please try again later.')
       setIsLoading(false)
@@ -60,8 +64,8 @@ function Login () {
 
   return (
     <div className='login'>
-      { success && <div className='flash success'>{ success }</div> }
-      { error && <div className='flash error'>{ error }</div> }
+      { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
+      { error && <FlashError error={ error } setError={setError}></FlashError> }
       <form
         onSubmit={ handleSubmit }>
         <label>Username:</label>
@@ -75,7 +79,6 @@ function Login () {
         <input
           type="password"
           required
-          minLength="10"
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }>
         </input>

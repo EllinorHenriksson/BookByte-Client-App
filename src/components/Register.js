@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import FlashError from './FlashError.js'
 
 /**
  * The Register component.
@@ -17,14 +18,6 @@ function Register () {
   const [error, setError] = useState(null)
 
   const navigate = useNavigate()
-
-  /**
-   * Handles the click event.
-   *
-   */
-  const handleClick = () => {
-    setError(null)
-  }
 
   /**
    * Handles the submit event.
@@ -48,7 +41,7 @@ function Register () {
     }).then(res => {
       setIsLoading(false)
       if (res.ok) {
-        navigate('/login', { state: { success: 'Successfull registration' } })
+        navigate('/login', { state: { success: 'Successfull registration!' } })
       } else {
         if (res.status === 400) {
           setError('Registration failed: Data input not correctly formatted.')
@@ -63,22 +56,14 @@ function Register () {
     }).catch(err => {
       console.log(err)
       setError('Registration failed: Network error, please try again later.')
+      console.log(error)
       setIsLoading(false)
     })
   }
 
   return (
     <div className="register">
-      {/* { error &&
-        <div className='flash error'>
-          <button type="button" onClick={ handleClick }></button>
-          <div>{ error }</div>
-        </div>
-      } */}
-      <div className='flash error'>
-        <button type="button" onClick={ handleClick }></button>
-        <div>Felmeddelande eeeeeeeeeeeeeeeeeeeee {error} </div>
-      </div>
+      { error && <FlashError error={ error } setError={ setError }></FlashError> }
       <form
         onSubmit={ handleSubmit }>
         <label>Username:</label>

@@ -56,7 +56,7 @@ button:hover {
 }
 
 .navbar-anonymous a:hover, .navbar-anonymous a:active {
-  color: rgb(139, 151, 139);
+  color: rgb(181, 196, 181);
 }
 
 /* Styling of footer */
@@ -188,8 +188,9 @@ button:hover {
   text-decoration: underline;
 }
 
-.register .flash {
-  background-color: rgb(199, 116, 116);
+/* Styling of flash-messages */
+
+.flash {
   color: rgb(255, 255, 255);
   max-width: 500px;
   width: 200px;
@@ -202,14 +203,22 @@ button:hover {
   border-radius: 5px;
 }
 
-.register .flash button[type="button"] {
+.flash.error {
+  background-color: rgb(199, 116, 116);
+}
+
+.flash.success {
+  background-color: rgb(181, 196, 181);
+}
+
+.flash button[type="button"] {
   width: 15px;
   height: 15px;
-  background-image: url("/public/images/cross.png");
-  background-size: contain;
+  background: no-repeat center/80% url("/public/images/cross-grey.png");
+  background-color: rgba(255, 255, 255, 0.774);
   position: absolute;
   right: 5px;
   top: 5px;
   border: none;
+  border-radius: 3px;
 }
-
