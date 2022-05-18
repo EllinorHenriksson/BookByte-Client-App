@@ -64,15 +64,14 @@ button:hover {
   height: 50px;
   width: 100%;
   background-color: rgb(111, 136, 111);
-  text-align: center;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 }
 
 .footer a:link, .footer a:visited {
-  color:rgb(250, 248, 240)
+  color: rgb(36, 63, 36);
 }
 
 .footer a:hover, .footer a:active {
@@ -82,7 +81,7 @@ button:hover {
 /* Styling of home page for anonymous users */
 
 .home-anonymous {
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -117,12 +116,12 @@ button:hover {
 }
 
 .home-anonymous img {
-  height: 40%;
+  height: 40vh;
   min-height: 150px;
 }
 
-/* Styling for registration page */
-.register {
+/* Styling for registration and login page */
+.auth {
   height: calc(100vh - 100px);
   overflow: auto;
   display: flex;
@@ -132,7 +131,7 @@ button:hover {
   justify-content: center;
 }
 
-.register form {
+.auth form {
   background-color: rgb(181, 196, 181);
   padding: 20px;
   width: max-content;
@@ -141,18 +140,18 @@ button:hover {
   text-align: left;
 }
 
-.register label {
+.auth label {
   display: block;
   margin-top: 5px;
 }
 
-.register input {
+.auth input:not([type="checkbox"]) {
   width: 250px;
   padding: 3px;
   font-size: 0.9rem;
 }
 
-.register button[type="submit"] {
+.auth button[type="submit"] {
   display: block;
   border: 2px solid rgb(111, 136, 111);
   border-radius: 10px;
@@ -167,24 +166,24 @@ button:hover {
   margin-top: 10px;
 }
 
-.register button[type="submit"]:hover {
+.auth button[type="submit"]:hover {
   border: 2px solid rgb(111, 136, 111);
   background-color: rgb(250, 248, 240);
   color: rgb(111, 136, 111);
 }
 
-.register a {
+.auth a {
   font-size: 0.9rem;
   display: block;
   text-align: center;
   margin: 5px;
 }
 
-.register a:link, .register a:visited {
+.auth a:link, .auth a:visited {
   color: rgb(51, 51, 51)
 }
 
-.register a:hover, .register a:active {
+.auth a:hover, .auth a:active {
   text-decoration: underline;
 }
 

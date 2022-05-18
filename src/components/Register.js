@@ -62,7 +62,7 @@ function Register () {
   }
 
   return (
-    <div className="register">
+    <div className="register auth">
       { error && <FlashError error={ error } setError={ setError }></FlashError> }
       <form
         onSubmit={ handleSubmit }>
