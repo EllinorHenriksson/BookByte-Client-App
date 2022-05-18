@@ -97,7 +97,7 @@ button:hover {
 .home-anonymous a {
   display: inline-block;
   border: 2px solid rgb(111, 136, 111);
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 10px;
   font-weight: bold;
   background-color: rgb(111, 136, 111);
@@ -137,7 +137,7 @@ button:hover {
   padding: 20px;
   width: max-content;
   margin: 10px auto;
-  border-radius: 15px;
+  border-radius: 5px;
   text-align: left;
 }
 
@@ -152,10 +152,10 @@ button:hover {
   font-size: 0.9rem;
 }
 
-.register button {
+.register button[type="submit"] {
   display: block;
   border: 2px solid rgb(111, 136, 111);
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 10px;
   font-weight: bold;
   background-color: rgb(111, 136, 111);
@@ -167,7 +167,7 @@ button:hover {
   margin-top: 10px;
 }
 
-.register button:hover {
+.register button[type="submit"]:hover {
   border: 2px solid rgb(111, 136, 111);
   background-color: rgb(250, 248, 240);
   color: rgb(111, 136, 111);
@@ -186,5 +186,30 @@ button:hover {
 
 .register a:hover, .register a:active {
   text-decoration: underline;
+}
+
+.register .flash {
+  background-color: rgb(199, 116, 116);
+  color: rgb(255, 255, 255);
+  max-width: 500px;
+  width: 200px;
+  padding: 15px;
+  text-align: left;
+  font-size: 0.9rem;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  border-radius: 5px;
+}
+
+.register .flash button[type="button"] {
+  width: 15px;
+  height: 15px;
+  background-image: url("/public/images/cross.png");
+  background-size: contain;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border: none;
 }
 

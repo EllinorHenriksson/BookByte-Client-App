@@ -14,8 +14,17 @@ function Register () {
   const [password, setPassword] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const navigate = useNavigate()
+
+  /**
+   * Handles the click event.
+   *
+   */
+  const handleClick = () => {
+    setError(null)
+  }
 
   /**
    * Handles the submit event.
@@ -26,6 +35,7 @@ function Register () {
     e.preventDefault()
 
     setIsLoading(true)
+    setError(null)
 
     const data = { username, givenName, familyName, email, password }
 
@@ -38,21 +48,37 @@ function Register () {
     }).then(res => {
       setIsLoading(false)
       if (res.ok) {
-        console.log('Successfull registration')
-        navigate('/login')
+        navigate('/login', { state: { success: 'Successfull registration' } })
       } else {
-        // OBS! Ändra detta till riktig åtgärd
-        console.log('Status code: ', res.status)
+        if (res.status === 400) {
+          setError('Registration failed: Data input not correctly formatted.')
+        } else if (res.status === 404) {
+          setError('Registration failed: Could not find the requested resource.')
+        } else if (res.status === 409) {
+          setError('Registration failed: Username and/or email address already registered.')
+        } else {
+          setError('Registration failed: Server error, please try again later.')
+        }
       }
-    }).catch(error => {
-      // OBS! Ändra detta till riktig åtgärd
-      console.log(error.message)
+    }).catch(err => {
+      console.log(err)
+      setError('Registration failed: Network error, please try again later.')
       setIsLoading(false)
     })
   }
 
   return (
     <div className="register">
+      {/* { error &&
+        <div className='flash error'>
+          <button type="button" onClick={ handleClick }></button>
+          <div>{ error }</div>
+        </div>
+      } */}
+      <div className='flash error'>
+        <button type="button" onClick={ handleClick }></button>
+        <div>Felmeddelande eeeeeeeeeeeeeeeeeeeee {error} </div>
+      </div>
       <form
         onSubmit={ handleSubmit }>
         <label>Username:</label>
@@ -98,8 +124,8 @@ function Register () {
           onChange={ (e) => setPassword(e.target.value) }>
         </input>
         <Link to="./privacy-policy">Privacy Policy</Link>
-        { !isLoading && <button>Register</button> }
-        { isLoading && <button disabled>Loading...</button> }
+        { !isLoading && <button type="submit">Register</button> }
+        { isLoading && <button type="submit" disabled>Loading...</button> }
       </form>
     </div>
   )
