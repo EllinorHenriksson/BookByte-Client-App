@@ -8,8 +8,12 @@ import { Link } from 'react-router-dom'
 function NavbarAuthenticated () {
   return (
     <div className="navbar-authenticated">
-      <h2>Navbar Authenticated</h2>
       <Link to="/">Home</Link>
+      <Link to="/swaps">Swaps</Link>
+      <Link to="/wishlist">Wishlist</Link>
+      <Link to="/bookshelf">Bookshelf</Link>
+      <Link to="/profile">Profile</Link>
+      <Link to="/logout">Logout</Link>
     </div>
   )
 }

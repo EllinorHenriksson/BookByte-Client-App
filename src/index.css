@@ -194,6 +194,7 @@ button:hover {
   max-width: 500px;
   width: 200px;
   padding: 15px;
+  padding-top: 20px;
   text-align: left;
   font-size: 0.9rem;
   position: absolute;

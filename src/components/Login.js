@@ -6,9 +6,11 @@ import FlashSuccess from './FlashSuccess.js'
 /**
  * The Login component.
  *
+ * @param {object} root0 - The props object.
+ * @param {Function} root0.setAuthenticated - The setter for the authenticated state.
  * @returns {object} The jsx html template.
  */
-function Login () {
+function Login ({ setAuthenticated }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -39,11 +41,12 @@ function Login () {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify(data)
     }).then(res => {
       setIsLoading(false)
       if (res.ok) {
-        // OBS! Kom ihåg att spara undan JWT i local storage
+        setAuthenticated(true)
         navigate('/', { state: { success: 'Successfull authentication!' } })
       } else {
         if (res.status === 401) {
@@ -54,6 +57,10 @@ function Login () {
           setError('Authentication failed: Server error, please try again later.')
         }
       }
+      return res.json()
+    }).then((data) => {
+      localStorage.setItem('bookbyte', JSON.stringify(data))
+      console.log(data)
     }).catch(err => {
       console.log(err)
       setError('Authentication failed: Network error, please try again later.')
