@@ -7,10 +7,10 @@ import FlashSuccess from './FlashSuccess.js'
  * The Login component.
  *
  * @param {object} root0 - The props object.
- * @param {Function} root0.setAuthenticated - The setter for the authenticated state.
+ * @param {Function} root0.setIsAuthenticated - The setter for the authenticated state.
  * @returns {object} The jsx html template.
  */
-function Login ({ setAuthenticated }) {
+function Login ({ setIsAuthenticated }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -46,8 +46,9 @@ function Login ({ setAuthenticated }) {
     }).then(res => {
       setIsLoading(false)
       if (res.ok) {
-        setAuthenticated(true)
+        setIsAuthenticated(true)
         navigate('/', { state: { success: 'Successfull authentication!' } })
+        return res.json()
       } else {
         if (res.status === 401) {
           setError('Authentication failed: Wrong username and/or password.')
@@ -57,10 +58,10 @@ function Login ({ setAuthenticated }) {
           setError('Authentication failed: Server error, please try again later.')
         }
       }
-      return res.json()
     }).then((data) => {
-      localStorage.setItem('bookbyte', JSON.stringify(data))
-      console.log(data)
+      if (data) {
+        localStorage.setItem('bookbyte', JSON.stringify(data))
+      }
     }).catch(err => {
       console.log(err)
       setError('Authentication failed: Network error, please try again later.')

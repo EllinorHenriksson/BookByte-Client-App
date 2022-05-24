@@ -56,7 +56,6 @@ function Register () {
     }).catch(err => {
       console.log(err)
       setError('Registration failed: Network error, please try again later.')
-      console.log(error)
       setIsLoading(false)
     })
   }

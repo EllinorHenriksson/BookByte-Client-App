@@ -23,13 +23,14 @@ import Logout from './Logout.js'
  * @returns {object} A jsx html template.
  */
 function App () {
-  const [authenticated, setAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
+    console.log('Effect')
     fetch(process.env.REACT_APP_URL_AUTH_SERVICE + '/refresh', { credentials: 'include' })
       .then(res => {
         if (res.ok) {
-          setAuthenticated(true)
+          setIsAuthenticated(true)
         } else if (res.status === 401) {
           throw new Error('Refresh token invalid or not provided.')
         } else if (res.status === 404) {
@@ -40,31 +41,29 @@ function App () {
         return res.json()
       })
       .then(data => {
-        // Spara JWT och user i local storage
         localStorage.setItem('bookbyte', JSON.stringify(data))
-        console.log(data)
       })
       .catch((error) => {
-        console.log(error.message)
+        console.log(error)
       })
   }, [])
 
   return (
     <Router>
       <div className="app">
-        { !authenticated && <NavbarAnonymous /> }
-        { authenticated && <NavbarAuthenticated /> }
+        { !isAuthenticated && <NavbarAnonymous /> }
+        { isAuthenticated && <NavbarAuthenticated /> }
         <div className="content">
           <Routes>
-            { !authenticated && <Route path="/" element={<HomeAnonymous /> }/>}
-            { authenticated && <Route path="/" element={<HomeAuthenticated /> }/>}
-            { !authenticated && <Route path="/login" element={ <Login setAuthenticated={ setAuthenticated } /> }/> }
-            { !authenticated && <Route path="/register" element={ <Register /> }/> }
-            { authenticated && <Route path="/swaps" element={ <Swaps /> }/> }
-            { authenticated && <Route path="/wishlist" element={ <Wishlist /> }/> }
-            { authenticated && <Route path="/bookshelf" element={ <Bookshelf /> }/> }
-            { authenticated && <Route path="/profile" element={ <Profile /> }/> }
-            { authenticated && <Route path="/logout" element={ <Logout /> }/> }
+            { !isAuthenticated && <Route path="/" element={<HomeAnonymous /> }/>}
+            { isAuthenticated && <Route path="/" element={<HomeAuthenticated /> }/>}
+            { !isAuthenticated && <Route path="/login" element={ <Login setIsAuthenticated={ setIsAuthenticated } /> }/> }
+            { !isAuthenticated && <Route path="/register" element={ <Register /> }/> }
+            { isAuthenticated && <Route path="/swaps" element={ <Swaps setIsAuthenticated={ setIsAuthenticated }/> }/> }
+            { isAuthenticated && <Route path="/wishlist" element={ <Wishlist /> }/> }
+            { isAuthenticated && <Route path="/bookshelf" element={ <Bookshelf /> }/> }
+            { isAuthenticated && <Route path="/profile" element={ <Profile /> }/> }
+            { isAuthenticated && <Route path="/logout" element={ <Logout /> }/> }
             <Route path="/privacy-policy" element={<Policy />} />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="*" element={<NotFound />} />
