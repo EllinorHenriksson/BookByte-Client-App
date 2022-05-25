@@ -2,12 +2,12 @@ import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import FlashError from './FlashError.js'
 import FlashSuccess from './FlashSuccess.js'
-import axios from 'axios'
 
 /**
  * The Login component.
  *
- * @param {Function} setIsAuthenticated - The setter for the authenticated state.
+ * @param {object} root0 - The props object.
+ * @param {Function} root0.setIsAuthenticated - The setter for the authenticated state.
  * @returns {object} The jsx html template.
  */
 function Login ({ setIsAuthenticated }) {
@@ -27,34 +27,46 @@ function Login ({ setIsAuthenticated }) {
    *
    * @param {Event} e - The event object.
    */
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     setIsLoading(true)
     setSuccess(null)
     setError(null)
 
-    try {
-      const { data } = await axios.post(`${process.env.REACT_APP_URL_AUTH_SERVICE}/login`, { username, password }, { withCredentials: true })
+    const data = { username, password }
+
+    fetch(process.env.REACT_APP_URL_AUTH_SERVICE + '/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    }).then(res => {
       setIsLoading(false)
-      axios.defaults.headers.common.authorization = `Bearer ${data.jwt}`
-      setIsAuthenticated(true)
-      navigate('/', { state: { success: 'Successfull authentication!' } })
-    } catch (error) {
-      setIsLoading(false)
-      if (error.response) {
-        if (error.response.status === 401) {
-          setError('Authentication failed: Wrong username and/or password.')
-        } else if (error.response.status === 500) {
-          setError('Authentication failed: Server error, please try again later.')
-        } else {
-          setError('Registration failed, please try again later.')
-          console.log(error.response)
-        }
+      if (res.ok) {
+        setIsAuthenticated(true)
+        navigate('/', { state: { success: 'Successfull authentication!' } })
+        return res.json()
       } else {
-        setError('Registration failed: Network error, please try again later.')
+        if (res.status === 401) {
+          setError('Authentication failed: Wrong username and/or password.')
+        } else if (res.status === 404) {
+          setError('Authentication failed: Could not find the requested resource.')
+        } else {
+          setError('Authentication failed: Server error, please try again later.')
+        }
       }
-    }
+    }).then((data) => {
+      if (data) {
+        localStorage.setItem('bookbyte', JSON.stringify(data))
+      }
+    }).catch(err => {
+      console.log(err)
+      setError('Authentication failed: Network error, please try again later.')
+      setIsLoading(false)
+    })
   }
 
   return (

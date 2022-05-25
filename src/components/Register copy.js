@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import FlashError from './FlashError.js'
-import axios from 'axios'
 
 /**
  * The Register component.
@@ -25,34 +24,40 @@ function Register () {
    *
    * @param {Event} e - The event object.
    */
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     setIsLoading(true)
     setError(null)
 
-    try {
-      const data = { username, givenName, familyName, email, password }
-      await axios.post(`${process.env.REACT_APP_URL_AUTH_SERVICE}/register`, data)
+    const data = { username, givenName, familyName, email, password }
+
+    fetch(process.env.REACT_APP_URL_AUTH_SERVICE + '/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => {
       setIsLoading(false)
-      navigate('/login', { state: { success: 'Successfull registration!' } })
-    } catch (error) {
-      setIsLoading(false)
-      if (error.response) {
-        if (error.response.status === 400) {
-          setError('Registration failed: Data input not correctly formatted.')
-        } else if (error.response.status === 409) {
-          setError('Registration failed: Username and/or email address already registered.')
-        } else if (error.response.status === 500) {
-          setError('Registration failed: Server error, please try again later.')
-        } else {
-          setError('Registration failed, please try again later.')
-          console.log(error.response)
-        }
+      if (res.ok) {
+        navigate('/login', { state: { success: 'Successfull registration!' } })
       } else {
-        setError('Registration failed: Network error, please try again later.')
+        if (res.status === 400) {
+          setError('Registration failed: Data input not correctly formatted.')
+        } else if (res.status === 404) {
+          setError('Registration failed: Could not find the requested resource.')
+        } else if (res.status === 409) {
+          setError('Registration failed: Username and/or email address already registered.')
+        } else {
+          setError('Registration failed: Server error, please try again later.')
+        }
       }
-    }
+    }).catch(err => {
+      console.log(err)
+      setError('Registration failed: Network error, please try again later.')
+      setIsLoading(false)
+    })
   }
 
   return (
