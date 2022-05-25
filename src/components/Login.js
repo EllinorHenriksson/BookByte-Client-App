@@ -1,24 +1,20 @@
-import { useLocation, useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
-import FlashError from './FlashError.js'
-import FlashSuccess from './FlashSuccess.js'
 import axios from 'axios'
 
 /**
  * The Login component.
  *
- * @param {Function} setIsAuthenticated - The setter for the authenticated state.
+ * @param {object} props - The props object.
  * @returns {object} The jsx html template.
  */
-function Login ({ setIsAuthenticated }) {
+function Login (props) {
+  const { setIsAuthenticated, setSuccess, setError } = props
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
-
-  const location = useLocation()
-  const [success, setSuccess] = useState(location.state?.success)
-  const [error, setError] = useState(null)
 
   const navigate = useNavigate()
 
@@ -39,7 +35,8 @@ function Login ({ setIsAuthenticated }) {
       setIsLoading(false)
       axios.defaults.headers.common.authorization = `Bearer ${data.jwt}`
       setIsAuthenticated(true)
-      navigate('/', { state: { success: 'Successfull authentication!' } })
+      setSuccess('Successfull authentication!')
+      navigate('/')
     } catch (error) {
       setIsLoading(false)
       if (error.response) {
@@ -49,7 +46,6 @@ function Login ({ setIsAuthenticated }) {
           setError('Authentication failed: Server error, please try again later.')
         } else {
           setError('Registration failed, please try again later.')
-          console.log(error.response)
         }
       } else {
         setError('Registration failed: Network error, please try again later.')
@@ -59,8 +55,6 @@ function Login ({ setIsAuthenticated }) {
 
   return (
     <div className='login auth'>
-      { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
-      { error && <FlashError error={ error } setError={setError}></FlashError> }
       <form
         onSubmit={ handleSubmit }>
         <label>Username:</label>

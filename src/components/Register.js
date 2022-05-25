@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import FlashError from './FlashError.js'
 import axios from 'axios'
 
 /**
  * The Register component.
  *
+ * @param {object} props - The props object.
  * @returns {object} The jsx html template.
  */
-function Register () {
+function Register (props) {
+  const { setSuccess, setError } = props
+
   const [username, setUsername] = useState('')
   const [givenName, setGivenName] = useState('')
   const [familyName, setFamilyName] = useState('')
@@ -16,7 +18,6 @@ function Register () {
   const [password, setPassword] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   const navigate = useNavigate()
 
@@ -35,7 +36,8 @@ function Register () {
       const data = { username, givenName, familyName, email, password }
       await axios.post(`${process.env.REACT_APP_URL_AUTH_SERVICE}/register`, data)
       setIsLoading(false)
-      navigate('/login', { state: { success: 'Successfull registration!' } })
+      setSuccess('Successfull registration!')
+      navigate('/login')
     } catch (error) {
       setIsLoading(false)
       if (error.response) {
@@ -47,7 +49,6 @@ function Register () {
           setError('Registration failed: Server error, please try again later.')
         } else {
           setError('Registration failed, please try again later.')
-          console.log(error.response)
         }
       } else {
         setError('Registration failed: Network error, please try again later.')
@@ -57,7 +58,6 @@ function Register () {
 
   return (
     <div className="register auth">
-      { error && <FlashError error={ error } setError={ setError }></FlashError> }
       <form
         onSubmit={ handleSubmit }>
         <label>Username:</label>

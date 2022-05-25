@@ -16,6 +16,8 @@ import Bookshelf from './Bookshelf.js'
 import Swaps from './Swaps.js'
 import Profile from './Profile.js'
 import axios from 'axios'
+import FlashSuccess from './FlashSuccess.js'
+import FlashError from './FlashError.js'
 
 /**
  * The App component.
@@ -24,16 +26,16 @@ import axios from 'axios'
  */
 function App () {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [success, setSuccess] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     (async () => {
       try {
-        console.log('refreshing in App')
         const response = await axios.get(process.env.REACT_APP_URL_AUTH_SERVICE + '/refresh', { withCredentials: true })
         axios.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
         setIsAuthenticated(true)
       } catch (error) {
-        console.log(error)
         setIsAuthenticated(false)
       }
     })()
@@ -45,11 +47,13 @@ function App () {
         { !isAuthenticated && <NavbarAnonymous /> }
         { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated }/> }
         <div className="content">
+          { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
+          { error && <FlashError error={ error } setError={setError}></FlashError> }
           <Routes>
             { !isAuthenticated && <Route path="/" element={<HomeAnonymous /> }/>}
-            { isAuthenticated && <Route path="/" element={<HomeAuthenticated /> }/>}
-            { !isAuthenticated && <Route path="/login" element={ <Login setIsAuthenticated={ setIsAuthenticated } /> }/> }
-            { !isAuthenticated && <Route path="/register" element={ <Register /> }/> }
+            { isAuthenticated && <Route path="/" element={<HomeAuthenticated setIsAuthenticated={ setIsAuthenticated } setError={ setError }/> }/>}
+            { !isAuthenticated && <Route path="/login" element={ <Login setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { !isAuthenticated && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
             { isAuthenticated && <Route path="/swaps" element={ <Swaps /> }/> }
             { isAuthenticated && <Route path="/wishlist" element={ <Wishlist /> }/> }
             { isAuthenticated && <Route path="/bookshelf" element={ <Bookshelf /> }/> }

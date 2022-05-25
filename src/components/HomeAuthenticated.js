@@ -1,35 +1,47 @@
-import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import FlashSuccess from './FlashSuccess.js'
 import axios from 'axios'
 
 /**
  * The HomeAuthenticated component.
  *
+ * @param {object} props - The props object.
  * @returns {object} The jsx html template.
  */
-function HomeAuthenticated () {
-  const location = useLocation()
-  const [success, setSuccess] = useState(location.state?.success)
-  const [username, setUsername] = useState('')
+function HomeAuthenticated (props) {
+  const { setIsAuthenticated, setError } = props
+  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState(null)
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true)
+
       try {
-        console.log('refreshing in Home')
-        const { data } = await axios.get(process.env.REACT_APP_URL_AUTH_SERVICE + '/account')
-        setUsername(data.username)
+        const response = await axios.get(process.env.REACT_APP_URL_AUTH_SERVICE + '/account')
+        setIsLoading(false)
+        setData(response.data)
       } catch (error) {
-        console.log(error)
+        setIsLoading(false)
+        if (error.response?.status === 401) {
+          setError('Authentication ended: Invalid refresh token, please try to log in again.')
+          setIsAuthenticated(false)
+        } else if (error.response?.status === 500 && error.response?.config.url.includes('refresh')) {
+          setError('Authentication ended: Server error, please try to log in again later.')
+          setIsAuthenticated(false)
+        } else if (error.response?.status === 500 && error.response?.config.url.includes('account')) {
+          setError('Could not fetch the resource: Server error, please try again later.')
+        } else {
+          setError('Could not fetch the resource, please try again later.')
+        }
       }
     })()
-  }, [])
+  }, [setIsAuthenticated, setError])
 
   return (
     <div className="home-authenticated">
-      { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
       <h2>Home authenticated</h2>
-      <div>Welcome { username }</div>
+      { isLoading && <div>Loading...</div> }
+      { data && <div>Welcome { data.username }</div> }
     </div>
   )
 }

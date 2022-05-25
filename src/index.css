@@ -81,7 +81,7 @@ button:hover {
 /* Styling of home page for anonymous users */
 
 .home-anonymous {
-  min-height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
   overflow: auto;
   display: flex;
   flex-direction: column;
