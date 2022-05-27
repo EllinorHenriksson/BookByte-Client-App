@@ -11,6 +11,7 @@ import { useRedirect } from '../hooks/useRedirect.js'
  */
 function Login (props) {
   const { setIsAuthenticated, setSuccess, setError } = props
+  useRedirect(setSuccess, setError)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -18,8 +19,6 @@ function Login (props) {
   const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
-
-  useRedirect(setSuccess, setError)
 
   /**
    * Handles the submit event.

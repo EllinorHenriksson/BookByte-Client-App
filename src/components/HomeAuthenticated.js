@@ -10,10 +10,10 @@ import { useRedirect } from '../hooks/useRedirect.js'
  */
 function HomeAuthenticated (props) {
   const { setIsAuthenticated, setSuccess, setError } = props
+  useRedirect(setSuccess, setError)
+
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
-
-  useRedirect(setSuccess, setError)
 
   useEffect(() => {
     (async () => {
