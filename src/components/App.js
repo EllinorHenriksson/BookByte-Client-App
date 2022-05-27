@@ -57,7 +57,7 @@ function App () {
             { isAuthenticated && <Route path="/swaps" element={ <Swaps setSuccess={ setSuccess } setError={ setError }/> }/> }
             { isAuthenticated && <Route path="/wishlist" element={ <Wishlist setSuccess={ setSuccess } setError={ setError } /> }/> }
             { isAuthenticated && <Route path="/bookshelf" element={ <Bookshelf setSuccess={ setSuccess } setError={ setError } /> }/> }
-            { isAuthenticated && <Route path="/profile" element={ <Profile setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { isAuthenticated && <Route path="/profile" element={ <Profile setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
             <Route path="/privacy-policy" element={<Policy setSuccess={ setSuccess } setError={ setError } />} />
             <Route path="/cookies" element={<Cookies setSuccess={ setSuccess } setError={ setError } />} />
             <Route path="*" element={<NotFound setSuccess={ setSuccess } setError={ setError } />} />

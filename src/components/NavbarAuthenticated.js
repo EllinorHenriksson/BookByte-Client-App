@@ -22,8 +22,13 @@ function NavbarAuthenticated (props) {
       setSuccess('Successfull logout!')
       navigate('/', { state: { redirect: true } })
     } catch (error) {
-      console.error(error.message)
-      setError('Log out failed, please try again later.')
+      if (error.response?.status === 401) {
+        setIsAuthenticated(false)
+        setError('Logged out due to broken authentication.')
+        navigate('/', { state: { redirect: true } })
+      } else {
+        setError('Log out failed, please try again later.')
+      }
     }
   }
 
