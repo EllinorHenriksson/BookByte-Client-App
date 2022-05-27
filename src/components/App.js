@@ -45,7 +45,7 @@ function App () {
     <Router>
       <div className="app">
         { !isAuthenticated && <NavbarAnonymous /> }
-        { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated }/> }
+        { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }
         <div className="content">
           { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
           { error && <FlashError error={ error } setError={setError}></FlashError> }

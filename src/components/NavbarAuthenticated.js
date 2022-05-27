@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom'
 /**
  * The NavbarAuthenticated component.
  *
- * @param {Function} setIsAuthenticated - The setter for the isAuthenticated state.
+ * @param {object} props - The props object.
  * @returns {object} The jsx html template.
  */
-function NavbarAuthenticated ({ setIsAuthenticated }) {
+function NavbarAuthenticated (props) {
+  const { setIsAuthenticated, setSuccess, setError } = props
   const navigate = useNavigate()
 
   /**
@@ -15,9 +16,15 @@ function NavbarAuthenticated ({ setIsAuthenticated }) {
    *
    */
   const handleClick = async () => {
-    await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/logout`, { withCredentials: true })
-    setIsAuthenticated(false)
-    navigate('/', { state: { success: 'Successfull logout!' } })
+    try {
+      await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/logout`, { withCredentials: true })
+      setIsAuthenticated(false)
+      setSuccess('Successfull logout!')
+      navigate('/', { state: { redirect: true } })
+    } catch (error) {
+      console.error(error.message)
+      setError('Log out failed, please try again later.')
+    }
   }
 
   return (
