@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import { useRedirect } from '../hooks/useRedirect.js'
 
 /**
  * The Login component.
@@ -17,6 +18,8 @@ function Login (props) {
   const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
+
+  useRedirect(setSuccess, setError)
 
   /**
    * Handles the submit event.
@@ -36,7 +39,7 @@ function Login (props) {
       axios.defaults.headers.common.authorization = `Bearer ${data.jwt}`
       setIsAuthenticated(true)
       setSuccess('Successfull authentication!')
-      navigate('/')
+      navigate('/', { state: { redirect: true } })
     } catch (error) {
       setIsLoading(false)
       if (error.response) {

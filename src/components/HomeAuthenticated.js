@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useRedirect } from '../hooks/useRedirect.js'
 
 /**
  * The HomeAuthenticated component.
@@ -8,9 +9,11 @@ import axios from 'axios'
  * @returns {object} The jsx html template.
  */
 function HomeAuthenticated (props) {
-  const { setIsAuthenticated, setError } = props
+  const { setIsAuthenticated, setSuccess, setError } = props
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
+
+  useRedirect(setSuccess, setError)
 
   useEffect(() => {
     (async () => {

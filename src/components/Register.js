@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useRedirect } from '../hooks/useRedirect.js'
 
 /**
  * The Register component.
@@ -21,6 +22,8 @@ function Register (props) {
 
   const navigate = useNavigate()
 
+  useRedirect(setSuccess, setError)
+
   /**
    * Handles the submit event.
    *
@@ -37,7 +40,7 @@ function Register (props) {
       await axios.post(`${process.env.REACT_APP_URL_AUTH_SERVICE}/register`, data)
       setIsLoading(false)
       setSuccess('Successfull registration!')
-      navigate('/login')
+      navigate('/login', { state: { redirect: true } })
     } catch (error) {
       setIsLoading(false)
       if (error.response) {
