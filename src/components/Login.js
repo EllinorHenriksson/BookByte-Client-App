@@ -38,7 +38,7 @@ function Login (props) {
       axios.defaults.headers.common.authorization = `Bearer ${data.jwt}`
       setIsAuthenticated(true)
       setSuccess('Successfull authentication!')
-      navigate('/', { state: { redirect: true } })
+      navigate('/', { state: { success: true } })
     } catch (error) {
       setIsLoading(false)
       if (error.response) {
@@ -47,10 +47,10 @@ function Login (props) {
         } else if (error.response.status === 500) {
           setError('Authentication failed: Server error, please try again later.')
         } else {
-          setError('Registration failed, please try again later.')
+          setError('Authentication failed, please try again later.')
         }
       } else {
-        setError('Registration failed: Network error, please try again later.')
+        setError('Authentication failed: Network error, please try again later.')
       }
     }
   }

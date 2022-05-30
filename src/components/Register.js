@@ -39,7 +39,7 @@ function Register (props) {
       await axios.post(`${process.env.REACT_APP_URL_AUTH_SERVICE}/register`, data)
       setIsLoading(false)
       setSuccess('Successfull registration!')
-      navigate('/login', { state: { redirect: true } })
+      navigate('/login', { state: { success: true } })
     } catch (error) {
       setIsLoading(false)
       if (error.response) {

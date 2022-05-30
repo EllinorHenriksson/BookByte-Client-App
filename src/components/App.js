@@ -41,6 +41,18 @@ function App () {
     })()
   }, [])
 
+  useEffect(() => {
+    if (success) {
+      setError(null)
+    }
+  }, [success])
+
+  useEffect(() => {
+    if (error) {
+      setSuccess(null)
+    }
+  }, [error])
+
   return (
     <Router>
       <div className="app">

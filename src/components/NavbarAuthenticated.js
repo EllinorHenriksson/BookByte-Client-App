@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 /**
@@ -10,22 +11,26 @@ import { Link, useNavigate } from 'react-router-dom'
 function NavbarAuthenticated (props) {
   const { setIsAuthenticated, setSuccess, setError } = props
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
 
   /**
    * Handles the click event.
    *
    */
   const handleClick = async () => {
+    setIsLoading(true)
     try {
       await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/logout`, { withCredentials: true })
+      setIsLoading(false)
       setIsAuthenticated(false)
       setSuccess('Successfull logout!')
-      navigate('/', { state: { redirect: true } })
+      navigate('/', { state: { success: true } })
     } catch (error) {
+      setIsLoading(false)
       if (error.response?.status === 401) {
         setIsAuthenticated(false)
         setError('Logged out due to broken authentication.')
-        navigate('/', { state: { redirect: true } })
+        navigate('/', { state: { error: true } })
       } else {
         setError('Log out failed, please try again later.')
       }
@@ -39,7 +44,8 @@ function NavbarAuthenticated (props) {
       <Link to="/wishlist">Wishlist</Link>
       <Link to="/bookshelf">Bookshelf</Link>
       <Link to="/profile">Profile</Link>
-      <button onClick={ handleClick }>Logout</button>
+      { !isLoading && <button onClick={ handleClick }>Logout</button> }
+      { isLoading && <button disabled>Loading...</button> }
     </div>
   )
 }

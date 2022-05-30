@@ -22,13 +22,13 @@ function Profile (props) {
       await axios.delete(`${process.env.REACT_APP_URL_AUTH_SERVICE}/account`, { withCredentials: true })
       setIsAuthenticated(false)
       setSuccess('Your account was successfully deleted.')
-      navigate('/', { state: { redirect: true } })
+      navigate('/', { state: { success: true } })
     } catch (error) {
       console.log(error)
       if (error.response?.status === 401) {
         setIsAuthenticated(false)
         setError('Deletion of account failed due to broken authentication.')
-        navigate('/', { state: { redirect: true } })
+        navigate('/', { state: { error: true } })
       } else {
         setError('Deletion of account failed, please try again later.')
       }
