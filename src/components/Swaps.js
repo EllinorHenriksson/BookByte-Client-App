@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRedirect } from '../hooks/useRedirect.js'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 /**
  * The Swaps component.
@@ -8,52 +10,72 @@ import { useRedirect } from '../hooks/useRedirect.js'
  * @returns {object} The jsx html template.
  */
 function Swaps (props) {
-  const { setSuccess, setError } = props
+  const { setIsAuthenticated, setSuccess, setError } = props
   useRedirect(setSuccess, setError)
 
-  const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
+
+  const [isLoading, setIsLoading] = useState(false)
   const [swaps, setSwaps] = useState(null)
 
   useEffect(() => {
-    setSwaps(null)
-    fetch(
-      process.env.REACT_APP_URL_RESOURCE_SERVICE + '/matches',
-      {
-        headers: {
-          Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('bookbyte')).jwt
-        },
-        credentials: 'include'
-      })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
+    (async () => {
+      setIsLoading(true)
+
+      try {
+        const resSwaps = await axios.get(process.env.REACT_APP_URL_RESOURCE_SERVICE + '/matches')
+        const swapsData = resSwaps.data
+        const promises = swapsData.map(async swap => {
+          const resUser = await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/${swap.otherUser}`)
+          swap.otherUser = resUser.data
+          return swap
+        })
+
+        const swapsModified = await Promise.all(promises)
+
+        setSwaps(swapsModified)
+        console.log('Swaps: ', swapsModified)
+        setIsLoading(false)
+      } catch (error) {
+        setIsLoading(false)
+        if (error.response?.status === 401) {
+          setIsAuthenticated(false)
+          setError('Authentication broke, please try to log in again.')
+          navigate('/', { state: { error: true } })
         } else {
-          throw new Error('Could not load the requested resource.')
+          setError('Could not fetch the resource, please try again later.')
         }
-      })
-      .then(data => {
-        setSwaps(data)
-        setIsLoading(false)
-      })
-      .catch((error) => {
-        setIsLoading(false)
-        setError(error.message)
-      })
-  }, [setError])
+      }
+    })()
+  }, [setIsAuthenticated, setError, navigate])
 
   return (
     <div className="swaps">
       <h2>Swaps</h2>
       { isLoading && <div>Loading...</div> }
-      { swaps?.length
-        ? (
-            <ul>
-              { swaps.map((swap, i) => <li key={ i }>{ swap.toGive.googleID }</li>) }
-            </ul>
-          )
-        : (<p>No swaps at the moment</p>)
-      }
-      {/* {swaps.forEach(swap => <div>{ swap.toGet }</div>)} */}
+      { swaps?.length === 0 && <p>No swaps at the moment</p> }
+      { swaps?.length > 0 &&
+        <div className='swap-list'>
+          { swaps.map((swap, i) => (
+            <div className="swap-item" key={ i }>
+              <div className="swap-get">
+                <img src={swap.toGet.imageLinks.smallThumbnail} alt="Book cover"></img>
+                <h3>{ swap.toGet.title }</h3>
+                { swap.toGet.subtitle && <h4>{ swap.toGet.subtitle }</h4> }
+                <p>Authors: { swap.toGet.authors.join(', ') }</p>
+              </div>
+              <div className="swap-give">
+              <img src={swap.toGive.imageLinks.smallThumbnail} alt="Book cover"></img>
+                <h3>{ swap.toGive.title }</h3>
+                { swap.toGive.subtitle && <h4>{ swap.toGive.subtitle }</h4> }
+                <p>Authors: { swap.toGive.authors.join(', ') }</p>
+              </div>
+              <div className="swap-swapper">
+              { swap.otherUser.username }
+              </div>
+            </div>
+          )) }
+        </div> }
     </div>
   )
 }

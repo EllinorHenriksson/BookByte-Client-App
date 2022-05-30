@@ -1,6 +1,7 @@
 import { useRedirect } from '../hooks/useRedirect.js'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 /**
  * The Profile component.
@@ -12,19 +13,22 @@ function Profile (props) {
   const { setIsAuthenticated, setSuccess, setError } = props
   useRedirect(setSuccess, setError)
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
 
   /**
    * Handles click events.
    */
   const handleClick = async () => {
+    setIsLoading(true)
     try {
       await axios.delete(process.env.REACT_APP_URL_RESOURCE_SERVICE, { withCredentials: true })
       await axios.delete(`${process.env.REACT_APP_URL_AUTH_SERVICE}/account`, { withCredentials: true })
+      setIsLoading(false)
       setIsAuthenticated(false)
       setSuccess('Your account was successfully deleted.')
       navigate('/', { state: { success: true } })
     } catch (error) {
-      console.log(error)
+      setIsLoading(false)
       if (error.response?.status === 401) {
         setIsAuthenticated(false)
         setError('Deletion of account failed due to broken authentication.')
@@ -38,7 +42,8 @@ function Profile (props) {
   return (
     <div className="profile">
       <h2>Profile</h2>
-      <button onClick={ handleClick }>Delete account</button>
+      { !isLoading && <button onClick={ handleClick }>Delete account</button> }
+      { isLoading && <button disabled>Loading...</button> }
     </div>
   )
 }

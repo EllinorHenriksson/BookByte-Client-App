@@ -66,7 +66,7 @@ function App () {
             { isAuthenticated && <Route path="/" element={<HomeAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }/>}
             { !isAuthenticated && <Route path="/login" element={ <Login setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
             { !isAuthenticated && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
-            { isAuthenticated && <Route path="/swaps" element={ <Swaps setSuccess={ setSuccess } setError={ setError }/> }/> }
+            { isAuthenticated && <Route path="/swaps" element={ <Swaps setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }/> }
             { isAuthenticated && <Route path="/wishlist" element={ <Wishlist setSuccess={ setSuccess } setError={ setError } /> }/> }
             { isAuthenticated && <Route path="/bookshelf" element={ <Bookshelf setSuccess={ setSuccess } setError={ setError } /> }/> }
             { isAuthenticated && <Route path="/profile" element={ <Profile setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
