@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 /**
  * The NavbarAuthenticated component.
@@ -38,14 +38,20 @@ function NavbarAuthenticated (props) {
   }
 
   return (
-    <div className="navbar-authenticated">
-      <Link to="/">Home</Link>
-      <Link to="/swaps">Swaps</Link>
-      <Link to="/wishlist">Wishlist</Link>
-      <Link to="/bookshelf">Bookshelf</Link>
-      <Link to="/profile">Profile</Link>
-      { !isLoading && <button onClick={ handleClick }>Logout</button> }
-      { isLoading && <button disabled>Loading...</button> }
+    <div className="navbar authenticated">
+      <div>
+        <NavLink to="/" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>BookByte</NavLink>
+      </div>
+      <div>
+        <NavLink to="/swaps" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>Swaps</NavLink>
+        <NavLink to="/wishlist" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>Wishlist</NavLink>
+        <NavLink to="/bookshelf" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>Bookshelf</NavLink>
+      </div>
+      <div>
+        <NavLink to="/profile" className={({ isActive }) => (isActive ? 'link-active' : 'link')}><img alt="Profile" src="images/profile.png" /></NavLink>
+        { !isLoading && <button onClick={ handleClick }>Logout</button> }
+        { isLoading && <button disabled>Loading...</button> }
+      </div>
     </div>
   )
 }

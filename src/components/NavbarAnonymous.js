@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 /**
  * The NavbarAnonymous component.
@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom'
  */
 function NavbarAnonymous () {
   return (
-    <div className="navbar-anonymous">
+    <div className="navbar anonymous">
       <div>
-        <Link to="/">Home</Link>
+        <NavLink to="/">BookByte</NavLink>
       </div>
       <div>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/register">Register</NavLink>
       </div>
     </div>
   )

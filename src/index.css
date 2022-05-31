@@ -20,43 +20,77 @@ button:hover {
   cursor: pointer;
 }
 
-/* Styling of navbar anonymous */
-.navbar-anonymous {
+/* Styling of navbar */
+.navbar {
   display: flex;
   height: 50px;
   align-items: center;
   position: sticky;
+  top: 0;
   border-bottom: 2px solid rgb(111, 136, 111);
+  background-color: rgb(250, 248, 240);
+  z-index: 2;
 }
 
-.navbar-anonymous div {
-  width: 50vw;
+.navbar div {
+  height: 100%;
   display: flex;
 }
 
-.navbar-anonymous div:last-child {
+.navbar div:last-child {
   justify-content: flex-end;
+  width: 100%;
 }
 
-.navbar-anonymous div a {
+.navbar div a {
   margin: 10px;
 }
 
-.navbar-anonymous div:first-child a {
-  font-size: 1.2rem;
-}
-
-.navbar-anonymous div:last-child a {
+.navbar div a {
   font-size: 1.1rem;
 }
 
-.navbar-anonymous a:link, .navbar-anonymous a:visited {
+.navbar div:first-child a {
+  font-size: 1.2rem;
+}
+
+.navbar a:link, .navbar a:visited {
   color: rgb(111, 136, 111);
   font-weight: bold;
 }
 
-.navbar-anonymous a:hover, .navbar-anonymous a:active {
-  color: rgb(181, 196, 181);
+.navbar a:hover, .navbar a:active {
+  opacity: 0.7;
+}
+
+.navbar .link {
+  opacity: 1.0;
+}
+
+.navbar .link-active {
+  opacity: 0.7;
+}
+
+.navbar img {
+  height: 100%;
+}
+
+.navbar button {
+  height: max-content;
+  border: 2px solid rgb(111, 136, 111);
+  border-radius: 10px;
+  padding: 7px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: rgb(111, 136, 111);
+  margin: auto 10px;
+  color:rgb(250, 248, 240)
+}
+
+.navbar button:hover, .navbar button:active {
+  border: 2px solid rgb(111, 136, 111);
+  background-color: rgb(250, 248, 240);
+  color: rgb(111, 136, 111);
 }
 
 /* Styling of footer */
@@ -221,4 +255,114 @@ button:hover {
   top: 5px;
   border: none;
   border-radius: 3px;
+}
+
+/* Styling of content for authenticated users */
+
+.swaps, .wishlist, .bookshelf, .profile {
+  min-height: calc(100vh - 100px);
+  padding: 20px;
+}
+
+/* Styling of swaps page */
+
+.swap-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.swap-item {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid rgb(111, 136, 111);
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 20px;
+}
+
+.swap-item > div {
+  height: 300px;
+  width: 300px;
+  overflow: auto;
+  position: relative;
+  border: 1px solid rgb(111, 136, 111);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.swap-book div {
+  height: max-content;
+  width: max-content;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swap-book img {
+  height: 150px;
+}
+
+.swap-book div p {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  background-color: rgba(250, 248, 240, 0.541);
+  padding: 5px;
+  width: 100%;
+  margin: 0;
+}
+
+.swap-item h3, .swap-item h4, .swap-item p {
+  margin: 5px;
+}
+
+.swapper img {
+  width: 50px;
+}
+
+.swapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.swap-book button {
+  width: 20px;
+  height: 20px;
+  background: no-repeat center/80% url("/public/images/info-green.png");
+  background-color: rgba(250, 248, 240, 0.541);
+  border: none;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.swap-book button:hover, .swap-book button:active {
+  opacity: 0.7;
+}
+
+.swapper button {
+  border: 2px solid rgb(111, 136, 111);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(111, 136, 111);
+  color:rgb(250, 248, 240);
+  margin: 10px;
+}
+
+.swapper button:hover, .swapper button:active {
+  border: 2px solid rgb(111, 136, 111);
+  background-color: rgb(250, 248, 240);
+  color: rgb(111, 136, 111);
 }

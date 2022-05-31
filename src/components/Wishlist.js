@@ -11,7 +11,7 @@ function Wishlist (props) {
   useRedirect(setSuccess, setError)
 
   return (
-    <div className="whishlist">
+    <div className="wishlist">
       <h2>Wishlist</h2>
     </div>
   )

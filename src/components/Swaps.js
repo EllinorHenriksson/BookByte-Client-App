@@ -51,27 +51,36 @@ function Swaps (props) {
 
   return (
     <div className="swaps">
-      <h2>Swaps</h2>
       { isLoading && <div>Loading...</div> }
       { swaps?.length === 0 && <p>No swaps at the moment</p> }
       { swaps?.length > 0 &&
         <div className='swap-list'>
           { swaps.map((swap, i) => (
             <div className="swap-item" key={ i }>
-              <div className="swap-get">
-                <img src={swap.toGet.imageLinks.smallThumbnail} alt="Book cover"></img>
+              <div className="swap-book">
+                <div>
+                  <img src={swap.toGet.imageLinks.smallThumbnail} alt="Book cover" />
+                  <p>GET</p>
+                </div>
                 <h3>{ swap.toGet.title }</h3>
                 { swap.toGet.subtitle && <h4>{ swap.toGet.subtitle }</h4> }
                 <p>Authors: { swap.toGet.authors.join(', ') }</p>
+                <button></button>
               </div>
-              <div className="swap-give">
-              <img src={swap.toGive.imageLinks.smallThumbnail} alt="Book cover"></img>
+              <div className="swap-book">
+                <div>
+                  <img src={swap.toGive.imageLinks.smallThumbnail} alt="Book cover" />
+                  <p>GIVE</p>
+                </div>
                 <h3>{ swap.toGive.title }</h3>
                 { swap.toGive.subtitle && <h4>{ swap.toGive.subtitle }</h4> }
                 <p>Authors: { swap.toGive.authors.join(', ') }</p>
+                <button></button>
               </div>
-              <div className="swap-swapper">
-              { swap.otherUser.username }
+              <div className="swapper">
+                <img alt="Profile" src="images/profile.png" />
+                <p>Swapper: <b>{ swap.otherUser.username }</b></p>
+                <button>Contact</button>
               </div>
             </div>
           )) }
