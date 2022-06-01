@@ -81,7 +81,6 @@ function Swaps (props) {
     }
 
     setBook(swaps[i][key])
-    console.log(swaps[i][key])
   }
 
   /**
@@ -92,13 +91,13 @@ function Swaps (props) {
   const handleClickSwapper = (e) => {
     const i = parseInt(e.target.parentElement.parentElement.getAttribute('id'))
     setSwapper(swaps[i].otherUser)
-    console.log(swapper)
+    console.log(swaps[i].otherUser)
   }
 
   return (
     <div className="swaps">
-        { book && <BookInfo book={ book } setBook={ setBook }/> }
-        { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper }/> }
+      { book && <BookInfo book={ book } setBook={ setBook }/> }
+      { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper }/> }
       { isLoading && <p>Loading...</p> }
       { swaps?.length === 0 && <p>No swaps at the moment.</p> }
       { swaps?.length > 0 &&

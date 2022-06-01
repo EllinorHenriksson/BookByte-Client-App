@@ -281,6 +281,7 @@ button:hover {
   align-items: center;
   margin: 10px;
   gap: 20px;
+  position: relative;
 }
 
 .swap-item > div {
@@ -384,10 +385,10 @@ button:hover {
 .book-info, .swapper-info {
   z-index: 3;
   position: absolute;
-  width: 100vw;
-  height: 100%;
   top: 0;
   left: 0;
+  width: 100vw;
+  padding: 20px;
   background-color: rgba(250, 248, 240, 0.685);
   display: flex;
   justify-content: center;
@@ -395,12 +396,15 @@ button:hover {
 }
 
 .book-info > div, .swapper-info > div {
-  max-width: 400px;
+  max-width: 500px;
+  min-width: 300px;
+  max-height: 100%;
   padding: 20px;
   text-align: center;
   background-color: rgba(250, 248, 240);
   border: 1px solid rgb(111, 136, 111);
   border-radius: 5px;
+  overflow: auto;
 }
 
 .book-info button, .swapper-info button {
@@ -411,3 +415,22 @@ button:hover {
   border: none;
 }
 
+.book-info button:hover, .swapper-info button:hover {
+  opacity: 0.7;
+}
+
+.swapper-info a:link,  .swapper-info a:visited {
+  color: rgb(111, 136, 111);
+}
+
+.swapper-info a:hover,  .swapper-info a:active {
+  opacity: 0.7;
+}
+
+.book-info img {
+  height: 150px;
+}
+
+.swapper-info img {
+  width: 50px;
+}

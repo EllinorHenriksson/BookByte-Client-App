@@ -7,6 +7,8 @@
 export function BookInfo (props) {
   const { book, setBook } = props
 
+  const style = { height: document.body.clientHeight.toString() + 'px' }
+
   /**
    * Handles click events on the close button.
    *
@@ -17,8 +19,9 @@ export function BookInfo (props) {
   }
 
   return (
-    <div className="book-info">
+    <div className="book-info" style={ style }>
       <div>
+        <img alt="Book cover" src={book.imageLinks.smallThumbnail} />
         <h3>{ book.title }</h3>
         <h4>{ book.subtitle }</h4>
         <p>{ book.authors.join(', ') }</p>
