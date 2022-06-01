@@ -249,11 +249,10 @@ button:hover {
   height: 15px;
   background: no-repeat center/80% url("/public/images/cross-light.png");
   background-color: none;
+  border: none;
   position: absolute;
   right: 5px;
   top: 5px;
-  border: none;
-  border-radius: 3px;
 }
 
 /* Styling of content for authenticated users */
@@ -365,3 +364,50 @@ button:hover {
   background-color: rgb(250, 248, 240);
   color: rgb(111, 136, 111);
 }
+
+.swaps {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swaps > p {
+  display: block;
+  width: max-content;
+  font-weight: bold;
+  color: rgb(111, 136, 111);
+}
+
+/* Styling of info boxes for books and swapper */
+.book-info, .swapper-info {
+  z-index: 3;
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(250, 248, 240, 0.685);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-info > div, .swapper-info > div {
+  max-width: 400px;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(250, 248, 240);
+  border: 1px solid rgb(111, 136, 111);
+  border-radius: 5px;
+}
+
+.book-info button, .swapper-info button {
+  width: 20px;
+  height: 20px;
+  background: no-repeat center/80% url("/public/images/cross-green.png");
+  background-color: none;
+  border: none;
+}
+
