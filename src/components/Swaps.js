@@ -25,10 +25,10 @@ function Swaps (props) {
       setIsLoading(true)
 
       try {
-        const resSwaps = await axios.get(process.env.REACT_APP_URL_RESOURCE_SERVICE + '/matches')
+        const resSwaps = await axios.get(process.env.REACT_APP_URL_RESOURCE_SERVICE + '/matches', { withCredentials: true })
         const swapsData = resSwaps.data
         const promises = swapsData.map(async swap => {
-          const resUser = await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/${swap.otherUser}`)
+          const resUser = await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/${swap.otherUser}`, { withCredentials: true })
           swap.otherUser = resUser.data
           return swap
         })
@@ -36,7 +36,6 @@ function Swaps (props) {
         const swapsModified = await Promise.all(promises)
 
         setSwaps(swapsModified)
-        console.log('Swaps: ', swapsModified)
         setIsLoading(false)
       } catch (error) {
         setIsLoading(false)
