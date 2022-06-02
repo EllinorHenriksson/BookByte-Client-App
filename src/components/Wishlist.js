@@ -45,7 +45,7 @@ function Wishlist (props) {
   return (
     <div className="wishlist">
       <h2>Wishlist</h2>
-      { books && <p>The wishlist is where you add books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you. </p> }
+      { books && <p>The wishlist is where you manage the books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you. </p> }
       <div className='wishlist-content'>
         { isLoading && <p>Loading...</p> }
         { books && <BookList books={ books } setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setDeletedBook={ setDeletedBook }></BookList> }
