@@ -8,7 +8,6 @@ export function BookList (props) {
   const { books } = props
   return (
     <div className="book-list">
-      <p>BookList</p>
             { books.map((book, i) => (
               <div className="book-item" key={ i } id={ i }>
                 <img alt="Book cover" src={ book.imageLinks.smallThumbnail }></img>
@@ -18,8 +17,8 @@ export function BookList (props) {
                   <p>Authors: { book.authors.join(', ') }</p>
                 </div>
                 <div>
-                  <button className="info-button">Info</button>
-                  <button className="delete-button">Delete</button>
+                  <button className="info"></button>
+                  <button className="delete"></button>
                 </div>
               </div>
             )) }

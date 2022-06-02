@@ -343,12 +343,11 @@ button:hover {
 }
 
 .swap-book button {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   background: no-repeat center/80% url("/public/images/info-green.png");
-  background-color: rgba(250, 248, 240, 0.541);
+  background-color: none;
   border: none;
-  border-radius: 5px;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -444,3 +443,55 @@ button:hover {
   width: 50px;
 }
 
+/* Styling of BookList component */
+
+.book-list {
+  width: max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-item {
+  width: 500px;
+  height: 150px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  overflow: auto;
+  justify-content: space-evenly;
+}
+
+.book-item img {
+  height: 80%;
+}
+
+.book-item h3, .book-item h4, .book-item p {
+  margin: 5px;
+}
+
+.book-item:nth-child(even) {
+  background-color: rgb(245, 242, 229);
+}
+
+.book-item button.info {
+  width: 30px;
+  height: 30px;
+  background: no-repeat center/80% url("/public/images/info-green.png");
+  background-color: rgba(250, 248, 240);
+  border: none;
+}
+
+.book-item button.delete {
+  width: 30px;
+  height: 30px;
+  background: no-repeat center/80% url("/public/images/delete-green.png");
+  background-color: none;
+  border: none;
+}
+
+.book-item button:hover, .book-item button:active {
+  opacity: 0.7;
+}
