@@ -19,9 +19,12 @@ function Wishlist (props) {
 
   const navigate = useNavigate()
 
+  const [deletedBook, setDeletedBook] = useState(null)
+
   useEffect(() => {
     (async () => {
       setIsLoading(true)
+      setBooks(null)
       try {
         const { data } = await axios.get(process.env.REACT_APP_URL_RESOURCE_SERVICE, { withCredentials: true })
         setIsLoading(false)
@@ -33,17 +36,20 @@ function Wishlist (props) {
           setError('Authentication broke, please try to log in again.')
           navigate('/', { state: { error: true } })
         } else {
-          setError('Could not fetch the resource, please try again later.')
+          setError('Could not fetch data, please try again later.')
         }
       }
     })()
-  }, [setIsAuthenticated, setError, navigate])
+  }, [setIsAuthenticated, setError, navigate, deletedBook])
 
   return (
     <div className="wishlist">
       <h2>Wishlist</h2>
-      { isLoading && <p>Loading...</p> }
-      { books && <BookList books={ books }></BookList> }
+      { books && <p>The wishlist is where you add books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you. </p> }
+      <div className='wishlist-content'>
+        { isLoading && <p>Loading...</p> }
+        { books && <BookList books={ books } setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setDeletedBook={ setDeletedBook }></BookList> }
+      </div>
     </div>
   )
 }

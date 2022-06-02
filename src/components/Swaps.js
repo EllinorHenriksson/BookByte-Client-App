@@ -23,6 +23,7 @@ function Swaps (props) {
   useEffect(() => {
     (async () => {
       setIsLoading(true)
+      setSwaps(null)
 
       try {
         const resSwaps = await axios.get(process.env.REACT_APP_URL_RESOURCE_SERVICE + '/matches', { withCredentials: true })
@@ -44,7 +45,7 @@ function Swaps (props) {
           setError('Authentication broke, please try to log in again.')
           navigate('/', { state: { error: true } })
         } else {
-          setError('Could not fetch the resource, please try again later.')
+          setError('Could not fetch data, please try again later.')
         }
       }
     })()
@@ -96,12 +97,12 @@ function Swaps (props) {
   return (
     <div className="swaps">
       <h2>Swaps</h2>
-      <p>This page shows a list of possible swaps to make with another user: what book to get, what book to give and what user to swap with. To suggest a swap, simply send the other user an email!</p>
+      { swaps && <p>This page shows a list of possible swaps to make with another user: what book to get, what book to give and what user to swap with. To suggest a swap, simply send the other user an email.</p> }
       <div className="swaps-content">
         { book && <BookInfo book={ book } setBook={ setBook }/> }
         { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper }/> }
         { isLoading && <p>Loading...</p> }
-        { swaps?.length === 0 && <p>No swaps at the moment.</p> }
+                { swaps?.length === 0 && <p>No swaps at the moment.</p> }
         { swaps?.length > 0 &&
           <div className='swap-list'>
             { swaps.map((swap, i) => (

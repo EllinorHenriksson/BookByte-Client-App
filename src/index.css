@@ -224,6 +224,7 @@ button:hover {
 
 /* Styling of flash-messages */
 
+/*
 .flash {
   color:rgb(250, 248, 240);
   font-weight: bold;
@@ -238,6 +239,21 @@ button:hover {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+*/
+
+.flash {
+  color:rgb(250, 248, 240);
+  font-weight: bold;
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  z-index: 1;
+  position: absolute;
+  top: 60px;
+  right: 10px;
 }
 
 .flash.error {
@@ -443,7 +459,23 @@ button:hover {
   width: 50px;
 }
 
-/* Styling of BookList component */
+/* Styling of Wishlist and BookList component */
+.wishlist > p {
+  max-width: 500px;
+}
+
+.wishlist-content {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wishlist-content > p {
+  color: rgb(111, 136, 111);
+  font-weight: bold;
+}
 
 .book-list {
   width: max-content;
@@ -476,7 +508,7 @@ button:hover {
   background-color: rgb(245, 242, 229);
 }
 
-.book-item button.info {
+.book-item button {
   width: 30px;
   height: 30px;
   background: no-repeat center/80% url("/public/images/info-green.png");
@@ -484,12 +516,16 @@ button:hover {
   border: none;
 }
 
+.book-item button.info {
+  background: no-repeat center/80% url("/public/images/info-green.png");
+}
+
+.book-item button.loading {
+  background: no-repeat center/80% url("/public/images/loading-green.png");
+}
+
 .book-item button.delete {
-  width: 30px;
-  height: 30px;
   background: no-repeat center/80% url("/public/images/delete-green.png");
-  background-color: none;
-  border: none;
 }
 
 .book-item button:hover, .book-item button:active {
