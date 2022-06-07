@@ -1,7 +1,7 @@
 import { BookInfo } from './BookInfo.js'
 import { useState } from 'react'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { axiosResourceService } from '../config/axios.js'
 
 /**
  * The BookList component.
@@ -16,7 +16,7 @@ export function BookList (props) {
   const navigate = useNavigate()
 
   /**
-   * Hanldes click events by showing info box.
+   * Handles click events by showing info box.
    *
    * @param {Event} e - The event object.
    */
@@ -36,7 +36,7 @@ export function BookList (props) {
 
     try {
       setIsLoading(true)
-      await axios.delete(process.env.REACT_APP_URL_RESOURCE_SERVICE + '/' + id)
+      await axiosResourceService.delete(id)
       setIsLoading(false)
       setSuccess('Book was successfully deleted.')
       setDeletedBook(id)

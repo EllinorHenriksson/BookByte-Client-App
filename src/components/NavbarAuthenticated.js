@@ -1,6 +1,6 @@
-import axios from 'axios'
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { axiosAuthService } from '../config/axios.js'
 
 /**
  * The NavbarAuthenticated component.
@@ -20,7 +20,7 @@ function NavbarAuthenticated (props) {
   const handleClick = async () => {
     setIsLoading(true)
     try {
-      await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/logout`, { withCredentials: true })
+      await axiosAuthService.get('logout')
       setIsLoading(false)
       setIsAuthenticated(false)
       setSuccess('Successfull logout!')

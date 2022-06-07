@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useRedirect } from '../hooks/useRedirect.js'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { BookInfo } from './BookInfo.js'
 import { SwapperInfo } from './SwapperInfo.js'
+import { axiosAuthService, axiosResourceService } from '../config/axios.js'
 
 /**
  * The Swaps component.
@@ -26,10 +26,10 @@ function Swaps (props) {
       setSwaps(null)
 
       try {
-        const resSwaps = await axios.get(process.env.REACT_APP_URL_RESOURCE_SERVICE + '/matches', { withCredentials: true })
+        const resSwaps = await axiosResourceService.get('matches')
         const swapsData = resSwaps.data
         const promises = swapsData.map(async swap => {
-          const resUser = await axios.get(`${process.env.REACT_APP_URL_AUTH_SERVICE}/${swap.otherUser}`, { withCredentials: true })
+          const resUser = await axiosAuthService.get(swap.otherUser)
           swap.otherUser = resUser.data
           return swap
         })
@@ -102,7 +102,7 @@ function Swaps (props) {
         { book && <BookInfo book={ book } setBook={ setBook }/> }
         { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper }/> }
         { isLoading && <p>Loading...</p> }
-                { swaps?.length === 0 && <p>No swaps at the moment.</p> }
+        { swaps?.length === 0 && <p>No swaps at the moment.</p> }
         { swaps?.length > 0 &&
           <div className='swap-list'>
             { swaps.map((swap, i) => (

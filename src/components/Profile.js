@@ -1,7 +1,7 @@
 import { useRedirect } from '../hooks/useRedirect.js'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { axiosAuthService, axiosResourceService } from '../config/axios.js'
 
 /**
  * The Profile component.
@@ -21,8 +21,8 @@ function Profile (props) {
   const handleClick = async () => {
     setIsLoading(true)
     try {
-      await axios.delete(process.env.REACT_APP_URL_RESOURCE_SERVICE, { withCredentials: true })
-      await axios.delete(`${process.env.REACT_APP_URL_AUTH_SERVICE}/account`, { withCredentials: true })
+      await axiosResourceService.delete()
+      await axiosAuthService.delete('account')
       setIsLoading(false)
       setIsAuthenticated(false)
       setSuccess('Your account was successfully deleted.')

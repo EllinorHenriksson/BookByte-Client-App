@@ -1,8 +1,9 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRedirect } from '../hooks/useRedirect.js'
 import { BookList } from './BookList.js'
+import { SearchTool } from './SearchTool.js'
+import { axiosResourceService } from '../config/axios.js'
 
 /**
  * The Whishlist component.
@@ -26,10 +27,11 @@ function Wishlist (props) {
       setIsLoading(true)
       setBooks(null)
       try {
-        const { data } = await axios.get(process.env.REACT_APP_URL_RESOURCE_SERVICE, { withCredentials: true })
+        const { data } = await axiosResourceService.get()
         setIsLoading(false)
         setBooks(data.wanted)
       } catch (error) {
+        console.log(error)
         setIsLoading(false)
         if (error.response?.status === 401) {
           setIsAuthenticated(false)
@@ -45,10 +47,13 @@ function Wishlist (props) {
   return (
     <div className="wishlist">
       <h2>Wishlist</h2>
-      { books && <p>The wishlist is where you manage the books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you. </p> }
+      <p>The wishlist is where you manage the books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you.</p>
+      <SearchTool></SearchTool>
       <div className='wishlist-content'>
         { isLoading && <p>Loading...</p> }
-        { books && <BookList books={ books } setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setDeletedBook={ setDeletedBook }></BookList> }
+        { books?.length === 0 && <p>No books at the moment.</p> }
+        { books?.length > 0 &&
+          <BookList books={ books } setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setDeletedBook={ setDeletedBook }></BookList> }
       </div>
     </div>
   )

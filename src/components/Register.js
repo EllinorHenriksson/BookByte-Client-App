@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { useRedirect } from '../hooks/useRedirect.js'
+import { axiosAuthService } from '../config/axios.js'
 
 /**
  * The Register component.
@@ -36,7 +36,7 @@ function Register (props) {
 
     try {
       const data = { username, givenName, familyName, email, password }
-      await axios.post(`${process.env.REACT_APP_URL_AUTH_SERVICE}/register`, data)
+      await axiosAuthService.post('register', data)
       setIsLoading(false)
       setSuccess('Successfull registration!')
       navigate('/login', { state: { success: true } })

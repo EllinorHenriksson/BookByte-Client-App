@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
-import axios from 'axios'
 import { useRedirect } from '../hooks/useRedirect.js'
+import { axiosAuthService, axiosResourceService } from '../config/axios.js'
 
 /**
  * The Login component.
@@ -33,9 +33,10 @@ function Login (props) {
     setError(null)
 
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_URL_AUTH_SERVICE}/login`, { username, password }, { withCredentials: true })
+      const { data } = await axiosAuthService.post('login', { username, password })
       setIsLoading(false)
-      axios.defaults.headers.common.authorization = `Bearer ${data.jwt}`
+      axiosAuthService.defaults.headers.common.authorization = `Bearer ${data.jwt}`
+      axiosResourceService.defaults.headers.common.authorization = `Bearer ${data.jwt}`
       setIsAuthenticated(true)
       setSuccess('Successfull authentication!')
       navigate('/', { state: { success: true } })

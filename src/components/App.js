@@ -15,9 +15,9 @@ import Wishlist from './Wishlist.js'
 import Bookshelf from './Bookshelf.js'
 import Swaps from './Swaps.js'
 import Profile from './Profile.js'
-import axios from 'axios'
 import FlashSuccess from './FlashSuccess.js'
 import FlashError from './FlashError.js'
+import { axiosAuthService, axiosResourceService } from '../config/axios.js'
 
 /**
  * The App component.
@@ -32,8 +32,9 @@ function App () {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_URL_AUTH_SERVICE + '/refresh', { withCredentials: true })
-        axios.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
+        const response = await axiosAuthService.get('refresh')
+        axiosAuthService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
+        axiosResourceService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
         setIsAuthenticated(true)
       } catch (error) {
         setIsAuthenticated(false)
