@@ -57,11 +57,12 @@ export function BookList (props) {
       { book && <BookInfo book={ book } setBook={ setBook }/> }
         { books.map((book, i) => (
           <div className="book-item" key={ i } id={ i }>
-            <img alt="Book cover" src={ book.imageLinks.smallThumbnail }></img>
+            { book.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.imageLinks?.smallThumbnail }></img> }
+            { !book.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book.png'></img> }
             <div>
               <h3>{ book.title }</h3>
               <h4>{ book.subtitle }</h4>
-              <p>Authors: { book.authors.join(', ') }</p>
+              { book.authors && <p>Authors: { book.authors?.join(', ') }</p> }
             </div>
             <div>
               <button className="info" onClick={ handleClickInfo }></button>

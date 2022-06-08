@@ -16,8 +16,8 @@ export function modifyBook (book) {
     pageCount: book.volumeInfo.pageCount,
     categories: book.volumeInfo.categories,
     imageLinks: {
-      smallThumbnail: book.volumeInfo.imageLinks.smallThumbnail,
-      thumbnail: book.volumeInfo.imageLinks.thumbnail
+      smallThumbnail: book.volumeInfo.imageLinks?.smallThumbnail,
+      thumbnail: book.volumeInfo.imageLinks?.thumbnail
     },
     language: book.volumeInfo.language
   }

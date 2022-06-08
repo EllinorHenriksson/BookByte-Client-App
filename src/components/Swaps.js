@@ -109,22 +109,23 @@ function Swaps (props) {
               <div className="swap-item" key={ i } id={ i }>
                 <div className="swap-book">
                   <div>
-                    <img src={swap.toGet.imageLinks.smallThumbnail} alt="Book cover" />
+                    { swap.toGet.imageLinks?.smallThumbnail && <img src={swap.toGet.imageLinks?.smallThumbnail} alt="Book cover" /> }
+                    { !swap.toGet.imageLinks?.smallThumbnail && <img src='images/book.png' alt="Book cover" /> }
                     <p>GET</p>
                   </div>
                   <h3>{ swap.toGet.title }</h3>
-                  { swap.toGet.subtitle && <h4>{ swap.toGet.subtitle }</h4> }
-                  <p>Authors: { swap.toGet.authors.join(', ') }</p>
+                  <h4>{ swap.toGet.subtitle }</h4>
+                  { swap.toGet.authors && <p>Authors: { swap.toGet.authors?.join(', ') }</p> }
                   <button className="to-get" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swap-book">
                   <div>
-                    <img src={swap.toGive.imageLinks.smallThumbnail} alt="Book cover" />
-                    <p>GIVE</p>
+                  { swap.toGive.imageLinks?.smallThumbnail && <img src={swap.toGive.imageLinks?.smallThumbnail} alt="Book cover" /> }
+                    { !swap.toGive.imageLinks?.smallThumbnail && <img src='images/book.png' alt="Book cover" /> }
                   </div>
                   <h3>{ swap.toGive.title }</h3>
-                  { swap.toGive.subtitle && <h4>{ swap.toGive.subtitle }</h4> }
-                  <p>Authors: { swap.toGive.authors.join(', ') }</p>
+                  <h4>{ swap.toGive.subtitle }</h4>
+                  { swap.toGive.authors && <p>Authors: { swap.toGive.authors?.join(', ') }</p> }
                   <button className='to-give' onClick={ handleClickBook }></button>
                 </div>
                 <div className="swapper">

@@ -28,7 +28,7 @@ const handleResponse = (resp) => {
  */
 const handleError = async (error) => {
   // Sends a refresh request if jwt expires.
-  if (error.response.status === 401 && !refresh) {
+  if (error.response?.status === 401 && !refresh) {
     refresh = true
 
     const response = await axiosAuthService.get('refresh')

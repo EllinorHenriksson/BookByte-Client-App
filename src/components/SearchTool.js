@@ -46,6 +46,7 @@ export function SearchTool (props) {
    */
   const handleSubmit = (e) => {
     e.preventDefault()
+    setSearchTerm('')
   }
 
   /**
@@ -65,18 +66,23 @@ export function SearchTool (props) {
    */
   const handleClickAdd = async (e) => {
     const i = parseInt(e.target.parentElement.getAttribute('id'))
+    console.log('i: ', i)
+
     const data = {
       info: modifyBook(books[i]),
       type: 'wanted'
     }
 
+    console.log(data)
+
     try {
       setIsLoadingAdd(true)
-      const response = await axiosResourceService.post(data)
+      const response = await axiosResourceService.post('.', data)
       setIsLoadingAdd(false)
       setSuccess('Book was succesfully added!')
       setUpdatedBook(response.data.id)
     } catch (error) {
+      console.log(error)
       setIsLoadingAdd(false)
       if (error.response?.status === 401) {
         setIsAuthenticated(false)
@@ -99,13 +105,16 @@ export function SearchTool (props) {
           value={ searchTerm }
           onChange={ (e) => setSearchTerm(e.target.value) }>
         </input>
-        { !isLoadingSearch && <button>Search</button> }
+        { (!isLoadingSearch && !searchTerm) && <button>Search</button> }
+        { (!isLoadingSearch && searchTerm) && <button>Close</button> }
         { isLoadingSearch && <button disabled>Loading...</button> }
       </form>
       { books &&
       <div className='search-list'>
         { books.map((book, i) => (
           <div className='search-item' key={ i } id={ i }>
+            { book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.volumeInfo.imageLinks.smallThumbnail }></img> }
+            { !book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book.png'></img> }
             <div>{ book.volumeInfo.title }</div>
             <button className="info" onClick={ handleClickInfo }>Info</button>
             { !isLoadingAdd && <button className='add' onClick={ handleClickAdd }>Add</button> }
