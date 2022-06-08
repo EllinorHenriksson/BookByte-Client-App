@@ -18,17 +18,20 @@ export function BookInfo (props) {
     setBook(null)
   }
 
+  console.log(book)
+
   return (
     <div className="book-info" style={ style }>
       <div>
-        <img alt="Book cover" src={book.imageLinks.smallThumbnail} />
+        { book.imageLinks?.smallThumbnail && <img alt="Book cover" src={book.imageLinks?.smallThumbnail} /> }
+        { !book.imageLinks?.smallThumbnail && <img alt="Book cover" src='/images/book-cover.png' /> }
         <h3>{ book.title }</h3>
         <h4>{ book.subtitle }</h4>
-        <p>{ book.authors.join(', ') }</p>
+        <p>{ book.authors?.join(', ') }</p>
         <p>{ book.publisher }, { book.publishedDate }</p>
         <p>{ book.pageCount }pp., { book.language }</p>
         <p>Description: { book.description }</p>
-        <p>{ book.categories.join(', ') }</p>
+        <p>{ book.categories?.join(', ') }</p>
         <button onClick={ handleClickClose } />
       </div>
     </div>

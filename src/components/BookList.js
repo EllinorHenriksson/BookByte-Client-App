@@ -10,7 +10,7 @@ import { axiosResourceService } from '../config/axios.js'
  * @returns {object} The jsx html template.
  */
 export function BookList (props) {
-  const { books, setIsAuthenticated, setSuccess, setError, setDeletedBook } = props
+  const { books, setIsAuthenticated, setSuccess, setError, setUpdatedBook } = props
   const [book, setBook] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
@@ -39,7 +39,7 @@ export function BookList (props) {
       await axiosResourceService.delete(id)
       setIsLoading(false)
       setSuccess('Book was successfully deleted.')
-      setDeletedBook(id)
+      setUpdatedBook(id)
     } catch (error) {
       setIsLoading(false)
       if (error.response?.status === 401) {
