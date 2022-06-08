@@ -12,7 +12,7 @@ export function modifyBook (book) {
     authors: book.volumeInfo.authors,
     publisher: book.volumeInfo.publisher,
     publishedDate: book.volumeInfo.publishedDate,
-    description: book.volumeInfo.publishedDate,
+    description: book.volumeInfo.description,
     pageCount: book.volumeInfo.pageCount,
     categories: book.volumeInfo.categories,
     imageLinks: {

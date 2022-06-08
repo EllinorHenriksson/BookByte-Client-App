@@ -10,7 +10,7 @@ import { axiosResourceService } from '../config/axios.js'
  * @returns {object} The jsx html template.
  */
 export function BookList (props) {
-  const { books, setIsAuthenticated, setSuccess, setError, setUpdatedBook } = props
+  const { books, setIsAuthenticated, setSuccess, setError, setUpdate } = props
   const [book, setBook] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
@@ -39,7 +39,7 @@ export function BookList (props) {
       await axiosResourceService.delete(id)
       setIsLoading(false)
       setSuccess('Book was successfully deleted.')
-      setUpdatedBook(id)
+      setUpdate(new Date())
     } catch (error) {
       setIsLoading(false)
       if (error.response?.status === 401) {
@@ -58,16 +58,16 @@ export function BookList (props) {
         { books.map((book, i) => (
           <div className="book-item" key={ i } id={ i }>
             { book.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.imageLinks?.smallThumbnail }></img> }
-            { !book.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book.png'></img> }
+            { !book.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book-byte.png'></img> }
             <div>
               <h3>{ book.title }</h3>
               <h4>{ book.subtitle }</h4>
               { book.authors && <p>Authors: { book.authors?.join(', ') }</p> }
             </div>
             <div>
-              <button className="info" onClick={ handleClickInfo }></button>
-              { !isLoading && <button className="delete" onClick={ handleClickDelete }></button> }
-              { isLoading && <button className="loading" disabled></button> }
+              <button className="info" title="Info" onClick={ handleClickInfo }></button>
+              { !isLoading && <button className="delete" title="Delete" onClick={ handleClickDelete }></button> }
+              { isLoading && <button className="loading" title="Loading" disabled></button> }
             </div>
           </div>
         )) }

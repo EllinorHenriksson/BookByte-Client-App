@@ -492,12 +492,16 @@ button:hover {
   align-items: center;
   gap: 10px;
   text-align: center;
-  overflow: auto;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .book-item img {
   height: 80%;
+}
+
+.book-item > div:nth-child(2) {
+  overflow: auto;
+  max-height: 100%;
 }
 
 .book-item h3, .book-item h4, .book-item p {
@@ -511,7 +515,6 @@ button:hover {
 .book-item button {
   width: 30px;
   height: 30px;
-  background: no-repeat center/80% url("/public/images/info-green.png");
   background-color: rgba(250, 248, 240);
   border: none;
 }
@@ -530,4 +533,107 @@ button:hover {
 
 .book-item button:hover, .book-item button:active {
   opacity: 0.7;
+}
+
+/* Styling of SearchTool */
+.search-tool {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(111, 136, 111);
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.search-item {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.search-item:nth-child(even) {
+  background-color: rgb(245, 242, 229);
+}
+
+.search-item div:first-child {
+  height: 100%;
+}
+
+.search-item div:nth-child(2) {
+  overflow: auto;
+  font-size: 0.9rem;
+  max-height: 100%;
+}
+
+.search-item img {
+  height: 100%;
+}
+
+.search-item div:last-child {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.search-item div {
+  padding: 10px;
+}
+
+.search-item button {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(250, 248, 240);
+  border: none;
+}
+
+.search-item button.info {
+  background: no-repeat center/80% url("/public/images/info-green.png");
+}
+
+.search-item button.loading {
+  background: no-repeat center/80% url("/public/images/loading-green.png");
+}
+
+.search-item button.add {
+  background: no-repeat center/80% url("/public/images/plus-green.png");
+}
+
+.search-item button:hover, .search-item button:active {
+  opacity: 0.7;
+}
+
+.search-tool form button {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(250, 248, 240);
+  border: none;
+}
+
+.search-tool form button.search {
+  background: no-repeat center/80% url("/public/images/search-green.png");
+}
+
+.search-tool form button.loading {
+  background: no-repeat center/80% url("/public/images/loading-green.png");
+}
+
+.search-tool form button.close {
+  background: no-repeat center/80% url("/public/images/cross-green.png");
+}
+
+.search-tool form {
+  display: flex;
+  gap: 10px;
+}
+
+.search-tool form input {
+  width: 250px;
+  padding: 3px;
+  font-size: 0.9rem;
 }

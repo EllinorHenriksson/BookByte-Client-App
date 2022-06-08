@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
  * @returns {object} The jsx html template.
  */
 export function SearchTool (props) {
-  const { setIsAuthenticated, setSuccess, setError, setUpdatedBook } = props
+  const { setIsAuthenticated, setSuccess, setError, setUpdate } = props
 
   const [searchTerm, setSearchTerm] = useState('')
   const [books, setBooks] = useState(null)
@@ -55,7 +55,7 @@ export function SearchTool (props) {
    * @param {Event} e - The event object.
    */
   const handleClickInfo = (e) => {
-    const i = parseInt(e.target.parentElement.getAttribute('id'))
+    const i = parseInt(e.target.parentElement.parentElement.getAttribute('id'))
     setBook(books[i].volumeInfo)
   }
 
@@ -65,22 +65,19 @@ export function SearchTool (props) {
    * @param {Event} e - The event object.
    */
   const handleClickAdd = async (e) => {
-    const i = parseInt(e.target.parentElement.getAttribute('id'))
-    console.log('i: ', i)
+    const i = parseInt(e.target.parentElement.parentElement.getAttribute('id'))
 
     const data = {
       info: modifyBook(books[i]),
       type: 'wanted'
     }
 
-    console.log(data)
-
     try {
       setIsLoadingAdd(true)
-      const response = await axiosResourceService.post('.', data)
+      await axiosResourceService.post('.', data)
       setIsLoadingAdd(false)
       setSuccess('Book was succesfully added!')
-      setUpdatedBook(response.data.id)
+      setUpdate(new Date())
     } catch (error) {
       console.log(error)
       setIsLoadingAdd(false)
@@ -100,25 +97,29 @@ export function SearchTool (props) {
       <form onSubmit={ handleSubmit }>
         <label>Title:</label>
         <input
-          type="search"
+          type="text"
           required
           value={ searchTerm }
           onChange={ (e) => setSearchTerm(e.target.value) }>
         </input>
-        { (!isLoadingSearch && !searchTerm) && <button>Search</button> }
-        { (!isLoadingSearch && searchTerm) && <button>Close</button> }
-        { isLoadingSearch && <button disabled>Loading...</button> }
+        { (!isLoadingSearch && !searchTerm) && <button className='search' title="Search"></button> }
+        { (!isLoadingSearch && searchTerm) && <button className='close' title="Close"></button> }
+        { isLoadingSearch && <button className="loading" disabled title="Loading"></button> }
       </form>
       { books &&
       <div className='search-list'>
         { books.map((book, i) => (
           <div className='search-item' key={ i } id={ i }>
-            { book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.volumeInfo.imageLinks.smallThumbnail }></img> }
-            { !book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book.png'></img> }
+            <div>
+              { book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.volumeInfo.imageLinks.smallThumbnail }></img> }
+              { !book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book-byte.png'></img> }
+            </div>
             <div>{ book.volumeInfo.title }</div>
-            <button className="info" onClick={ handleClickInfo }>Info</button>
-            { !isLoadingAdd && <button className='add' onClick={ handleClickAdd }>Add</button> }
-            { isLoadingAdd && <button disabled>Loading...</button> }
+            <div>
+              <button className="info" title="Info" onClick={ handleClickInfo }></button>
+              { !isLoadingAdd && <button className='add' title="Add" onClick={ handleClickAdd }></button> }
+              { isLoadingAdd && <button className='loading' title="Loading" disabled></button> }
+            </div>
           </div>
         )) }
       </div>

@@ -20,7 +20,7 @@ function Wishlist (props) {
 
   const navigate = useNavigate()
 
-  const [updatedBook, setUpdatedBook] = useState(null)
+  const [update, setUpdate] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -41,18 +41,18 @@ function Wishlist (props) {
         }
       }
     })()
-  }, [setIsAuthenticated, setError, navigate, updatedBook])
+  }, [setIsAuthenticated, setError, navigate, update])
 
   return (
     <div className="wishlist">
       <h2>Wishlist</h2>
       <p>The wishlist is where you manage the books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you.</p>
-      <SearchTool setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdatedBook={ setUpdatedBook }></SearchTool>
+      <SearchTool setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate }></SearchTool>
       <div className='wishlist-content'>
         { isLoading && <p>Loading...</p> }
         { books?.length === 0 && <p>No books at the moment.</p> }
         { books?.length > 0 &&
-          <BookList books={ books } setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdatedBook={ setUpdatedBook }></BookList> }
+          <BookList books={ books } setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate }></BookList> }
       </div>
     </div>
   )

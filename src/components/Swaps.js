@@ -97,7 +97,7 @@ function Swaps (props) {
   return (
     <div className="swaps">
       <h2>Swaps</h2>
-      { swaps && <p>This page shows a list of possible swaps to make with another user: what book to get, what book to give and what user to swap with. To suggest a swap, simply send the other user an email.</p> }
+      <p>This page shows a list of possible swaps to make with another user: what book to get, what book to give and what user to swap with. To suggest a swap, simply send the other user an email.</p>
       <div className="swaps-content">
         { book && <BookInfo book={ book } setBook={ setBook }/> }
         { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper }/> }
@@ -116,7 +116,7 @@ function Swaps (props) {
                   <h3>{ swap.toGet.title }</h3>
                   <h4>{ swap.toGet.subtitle }</h4>
                   { swap.toGet.authors && <p>Authors: { swap.toGet.authors?.join(', ') }</p> }
-                  <button className="to-get" onClick={ handleClickBook }></button>
+                  <button className="to-get" title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swap-book">
                   <div>
@@ -126,7 +126,7 @@ function Swaps (props) {
                   <h3>{ swap.toGive.title }</h3>
                   <h4>{ swap.toGive.subtitle }</h4>
                   { swap.toGive.authors && <p>Authors: { swap.toGive.authors?.join(', ') }</p> }
-                  <button className='to-give' onClick={ handleClickBook }></button>
+                  <button className='to-give' title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swapper">
                   <img alt="Profile" src="images/profile.png" />
