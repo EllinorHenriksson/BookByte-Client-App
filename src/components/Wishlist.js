@@ -47,7 +47,7 @@ function Wishlist (props) {
     <div className="wishlist">
       <h2>Wishlist</h2>
       <p>The wishlist is where you manage the books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you.</p>
-      <SearchTool setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate }></SearchTool>
+      <SearchTool setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate } type="wanted"></SearchTool>
       <div className='wishlist-content'>
         { isLoading && <p>Loading...</p> }
         { books?.length === 0 && <p>No books at the moment.</p> }

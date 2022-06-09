@@ -28,6 +28,7 @@ function App () {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -54,11 +55,15 @@ function App () {
     }
   }, [error])
 
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('bookbyte'))?.user)
+  }, [])
+
   return (
     <Router>
       <div className="app">
         { !isAuthenticated && <NavbarAnonymous /> }
-        { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }
+        { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } user={ user }/> }
         <div className="content">
           { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
           { error && <FlashError error={ error } setError={setError}></FlashError> }
@@ -69,7 +74,7 @@ function App () {
             { !isAuthenticated && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
             { isAuthenticated && <Route path="/swaps" element={ <Swaps setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }/> }
             { isAuthenticated && <Route path="/wishlist" element={ <Wishlist setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
-            { isAuthenticated && <Route path="/bookshelf" element={ <Bookshelf setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { isAuthenticated && <Route path="/bookshelf" element={ <Bookshelf setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
             { isAuthenticated && <Route path="/profile" element={ <Profile setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
             <Route path="/privacy-policy" element={<Policy setSuccess={ setSuccess } setError={ setError } />} />
             <Route path="/cookies" element={<Cookies setSuccess={ setSuccess } setError={ setError } />} />

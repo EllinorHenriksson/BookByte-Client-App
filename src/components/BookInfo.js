@@ -18,8 +18,6 @@ export function BookInfo (props) {
     setBook(null)
   }
 
-  console.log(book)
-
   return (
     <div className="book-info" style={ style }>
       <div>
@@ -33,7 +31,7 @@ export function BookInfo (props) {
         { book.pageCount && <p>Pages: { book.pageCount }</p> }
         { book.language && <p>Language: { book.language }</p> }
         { book.description && <p>Description: { book.description }</p> }
-        { book.categories.length > 0 && <p>Categories: { book.categories?.join(', ') }</p> }
+        { book.categories?.length > 0 && <p>Categories: { book.categories?.join(', ') }</p> }
         <button title="Close" onClick={ handleClickClose } />
       </div>
     </div>

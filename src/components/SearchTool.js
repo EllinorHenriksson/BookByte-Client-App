@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
  * @returns {object} The jsx html template.
  */
 export function SearchTool (props) {
-  const { setIsAuthenticated, setSuccess, setError, setUpdate } = props
+  const { setIsAuthenticated, setSuccess, setError, setUpdate, type } = props
 
   const [searchTerm, setSearchTerm] = useState('')
   const [books, setBooks] = useState(null)
@@ -69,7 +69,7 @@ export function SearchTool (props) {
 
     const data = {
       info: modifyBook(books[i]),
-      type: 'wanted'
+      type
     }
 
     try {
@@ -85,6 +85,8 @@ export function SearchTool (props) {
         setIsAuthenticated(false)
         setError('Authentication broke, please try to log in again.')
         navigate('/', { state: { error: true } })
+      } else if (error.response?.status === 409) {
+        setError('Book already added to wishlist or bookshelf.')
       } else {
         setError('Failed to add book, please try again later.')
       }
@@ -110,10 +112,8 @@ export function SearchTool (props) {
       <div className='search-list'>
         { books.map((book, i) => (
           <div className='search-item' key={ i } id={ i }>
-            <div>
-              { book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.volumeInfo.imageLinks.smallThumbnail }></img> }
-              { !book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book-byte.png'></img> }
-            </div>
+            { book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.volumeInfo.imageLinks.smallThumbnail }></img> }
+            { !book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book-byte.png'></img> }
             <div>{ book.volumeInfo.title }</div>
             <div>
               <button className="info" title="Info" onClick={ handleClickInfo }></button>

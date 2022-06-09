@@ -9,7 +9,7 @@ import { axiosAuthService } from '../config/axios.js'
  * @returns {object} The jsx html template.
  */
 function NavbarAuthenticated (props) {
-  const { setIsAuthenticated, setSuccess, setError } = props
+  const { setIsAuthenticated, setSuccess, setError, user } = props
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -48,6 +48,7 @@ function NavbarAuthenticated (props) {
         <NavLink to="/bookshelf" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>Bookshelf</NavLink>
       </div>
       <div>
+        <div>{ user.username }</div>
         <NavLink to="/profile" className={({ isActive }) => (isActive ? 'link-active' : 'link')} title="Profile"><img alt="Profile" src="images/profile.png" /></NavLink>
         { !isLoading && <button onClick={ handleClick }>Logout</button> }
         { isLoading && <button disabled>Loading...</button> }

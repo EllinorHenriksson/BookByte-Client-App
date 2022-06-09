@@ -493,10 +493,11 @@ button:hover {
   gap: 10px;
   text-align: center;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .book-item img {
-  height: 80%;
+  height: 100%;
 }
 
 .book-item > div:nth-child(2) {
@@ -550,19 +551,20 @@ button:hover {
 }
 
 .search-item {
-  height: 100px;
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
   text-align: center;
+  padding: 10px;
 }
 
 .search-item:nth-child(even) {
   background-color: rgb(245, 242, 229);
 }
 
-.search-item div:first-child {
+.search-item img {
   height: 100%;
 }
 
@@ -579,10 +581,6 @@ button:hover {
 .search-item div:last-child {
   display: flex;
   flex-wrap: nowrap;
-}
-
-.search-item div {
-  padding: 10px;
 }
 
 .search-item button {
@@ -636,4 +634,10 @@ button:hover {
   width: 250px;
   padding: 3px;
   font-size: 0.9rem;
+}
+
+/* Styling of Bookshelf */
+
+.bookshelf > p {
+  max-width: 500px;
 }
