@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRedirect } from '../hooks/useRedirect.js'
 import { BookList } from './BookList.js'
 import { SearchTool } from './SearchTool.js'
-import { axiosResourceService } from '../config/axios.js'
+import { axiosResourceService } from '../interceptors/axios.js'
 
 /**
  * The Bookshelf component.

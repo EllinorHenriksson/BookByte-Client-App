@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { axiosGoogleBooks, axiosResourceService } from '../config/axios.js'
+import { axiosGoogleBooks, axiosResourceService } from '../interceptors/axios.js'
 import { modifyBook } from '../helpers/helper.js'
 import { BookInfo } from './BookInfo.js'
 import { useNavigate } from 'react-router-dom'
@@ -77,7 +77,7 @@ export function SearchTool (props) {
       await axiosResourceService.post('.', data)
       setIsLoadingAdd(false)
       setSuccess('Book was succesfully added!')
-      setUpdate(new Date())
+      setUpdate(Date.now())
     } catch (error) {
       console.log(error)
       setIsLoadingAdd(false)

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRedirect } from '../hooks/useRedirect.js'
 import { BookList } from './BookList.js'
 import { SearchTool } from './SearchTool.js'
-import { axiosResourceService } from '../config/axios.js'
+import { axiosResourceService } from '../interceptors/axios.js'
 
 /**
  * The Whishlist component.
@@ -31,6 +31,7 @@ function Wishlist (props) {
         setIsLoading(false)
         setBooks(data.wanted)
       } catch (error) {
+        console.log('Wishlist error: ', error)
         setIsLoading(false)
         if (error.response?.status === 401) {
           setIsAuthenticated(false)

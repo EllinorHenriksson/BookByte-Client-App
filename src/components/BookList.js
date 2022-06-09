@@ -1,7 +1,7 @@
 import { BookInfo } from './BookInfo.js'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { axiosResourceService } from '../config/axios.js'
+import { axiosResourceService } from '../interceptors/axios.js'
 
 /**
  * The BookList component.
@@ -39,7 +39,7 @@ export function BookList (props) {
       await axiosResourceService.delete(id)
       setIsLoading(false)
       setSuccess('Book was successfully deleted.')
-      setUpdate(new Date())
+      setUpdate(Date.now())
     } catch (error) {
       setIsLoading(false)
       if (error.response?.status === 401) {

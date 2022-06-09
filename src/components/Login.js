@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useRedirect } from '../hooks/useRedirect.js'
-import { axiosAuthService, axiosResourceService } from '../config/axios.js'
+import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
 
 /**
  * The Login component.

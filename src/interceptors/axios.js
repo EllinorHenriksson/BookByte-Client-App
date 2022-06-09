@@ -1,52 +1,57 @@
-import { axiosAuthService, axiosResourceService } from '../config/axios.js'
 import axios from 'axios'
+
+const axiosAuthService = axios.create({ baseURL: process.env.REACT_APP_URL_AUTH_SERVICE, withCredentials: true })
+const axiosResourceService = axios.create({ baseURL: process.env.REACT_APP_URL_RESOURCE_SERVICE, withCredentials: true })
+const axiosGoogleBooks = axios.create({ baseURL: process.env.REACT_APP_URL_GOOGLE_API })
 
 let refresh = false
 
 /**
  * Handles the response object.
  *
- * @param {object} resp - The response object.
+ * @param {object} res - The response object.
  * @returns {object} The response object.
  */
-const handleResponse = (resp) => {
+const handleResponse = (res) => {
   // Set/remove user info to/from local storage
-  const url = resp.config.url
+  const url = res.config.url
   if (url?.includes('login') || url?.includes('refresh')) {
-    localStorage.setItem('bookbyte', JSON.stringify({ user: resp.data.user }))
+    axiosAuthService.defaults.headers.common.authorization = `Bearer ${res.data.jwt}`
+    axiosResourceService.defaults.headers.common.authorization = `Bearer ${res.data.jwt}`
+    localStorage.setItem('bookbyte', JSON.stringify({ user: res.data.user }))
   } else if (url?.includes('logout')) {
     localStorage.removeItem('bookbyte')
   }
-  return resp
+  return res
 }
 
 /**
  * Handles the error object.
  *
- * @param {object} error - The response object.
+ * @param {object} err - The response object.
  * @returns {object} The response object.
  */
-const handleError = async (error) => {
+const handleError = async (err) => {
   // Sends a refresh request if jwt expires.
-  if (error.response?.status === 401 && !refresh) {
+  if (err.response?.status === 401 && !refresh) {
     refresh = true
+
+    // Remove user info from local storage.
+    localStorage.removeItem('bookbyte')
 
     const response = await axiosAuthService.get('refresh')
 
-    if (response.status === 200) {
-      axiosAuthService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
-      axiosResourceService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
-
-      return axios(error.config)
-    } else {
-      // Remove user info from local storage.
-      localStorage.removeItem('bookbyte')
-    }
+    // Next 3 lines are executed if the request was successfull.
+    refresh = false
+    err.config.headers.authorization = `Bearer ${response.data.jwt}`
+    return axios(err.config)
   }
 
   refresh = false
-  throw error
+  return Promise.reject(err)
 }
 
 axiosAuthService.interceptors.response.use(handleResponse, handleError)
 axiosResourceService.interceptors.response.use(handleResponse, handleError)
+
+export { axiosAuthService, axiosResourceService, axiosGoogleBooks }

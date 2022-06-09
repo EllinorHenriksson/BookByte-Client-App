@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRedirect } from '../hooks/useRedirect.js'
-import { axiosAuthService } from '../config/axios.js'
+import { axiosAuthService } from '../interceptors/axios.js'
 
 /**
  * The Register component.

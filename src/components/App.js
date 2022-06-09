@@ -17,7 +17,7 @@ import Swaps from './Swaps.js'
 import Profile from './Profile.js'
 import FlashSuccess from './FlashSuccess.js'
 import FlashError from './FlashError.js'
-import { axiosAuthService, axiosResourceService } from '../config/axios.js'
+import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
 
 /**
  * The App component.
@@ -28,7 +28,6 @@ function App () {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
-  const [user, setUser] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -55,15 +54,11 @@ function App () {
     }
   }, [error])
 
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('bookbyte'))?.user)
-  }, [])
-
   return (
     <Router>
       <div className="app">
         { !isAuthenticated && <NavbarAnonymous /> }
-        { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } user={ user }/> }
+        { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }
         <div className="content">
           { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
           { error && <FlashError error={ error } setError={setError}></FlashError> }

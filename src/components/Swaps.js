@@ -3,7 +3,7 @@ import { useRedirect } from '../hooks/useRedirect.js'
 import { useNavigate } from 'react-router-dom'
 import { BookInfo } from './BookInfo.js'
 import { SwapperInfo } from './SwapperInfo.js'
-import { axiosAuthService, axiosResourceService } from '../config/axios.js'
+import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
 
 /**
  * The Swaps component.
