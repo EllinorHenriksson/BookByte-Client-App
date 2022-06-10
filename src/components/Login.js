@@ -10,7 +10,7 @@ import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js
  * @returns {object} The jsx html template.
  */
 function Login (props) {
-  const { setIsAuthenticated, setSuccess, setError } = props
+  const { setUser, setSuccess, setError } = props
   useRedirect(setSuccess, setError)
 
   const [username, setUsername] = useState('')
@@ -37,7 +37,7 @@ function Login (props) {
       setIsLoading(false)
       axiosAuthService.defaults.headers.common.authorization = `Bearer ${data.jwt}`
       axiosResourceService.defaults.headers.common.authorization = `Bearer ${data.jwt}`
-      setIsAuthenticated(true)
+      setUser(data.user)
       setSuccess('Successfull authentication!')
       navigate('/', { state: { success: true } })
     } catch (error) {

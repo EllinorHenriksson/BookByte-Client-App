@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { axiosAuthService } from '../interceptors/axios.js'
 
@@ -9,14 +9,9 @@ import { axiosAuthService } from '../interceptors/axios.js'
  * @returns {object} The jsx html template.
  */
 function NavbarAuthenticated (props) {
-  const { setIsAuthenticated, setSuccess, setError } = props
+  const { user, setUser, setSuccess, setError } = props
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('bookbyte'))?.user)
-  }, [])
 
   /**
    * Handles the click event.
@@ -27,13 +22,13 @@ function NavbarAuthenticated (props) {
     try {
       await axiosAuthService.get('logout')
       setIsLoading(false)
-      setIsAuthenticated(false)
+      setUser(null)
       setSuccess('Successfull logout!')
       navigate('/', { state: { success: true } })
     } catch (error) {
       setIsLoading(false)
       if (error.response?.status === 401) {
-        setIsAuthenticated(false)
+        setUser(null)
         setError('Logged out due to broken authentication.')
         navigate('/', { state: { error: true } })
       } else {
@@ -53,7 +48,7 @@ function NavbarAuthenticated (props) {
         <NavLink to="/bookshelf" className={({ isActive }) => (isActive ? 'link-active' : 'link')}>Bookshelf</NavLink>
       </div>
       <div>
-        <div>{ user?.username }</div>
+        <div>{ user.username }</div>
         <NavLink to="/profile" className={({ isActive }) => (isActive ? 'link-active' : 'link')} title="Profile"><img alt="Profile" src="images/profile.png" /></NavLink>
         { !isLoading && <button onClick={ handleClick }>Logout</button> }
         { isLoading && <button disabled>Loading...</button> }

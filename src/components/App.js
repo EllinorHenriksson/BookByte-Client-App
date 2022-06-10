@@ -25,7 +25,7 @@ import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js
  * @returns {object} A jsx html template.
  */
 function App () {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [user, setUser] = useState(null)
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
 
@@ -35,9 +35,9 @@ function App () {
         const response = await axiosAuthService.get('refresh')
         axiosAuthService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
         axiosResourceService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
-        setIsAuthenticated(true)
+        setUser(response.data.user)
       } catch (error) {
-        setIsAuthenticated(false)
+        setUser(null)
       }
     })()
   }, [])
@@ -57,20 +57,20 @@ function App () {
   return (
     <Router>
       <div className="app">
-        { !isAuthenticated && <NavbarAnonymous /> }
-        { isAuthenticated && <NavbarAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }
+        { !user && <NavbarAnonymous /> }
+        { user && <NavbarAuthenticated user={ user } setUser={ setUser } setSuccess={ setSuccess } setError={ setError }/> }
         <div className="content">
           { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
           { error && <FlashError error={ error } setError={setError}></FlashError> }
           <Routes>
-            { !isAuthenticated && <Route path="/" element={<HomeAnonymous setSuccess={ setSuccess } setError={ setError }/> }/>}
-            { isAuthenticated && <Route path="/" element={<HomeAuthenticated setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }/>}
-            { !isAuthenticated && <Route path="/login" element={ <Login setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
-            { !isAuthenticated && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
-            { isAuthenticated && <Route path="/swaps" element={ <Swaps setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError }/> }/> }
-            { isAuthenticated && <Route path="/wishlist" element={ <Wishlist setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
-            { isAuthenticated && <Route path="/bookshelf" element={ <Bookshelf setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
-            { isAuthenticated && <Route path="/profile" element={ <Profile setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { !user && <Route path="/" element={<HomeAnonymous setSuccess={ setSuccess } setError={ setError }/> }/>}
+            { user && <Route path="/" element={<HomeAuthenticated setSuccess={ setSuccess } setError={ setError }/> }/>}
+            { !user && <Route path="/login" element={ <Login setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { !user && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
+            { user && <Route path="/swaps" element={ <Swaps setUser={ setUser } setSuccess={ setSuccess } setError={ setError }/> }/> }
+            { user && <Route path="/wishlist" element={ <Wishlist setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { user && <Route path="/bookshelf" element={ <Bookshelf setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { user && <Route path="/profile" element={ <Profile user={ user } setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
             <Route path="/privacy-policy" element={<Policy setSuccess={ setSuccess } setError={ setError } />} />
             <Route path="/cookies" element={<Cookies setSuccess={ setSuccess } setError={ setError } />} />
             <Route path="*" element={<NotFound setSuccess={ setSuccess } setError={ setError } />} />

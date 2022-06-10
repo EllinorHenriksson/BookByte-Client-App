@@ -42,18 +42,16 @@ function Register (props) {
       navigate('/login', { state: { success: true } })
     } catch (error) {
       setIsLoading(false)
-      if (error.response) {
-        if (error.response.status === 400) {
-          setError('Registration failed: Data input not correctly formatted.')
-        } else if (error.response.status === 409) {
-          setError('Registration failed: Username and/or email address already registered.')
-        } else if (error.response.status === 500) {
-          setError('Registration failed: Server error, please try again later.')
-        } else {
-          setError('Registration failed, please try again later.')
-        }
-      } else {
+      if (error.response.status === 400) {
+        setError('Registration failed: Data input not correctly formatted.')
+      } else if (error.response.status === 409) {
+        setError('Registration failed: Username and/or email address already registered.')
+      } else if (error.response.status === 500) {
+        setError('Registration failed: Server error, please try again later.')
+      } else if (!error.response.status) {
         setError('Registration failed: Network error, please try again later.')
+      } else {
+        setError('Registration failed, please try again later.')
       }
     }
   }

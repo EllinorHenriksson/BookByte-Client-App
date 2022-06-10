@@ -10,7 +10,7 @@ import { axiosResourceService } from '../interceptors/axios.js'
  * @returns {object} The jsx html template.
  */
 export function BookList (props) {
-  const { books, setIsAuthenticated, setSuccess, setError, setUpdate } = props
+  const { books, setUser, setSuccess, setError, setUpdate } = props
   const [book, setBook] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
@@ -43,7 +43,7 @@ export function BookList (props) {
     } catch (error) {
       setIsLoading(false)
       if (error.response?.status === 401) {
-        setIsAuthenticated(false)
+        setUser(null)
         setError('Authentication broke, please try to log in again.')
         navigate('/', { state: { error: true } })
       } else if (!error.response?.status) {

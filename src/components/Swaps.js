@@ -12,7 +12,7 @@ import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js
  * @returns {object} The jsx html template.
  */
 function Swaps (props) {
-  const { setIsAuthenticated, setSuccess, setError } = props
+  const { setUser, setSuccess, setError } = props
   useRedirect(setSuccess, setError)
 
   const navigate = useNavigate()
@@ -41,15 +41,17 @@ function Swaps (props) {
       } catch (error) {
         setIsLoading(false)
         if (error.response?.status === 401) {
-          setIsAuthenticated(false)
+          setUser(null)
           setError('Authentication broke, please try to log in again.')
           navigate('/', { state: { error: true } })
+        } else if (!error.response?.status) {
+          setError('Could not fetch data: Network error, please try again later.')
         } else {
           setError('Could not fetch data, please try again later.')
         }
       }
     })()
-  }, [setIsAuthenticated, setError, navigate])
+  }, [setUser, setError, navigate])
 
   const [book, setBook] = useState(null)
   const [swapper, setSwapper] = useState(null)
@@ -91,7 +93,6 @@ function Swaps (props) {
   const handleClickSwapper = (e) => {
     const i = parseInt(e.target.parentElement.parentElement.getAttribute('id'))
     setSwapper(swaps[i].otherUser)
-    console.log(swaps[i].otherUser)
   }
 
   return (

@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
  * @returns {object} The jsx html template.
  */
 export function SearchTool (props) {
-  const { setIsAuthenticated, setSuccess, setError, setUpdate, type } = props
+  const { setUser, setSuccess, setError, setUpdate, type } = props
 
   const [searchTerm, setSearchTerm] = useState('')
   const [books, setBooks] = useState(null)
@@ -86,7 +86,7 @@ export function SearchTool (props) {
     } catch (error) {
       setIsLoadingAdd(false)
       if (error.response?.status === 401) {
-        setIsAuthenticated(false)
+        setUser(null)
         setError('Authentication broke, please try to log in again.')
         navigate('/', { state: { error: true } })
       } else if (error.response?.status === 409) {

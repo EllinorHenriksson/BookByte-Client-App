@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { axiosAuthService } from '../interceptors/axios'
+import { useEffect, useState } from 'react'
+import { axiosAuthService } from '../interceptors/axios.js'
+import { useNavigate } from 'react-router-dom'
 
 /**
  * The Update component.
@@ -8,7 +9,7 @@ import { axiosAuthService } from '../interceptors/axios'
  * @returns {object} The jsx html template.
  */
 const Update = (props) => {
-  const { user, setIsEditing } = props
+  const { user, setUser, setIsEditing, setSuccess, setError } = props
 
   const [username, setUsername] = useState(user.username)
   const [givenName, setGivenName] = useState(user.givenName)
@@ -18,6 +19,13 @@ const Update = (props) => {
   const [newPassword, setNewPassword] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setSuccess(null)
+    setError(null)
+  }, [setSuccess, setError])
 
   /**
    * Handles the submit event.
@@ -39,19 +47,45 @@ const Update = (props) => {
 
     try {
       await axiosAuthService.patch('/account', data)
+      setIsLoading(false)
+      setSuccess('Profile was successfully updated!')
       localStorage.setItem('bookbyte', JSON.stringify({ username, givenName, familyName, email }))
+      setUser({ username, givenName, familyName, email })
+      setIsEditing(false)
     } catch (error) {
-      // OBS! Hantera fel
+      setIsLoading(false)
+
+      if (error.response?.status === 400) {
+        setError('Update failed: Data input not correctly formatted.')
+      } else if (error.response?.status === 401) {
+        if (error.config.url.includes('account')) {
+          setError('Update failed: Wrong password.')
+        } else {
+          setUser(null)
+          setError('Authentication broke, please try to log in again.')
+          navigate('/', { state: { error: true } })
+        }
+      } else if (error.response?.status === 409) {
+        setError('Update failed: Username and/or email address already registered.')
+      } else if (error.response?.status === 500) {
+        setError('Update failed: Server error, please try again later.')
+      } else if (!error.response?.status) {
+        setError('Update failed: Network error, please try again later.')
+      } else {
+        setError('Update failed, please try again later.')
+      }
     }
   }
 
   /**
-   * Handles the reset event.
+   * Handles the click event on the cancel button.
    *
    * @param {Event} event - The event object.
    */
   const handleClick = (event) => {
     event.preventDefault()
+    setSuccess(null)
+    setError(null)
     setIsEditing(false)
   }
 
@@ -62,7 +96,7 @@ const Update = (props) => {
         onSubmit={ handleSubmit }>
           <fieldset>
             <legend>User info</legend>
-            <label>Username:</label>
+            <label>*Username:</label>
             <input
               type="text"
               required
@@ -71,21 +105,21 @@ const Update = (props) => {
               value={ username }
               onChange={ (e) => setUsername(e.target.value) }>
             </input>
-            <label>Given name:</label>
+            <label>*Given name:</label>
             <input
               type="text"
               required
               value={ givenName }
               onChange={ (e) => setGivenName(e.target.value) }>
             </input>
-            <label>Family name:</label>
+            <label>*Family name:</label>
             <input
               type="text"
               required
               value={ familyName }
               onChange={ (e) => setFamilyName(e.target.value)}>
             </input>
-            <label>Email:</label>
+            <label>*Email:</label>
             <input
               type="email"
               required

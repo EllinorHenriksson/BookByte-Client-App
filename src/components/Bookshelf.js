@@ -12,7 +12,7 @@ import { axiosResourceService } from '../interceptors/axios.js'
  * @returns {object} The jsx html template.
  */
 function Bookshelf (props) {
-  const { setIsAuthenticated, setSuccess, setError } = props
+  const { setUser, setSuccess, setError } = props
   useRedirect(setSuccess, setError)
 
   const [books, setBooks] = useState(null)
@@ -33,7 +33,7 @@ function Bookshelf (props) {
       } catch (error) {
         setIsLoading(false)
         if (error.response?.status === 401) {
-          setIsAuthenticated(false)
+          setUser(null)
           setError('Authentication broke, please try to log in again.')
           navigate('/', { state: { error: true } })
         } else if (!error.response?.status) {
@@ -43,18 +43,18 @@ function Bookshelf (props) {
         }
       }
     })()
-  }, [setIsAuthenticated, setError, navigate, update])
+  }, [setUser, setError, navigate, update])
 
   return (
     <div className="bookshelf">
       <h2>Bookshelf</h2>
       <p>The bookshelf is where you manage the books you own and want to swap. Together with the books in your wishlist, the system can match you against other users find possible swaps for you.</p>
-      <SearchTool setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate } type="owned"></SearchTool>
+      <SearchTool setUser={ setUser } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate } type="owned"></SearchTool>
       <div className='wishlist-content'>
         { isLoading && <p>Loading...</p> }
         { books?.length === 0 && <p>No books at the moment.</p> }
         { books?.length > 0 &&
-        <BookList books={ books } setIsAuthenticated={ setIsAuthenticated } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate }></BookList> }
+        <BookList books={ books } setUser={ setUser } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate }></BookList> }
       </div>
     </div>
   )

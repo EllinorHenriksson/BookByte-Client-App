@@ -1,6 +1,6 @@
 import { useRedirect } from '../hooks/useRedirect.js'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
 import Update from './Update.js'
 
@@ -11,19 +11,13 @@ import Update from './Update.js'
  * @returns {object} The jsx html template.
  */
 function Profile (props) {
-  const { setIsAuthenticated, setSuccess, setError } = props
+  const { user, setUser, setSuccess, setError } = props
   useRedirect(setSuccess, setError)
-
-  const [user, setUser] = useState(null)
 
   const [isEditing, setIsEditing] = useState(false)
   const [isLoadingDelete, setIsLoadingDelete] = useState(false)
 
   const navigate = useNavigate()
-
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('bookbyte'))?.user)
-  }, [])
 
   /**
    * Handles click events from edit button.
@@ -41,13 +35,13 @@ function Profile (props) {
       await axiosResourceService.delete()
       await axiosAuthService.delete('account')
       setIsLoadingDelete(false)
-      setIsAuthenticated(false)
+      setUser(null)
       setSuccess('Your account was successfully deleted.')
       navigate('/', { state: { success: true } })
     } catch (error) {
       setIsLoadingDelete(false)
       if (error.response?.status === 401) {
-        setIsAuthenticated(false)
+        setUser(null)
         setError('Deletion of account failed due to broken authentication.')
         navigate('/', { state: { error: true } })
       } else {
@@ -72,7 +66,7 @@ function Profile (props) {
         { isLoadingDelete && <button disabled>Loading...</button> }
       </div> }
 
-      { isEditing && <Update user={ user } setIsEditing={ setIsEditing }></Update> }
+      { isEditing && <Update user={ user } setUser={ setUser } setIsEditing={ setIsEditing } setSuccess={ setSuccess } setError={ setError }></Update> }
     </div>
   )
 }

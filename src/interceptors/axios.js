@@ -13,14 +13,11 @@ let refresh = false
  * @returns {object} The response object.
  */
 const handleResponse = (res) => {
-  // Set/remove user info to/from local storage
+  // Set jwt in default authorization header.
   const url = res.config.url
   if (url?.includes('login') || url?.includes('refresh')) {
     axiosAuthService.defaults.headers.common.authorization = `Bearer ${res.data.jwt}`
     axiosResourceService.defaults.headers.common.authorization = `Bearer ${res.data.jwt}`
-    localStorage.setItem('bookbyte', JSON.stringify({ user: res.data.user }))
-  } else if (url?.includes('logout')) {
-    localStorage.removeItem('bookbyte')
   }
   return res
 }
