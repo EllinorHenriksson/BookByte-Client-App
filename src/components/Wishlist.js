@@ -37,6 +37,8 @@ function Wishlist (props) {
           setIsAuthenticated(false)
           setError('Authentication broke, please try to log in again.')
           navigate('/', { state: { error: true } })
+        } else if (!error.response?.status) {
+          setError('Could not fetch data: Network error, please try again later.')
         } else {
           setError('Could not fetch data, please try again later.')
         }

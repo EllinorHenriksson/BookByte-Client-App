@@ -509,6 +509,11 @@ button:hover {
   margin: 5px;
 }
 
+.book-item div:last-child {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .book-item:nth-child(even) {
   background-color: rgb(245, 242, 229);
 }

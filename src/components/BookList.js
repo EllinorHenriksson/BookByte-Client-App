@@ -46,6 +46,8 @@ export function BookList (props) {
         setIsAuthenticated(false)
         setError('Authentication broke, please try to log in again.')
         navigate('/', { state: { error: true } })
+      } else if (!error.response?.status) {
+        setError('Deletion of book failed: Network error, please try again later.')
       } else {
         setError('Deletion of book failed, please try again later.')
       }

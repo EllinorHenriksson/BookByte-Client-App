@@ -1,7 +1,8 @@
 import { useRedirect } from '../hooks/useRedirect.js'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
+import Update from './Update.js'
 
 /**
  * The Profile component.
@@ -12,23 +13,39 @@ import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js
 function Profile (props) {
   const { setIsAuthenticated, setSuccess, setError } = props
   useRedirect(setSuccess, setError)
+
+  const [user, setUser] = useState(null)
+
+  const [isEditing, setIsEditing] = useState(false)
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false)
+
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('bookbyte'))?.user)
+  }, [])
 
   /**
-   * Handles click events.
+   * Handles click events from edit button.
    */
-  const handleClick = async () => {
-    setIsLoading(true)
+  const handleClickEdit = async () => {
+    setIsEditing(true)
+  }
+
+  /**
+   * Handles click events from delete button.
+   */
+  const handleClickDelete = async () => {
+    setIsLoadingDelete(true)
     try {
       await axiosResourceService.delete()
       await axiosAuthService.delete('account')
-      setIsLoading(false)
+      setIsLoadingDelete(false)
       setIsAuthenticated(false)
       setSuccess('Your account was successfully deleted.')
       navigate('/', { state: { success: true } })
     } catch (error) {
-      setIsLoading(false)
+      setIsLoadingDelete(false)
       if (error.response?.status === 401) {
         setIsAuthenticated(false)
         setError('Deletion of account failed due to broken authentication.')
@@ -42,8 +59,20 @@ function Profile (props) {
   return (
     <div className="profile">
       <h2>Profile</h2>
-      { !isLoading && <button onClick={ handleClick }>Delete account</button> }
-      { isLoading && <button disabled>Loading...</button> }
+
+      { !isEditing && <div className='show-info'>
+        <div className='user-info'>
+          <p><b>{ user?.username }</b></p>
+          <p>{ user?.givenName } { user?.familyName }</p>
+          <p>{ user?.email }</p>
+          <img alt="Profile" src="images/profile.png"></img>
+        </div>
+        <button onClick={ handleClickEdit }>Edit info</button>
+        { !isLoadingDelete && <button onClick={ handleClickDelete }>Delete account</button> }
+        { isLoadingDelete && <button disabled>Loading...</button> }
+      </div> }
+
+      { isEditing && <Update user={ user } setIsEditing={ setIsEditing }></Update> }
     </div>
   )
 }

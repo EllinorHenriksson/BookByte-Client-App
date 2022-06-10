@@ -25,13 +25,18 @@ export function SearchTool (props) {
       (async () => {
         setIsLoadingSearch(true)
         setBooks(null)
+        setError(null)
         try {
           const { data } = await axiosGoogleBooks.get(`volumes?q=${searchTerm}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
           setIsLoadingSearch(false)
           setBooks(data.items)
         } catch (error) {
           setIsLoadingSearch(false)
-          setError('Could not perform search, please try again later. ')
+          if (!error.response?.status) {
+            setError('Search failed: Network error, please try again later.')
+          } else {
+            setError('Search failed, please try again later.')
+          }
         }
       })()
     } else {
@@ -79,7 +84,6 @@ export function SearchTool (props) {
       setSuccess('Book was succesfully added!')
       setUpdate(Date.now())
     } catch (error) {
-      console.log(error)
       setIsLoadingAdd(false)
       if (error.response?.status === 401) {
         setIsAuthenticated(false)
@@ -87,6 +91,8 @@ export function SearchTool (props) {
         navigate('/', { state: { error: true } })
       } else if (error.response?.status === 409) {
         setError('Book already added to wishlist or bookshelf.')
+      } else if (!error.response?.status) {
+        setError('Failed to add book: Network error, please try again later.')
       } else {
         setError('Failed to add book, please try again later.')
       }
