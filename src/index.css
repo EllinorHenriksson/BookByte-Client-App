@@ -77,6 +77,7 @@ button:hover {
 
 .navbar div:nth-child(3) img {
   height: 100%;
+  border-radius: 50%;
 }
 
 .navbar div:nth-child(3) p {
@@ -234,12 +235,8 @@ button:hover {
 
 /* Styling of flash-messages */
 .flash {
-  color:rgb(250, 248, 240);
-  font-weight: bold;
   max-width: 500px;
-  padding: 20px;
-  text-align: center;
-  font-size: 0.9rem;
+  padding: 10px;
   border-radius: 5px;
   z-index: 1;
   position: absolute;
@@ -247,27 +244,38 @@ button:hover {
   right: 10px;
 }
 
-.flash.error {
-  background-color: rgb(199, 116, 116);
-}
-
 .flash.success {
   background-color: rgb(181, 196, 181);
+  color: rgb(36, 63, 36);
+}
+
+.flash.error {
+  background-color: rgb(219, 136, 136);
+  color: rgb(90, 24, 24);
 }
 
 .flash button[type="button"] {
-  width: 15px;
-  height: 15px;
-  background: no-repeat center/80% url("/public/images/cross-light.png");
+  width: 13px;
+  height: 13px;
   background-color: none;
   border: none;
-  position: absolute;
-  right: 5px;
-  top: 5px;
+  display: block;
+  margin: 0 0 0 auto;
+}
+
+.flash.success button[type="button"] {
+  background: no-repeat center/80% url("/public/images/cross-dark-green.png");
+}
+
+.flash.error button[type="button"] {
+  background: no-repeat center/80% url("/public/images/cross-dark-red.png");
+}
+
+.flash button[type="button"]:hover {
+  opacity: 0.7;
 }
 
 /* Styling of content for authenticated users */
-
 .swaps, .wishlist, .bookshelf, .profile {
   min-height: calc(100vh - 100px);
   width: 100vw;
@@ -340,6 +348,7 @@ button:hover {
 
 .swapper img {
   width: 50px;
+  border-radius: 50%;
 }
 
 .swapper {
@@ -447,7 +456,8 @@ button:hover {
 }
 
 .swapper-info img {
-  width: 50px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 /* Styling of Wishlist and BookList component */
@@ -651,6 +661,7 @@ button:hover {
 
 .profile .user-info img {
   width: 100px;
+  border-radius: 50%;
 }
 
 .profile .user-info p:first-of-type {

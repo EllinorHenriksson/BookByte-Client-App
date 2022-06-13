@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
 import Update from './Update.js'
+import { useGravatarUrl } from '../hooks/useGravatarUrl.js'
 
 /**
  * The Profile component.
@@ -18,6 +19,8 @@ function Profile (props) {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false)
 
   const navigate = useNavigate()
+
+  const url = useGravatarUrl(user)
 
   /**
    * Handles click events from edit button.
@@ -56,7 +59,7 @@ function Profile (props) {
 
       { !isEditing && <div className='show-info'>
         <div className='user-info'>
-          <img alt="Profile" src="images/profile.png"></img>
+          <img alt="Profile" src={ url }></img>
           <p>{ user?.username }</p>
           <p>{ user?.givenName } { user?.familyName }</p>
           <p>{ user?.email }</p>

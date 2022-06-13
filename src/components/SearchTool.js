@@ -114,7 +114,7 @@ export function SearchTool (props) {
         { (!isLoadingSearch && searchTerm) && <button className='close' title="Close"></button> }
         { isLoadingSearch && <button className="loading" disabled title="Loading"></button> }
       </form>
-      { books &&
+      { (books && searchTerm) &&
       <div className='search-list'>
         { books.map((book, i) => (
           <div className='search-item' key={ i } id={ i }>

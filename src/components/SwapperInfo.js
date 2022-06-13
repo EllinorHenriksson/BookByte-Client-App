@@ -21,7 +21,7 @@ export function SwapperInfo (props) {
   return (
     <div className="swapper-info" style={ style }>
       <div>
-        <img alt="Profile" src="images/profile.png"></img>
+        <img alt="Profile" src={ `https://www.gravatar.com/avatar/${swapper.email}?d=mp` }></img>
         <p><b>{ swapper.username }</b></p>
         <p>{ swapper.givenName } { swapper.familyName }</p>
         <p><a href={ `mailto: ${swapper.email}` }>Send email</a></p>

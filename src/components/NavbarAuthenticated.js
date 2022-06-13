@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { axiosAuthService } from '../interceptors/axios.js'
+import { useGravatarUrl } from '../hooks/useGravatarUrl.js'
 
 /**
  * The NavbarAuthenticated component.
@@ -12,6 +13,8 @@ function NavbarAuthenticated (props) {
   const { user, setUser, setSuccess, setError } = props
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
+
+  const url = useGravatarUrl(user)
 
   /**
    * Handles the click event.
@@ -49,7 +52,7 @@ function NavbarAuthenticated (props) {
       </div>
       <div>
         <p>{ user.username }</p>
-        <NavLink to="/profile" className={({ isActive }) => (isActive ? 'link-active' : 'link')} title="Profile"><img alt="Profile" src="images/profile.png" /></NavLink>
+        <NavLink to="/profile" className={({ isActive }) => (isActive ? 'link-active' : 'link')} title="Profile"><img alt="Profile" src={ url } /></NavLink>
         { !isLoading && <button onClick={ handleClick }>Logout</button> }
         { isLoading && <button disabled>Loading...</button> }
       </div>

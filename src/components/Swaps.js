@@ -121,8 +121,9 @@ function Swaps (props) {
                 </div>
                 <div className="swap-book">
                   <div>
-                  { swap.toGive.imageLinks?.smallThumbnail && <img src={swap.toGive.imageLinks?.smallThumbnail} alt="Book cover" /> }
+                    { swap.toGive.imageLinks?.smallThumbnail && <img src={swap.toGive.imageLinks?.smallThumbnail} alt="Book cover" /> }
                     { !swap.toGive.imageLinks?.smallThumbnail && <img src='images/book.png' alt="Book cover" /> }
+                    <p>GIVE</p>
                   </div>
                   <h3>{ swap.toGive.title }</h3>
                   <h4>{ swap.toGive.subtitle }</h4>
@@ -130,7 +131,7 @@ function Swaps (props) {
                   <button className='to-give' title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swapper">
-                  <img alt="Profile" src="images/profile.png" />
+                  <img alt="Profile" src={ swap.otherUser.email } />
                   <p>Swapper: <b>{ swap.otherUser.username }</b></p>
                   <button onClick={ handleClickSwapper }>Contact</button>
                 </div>
