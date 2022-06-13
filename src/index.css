@@ -42,8 +42,8 @@ button:hover {
   width: 100%;
 }
 
-.navbar div a {
-  margin: 10px;
+.navbar div a, .navbar div p {
+  margin: auto 10px;
 }
 
 .navbar div a {
@@ -71,8 +71,19 @@ button:hover {
   opacity: 0.7;
 }
 
-.navbar img {
+.navbar div:nth-child(3) a {
+  height: 70%;
+}
+
+.navbar div:nth-child(3) img {
   height: 100%;
+}
+
+.navbar div:nth-child(3) p {
+  font-size: 1.1rem;
+  max-width: 200px;
+  text-align: end;
+  overflow: auto;
 }
 
 .navbar button {
@@ -188,14 +199,13 @@ button:hover {
 
 .auth button[type="submit"] {
   display: block;
+  margin: 0 auto;
   border: 2px solid rgb(111, 136, 111);
   border-radius: 10px;
   padding: 10px;
   font-weight: bold;
   background-color: rgb(111, 136, 111);
-  margin: 5px;
   width: 100px;
-  margin: 0 auto;
   color:rgb(250, 248, 240);
   font-size: 1rem;
   margin-top: 10px;
@@ -223,25 +233,6 @@ button:hover {
 }
 
 /* Styling of flash-messages */
-
-/*
-.flash {
-  color:rgb(250, 248, 240);
-  font-weight: bold;
-  max-width: 500px;
-  padding: 20px;
-  text-align: center;
-  font-size: 0.9rem;
-  border-radius: 5px;
-  z-index: 1;
-  position: relative;
-  margin: 10px;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-*/
-
 .flash {
   color:rgb(250, 248, 240);
   font-weight: bold;
@@ -645,4 +636,105 @@ button:hover {
 
 .bookshelf > p {
   max-width: 500px;
+}
+
+/* Styling of Profile */
+.profile .show-info {
+  width: max-content;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.profile .user-info {
+  margin: 20px;
+}
+
+.profile .user-info img {
+  width: 100px;
+}
+
+.profile .user-info p:first-of-type {
+  font-weight: bold;
+}
+
+.profile .show-info button {
+  display: block;
+  margin: 10px auto;
+  border: 2px solid rgb(111, 136, 111);
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background-color: rgb(111, 136, 111);
+  width: max-content;
+  min-width: 100px;
+  color:rgb(250, 248, 240);
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.profile .show-info button.delete-account {
+  border: 2px solid rgb(209, 97, 97);
+  background-color: rgb(209, 97, 97);
+}
+
+.profile .show-info button:hover {
+  background-color: rgb(250, 248, 240);
+  color: rgb(111, 136, 111);
+}
+
+.profile .show-info button.delete-account:hover {
+  background-color: rgb(250, 248, 240);
+  color: rgb(209, 97, 97);
+}
+
+.update form {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.update fieldset {
+  margin: 10px 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid rgb(111, 136, 111);
+}
+
+.update legend {
+  font-weight: bold;
+  color: rgb(111, 136, 111);
+}
+
+.update form div {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.update form button {
+  border: 2px solid rgb(111, 136, 111);
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background-color: rgb(111, 136, 111);
+  width: max-content;
+  min-width: 100px;
+  color:rgb(250, 248, 240);
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.update form button:hover {
+  background-color: rgb(250, 248, 240);
+  color: rgb(111, 136, 111);
+}
+
+.update label {
+  margin-top: 5px;
+}
+
+.update input {
+  padding: 3px;
+  font-size: 0.9rem;
 }

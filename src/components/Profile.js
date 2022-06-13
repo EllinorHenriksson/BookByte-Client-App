@@ -56,14 +56,19 @@ function Profile (props) {
 
       { !isEditing && <div className='show-info'>
         <div className='user-info'>
-          <p><b>{ user?.username }</b></p>
+          <img alt="Profile" src="images/profile.png"></img>
+          <p>{ user?.username }</p>
           <p>{ user?.givenName } { user?.familyName }</p>
           <p>{ user?.email }</p>
-          <img alt="Profile" src="images/profile.png"></img>
         </div>
-        <button onClick={ handleClickEdit }>Edit info</button>
-        { !isLoadingDelete && <button onClick={ handleClickDelete }>Delete account</button> }
-        { isLoadingDelete && <button disabled>Loading...</button> }
+        { !isLoadingDelete && <div>
+          <button onClick={ handleClickEdit }>Edit</button>
+          <button className='delete-account' onClick={ handleClickDelete }>Delete account</button>
+        </div> }
+        { isLoadingDelete && <div>
+          <button disabled>Edit info</button>
+          <button disabled>Loading...</button>
+        </div> }
       </div> }
 
       { isEditing && <Update user={ user } setUser={ setUser } setIsEditing={ setIsEditing } setSuccess={ setSuccess } setError={ setError }></Update> }

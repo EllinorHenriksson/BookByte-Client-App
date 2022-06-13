@@ -27,6 +27,14 @@ const Update = (props) => {
     setError(null)
   }, [setSuccess, setError])
 
+  useEffect(() => {
+    if (oldPassword || newPassword) {
+      document.querySelectorAll('input[type="password"]').forEach(node => node.setAttribute('required', ''))
+    } else {
+      document.querySelectorAll('input[type="password"]').forEach(node => node.removeAttribute('required'))
+    }
+  }, [oldPassword, newPassword])
+
   /**
    * Handles the submit event.
    *
@@ -34,6 +42,7 @@ const Update = (props) => {
    */
   const handleSubmit = async (event) => {
     event.preventDefault()
+
     setIsLoading(true)
 
     const data = {
@@ -91,7 +100,6 @@ const Update = (props) => {
 
   return (
     <div className="update">
-      <h2>Update</h2>
       <form
         onSubmit={ handleSubmit }>
           <fieldset>
