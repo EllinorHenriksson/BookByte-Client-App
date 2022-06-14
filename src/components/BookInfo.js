@@ -7,7 +7,10 @@
 export function BookInfo (props) {
   const { book, setBook } = props
 
-  const style = { height: document.body.clientHeight.toString() + 'px' }
+  const style1 = { height: `${document.body.clientHeight.toString()}px` }
+
+  const top = Math.round(window.scrollY)
+  const style2 = { margin: `calc(${top}px + 50vh) auto auto auto` }
 
   /**
    * Handles click events on the close button.
@@ -19,8 +22,8 @@ export function BookInfo (props) {
   }
 
   return (
-    <div className="book-info" style={ style }>
-      <div>
+    <div className="book-info" style={ style1 }>
+      <div style={ style2 }>
         { book.imageLinks?.smallThumbnail && <img alt="Book cover" src={book.imageLinks?.smallThumbnail} /> }
         { !book.imageLinks?.smallThumbnail && <img alt="Book cover" src='/images/book-byte.png' /> }
         <h3>{ book.title }</h3>

@@ -11,7 +11,7 @@ export function useGravatarUrl (user) {
   const [url, setUrl] = useState()
 
   useEffect(() => {
-    setUrl(`https://www.gravatar.com/avatar/${md5(user.email.trim().toLowerCase())}?d=mp`)
+    setUrl(`https://gravatar.com/avatar/${md5(user.email.trim().toLowerCase())}?s=100&d=mp`)
   }, [user])
 
   return url

@@ -1,3 +1,5 @@
+import md5 from 'md5'
+
 /**
  * The SwapperInfo component.
  *
@@ -7,8 +9,9 @@
 export function SwapperInfo (props) {
   const { swapper, setSwapper } = props
 
-  const style = { height: document.body.clientHeight.toString() + 'px' }
-
+  const style1 = { height: `${document.body.clientHeight.toString()}px` }
+  const top = Math.round(window.scrollY)
+  const style2 = { margin: `calc(${top}px + 50vh) auto auto auto` }
   /**
    * Handles click events on the close button.
    *
@@ -19,9 +22,9 @@ export function SwapperInfo (props) {
   }
 
   return (
-    <div className="swapper-info" style={ style }>
-      <div>
-        <img alt="Profile" src={ `https://www.gravatar.com/avatar/${swapper.email}?d=mp` }></img>
+    <div className="swapper-info" style={ style1 }>
+      <div style={ style2 }>
+        <img alt="Profile" src={ `https://gravatar.com/avatar/${md5(swapper.email.trim().toLowerCase())}?s=100&d=mp` }></img>
         <p><b>{ swapper.username }</b></p>
         <p>{ swapper.givenName } { swapper.familyName }</p>
         <p><a href={ `mailto: ${swapper.email}` }>Send email</a></p>

@@ -101,7 +101,7 @@ export function SearchTool (props) {
 
   return (
     <div className="search-tool">
-      { book && <BookInfo book={ book } setBook={ setBook }/> }
+      { book && <BookInfo book={ book } setBook={ setBook } /> }
       <form onSubmit={ handleSubmit }>
         <label>Title:</label>
         <input

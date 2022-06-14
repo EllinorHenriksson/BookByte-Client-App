@@ -412,23 +412,21 @@ button:hover {
   top: 0;
   left: 0;
   width: 100vw;
-  padding: 20px;
   background-color: rgba(250, 248, 240, 0.685);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .book-info > div, .swapper-info > div {
+  width: max-content;
   max-width: 500px;
   min-width: 300px;
-  max-height: 100%;
   padding: 20px;
   text-align: center;
   background-color: rgba(250, 248, 240);
   border: 1px solid rgb(111, 136, 111);
   border-radius: 5px;
   overflow: auto;
+  max-height: calc(100vh - 40px);
+  transform: translateY(-50%);
 }
 
 .book-info button, .swapper-info button {
@@ -710,6 +708,7 @@ button:hover {
   flex-direction: column;
   border-radius: 5px;
   border: 1px solid rgb(111, 136, 111);
+  background-color: rgb(245, 242, 229);
 }
 
 .update legend {

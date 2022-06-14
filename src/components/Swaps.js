@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { BookInfo } from './BookInfo.js'
 import { SwapperInfo } from './SwapperInfo.js'
 import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
+import md5 from 'md5'
 
 /**
  * The Swaps component.
@@ -100,8 +101,8 @@ function Swaps (props) {
       <h2>Swaps</h2>
       <p>This page shows a list of possible swaps to make with another user: what book to get, what book to give and what user to swap with. To suggest a swap, simply send the other user an email.</p>
       <div className="swaps-content">
-        { book && <BookInfo book={ book } setBook={ setBook }/> }
-        { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper }/> }
+        { book && <BookInfo book={ book } setBook={ setBook } /> }
+        { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper } /> }
         { isLoading && <p>Loading...</p> }
         { swaps?.length === 0 && <p>No swaps at the moment.</p> }
         { swaps?.length > 0 &&
@@ -131,7 +132,7 @@ function Swaps (props) {
                   <button className='to-give' title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swapper">
-                  <img alt="Profile" src={ swap.otherUser.email } />
+                  <img alt="Profile" src={ `https://gravatar.com/avatar/${md5(swap.otherUser.email.trim().toLowerCase())}?s=50&d=mp` } />
                   <p>Swapper: <b>{ swap.otherUser.username }</b></p>
                   <button onClick={ handleClickSwapper }>Contact</button>
                 </div>

@@ -56,7 +56,7 @@ export function BookList (props) {
 
   return (
     <div className="book-list">
-      { book && <BookInfo book={ book } setBook={ setBook }/> }
+      { book && <BookInfo book={ book } setBook={ setBook } /> }
         { books.map((book, i) => (
           <div className="book-item" key={ i } id={ i }>
             { book.imageLinks?.smallThumbnail && <img alt="Book cover" src={ book.imageLinks?.smallThumbnail }></img> }
