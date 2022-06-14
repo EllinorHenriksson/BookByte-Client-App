@@ -276,7 +276,7 @@ button:hover {
 }
 
 /* Styling of content for authenticated users */
-.swaps, .wishlist, .bookshelf, .profile {
+.swaps, .wishlist, .bookshelf, .profile, .not-found {
   min-height: calc(100vh - 100px);
   width: 100vw;
   padding: 20px;
@@ -748,3 +748,33 @@ button:hover {
   padding: 3px;
   font-size: 0.9rem;
 }
+
+.profile .delete {
+  max-width: 400px;
+  min-width: 300px;
+  height: max-content;
+  margin: auto auto;
+  background-color: rgb(245, 242, 229);
+  border: 1px solid rgb(111, 136, 111);
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile .delete div {
+  display: flex;
+  gap: 10px;
+}
+
+/* Styling of Not Found page */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
