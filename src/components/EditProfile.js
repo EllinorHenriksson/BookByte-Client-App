@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
  * @param {object} props - The props object.
  * @returns {object} The jsx html template.
  */
-const Update = (props) => {
+const EditProfile = (props) => {
   const { user, setUser, setIsEditing, setSuccess, setError } = props
 
   const [username, setUsername] = useState(user.username)
@@ -99,7 +99,7 @@ const Update = (props) => {
   }
 
   return (
-    <div className="update">
+    <div className="edit-profile">
       <form
         onSubmit={ handleSubmit }>
           <fieldset>
@@ -158,17 +158,17 @@ const Update = (props) => {
               onChange={ (e) => setNewPassword(e.target.value) }>
             </input>
           </fieldset>
-        { !isLoading && <div>
-          <button type="submit">Update</button>
-          <button onClick={ handleClick }>Cancel</button>
+        { !isLoading && <div className='button-container'>
+          <button className='text' type="submit">Update</button>
+          <button className='text' onClick={ handleClick }>Cancel</button>
         </div> }
-        { isLoading && <div>
-          <button type="submit" disabled>Loading...</button>
-          <button disabled>Cancel</button>
+        { isLoading && <div className='button-container'>
+          <button className='text' type="submit" disabled>Loading...</button>
+          <button className='text' disabled>Cancel</button>
         </div> }
       </form>
     </div>
   )
 }
 
-export default Update
+export default EditProfile

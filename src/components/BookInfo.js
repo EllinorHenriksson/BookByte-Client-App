@@ -35,7 +35,7 @@ export function BookInfo (props) {
         { book.language && <p>Language: { book.language }</p> }
         { book.description && <p>Description: { book.description }</p> }
         { book.categories?.length > 0 && <p>Categories: { book.categories?.join(', ') }</p> }
-        <button title="Close" onClick={ handleClickClose } />
+        <button className="img" title="Close" onClick={ handleClickClose } />
       </div>
     </div>
   )

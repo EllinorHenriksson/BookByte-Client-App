@@ -18,9 +18,9 @@ function FlashSuccess ({ success, setSuccess }) {
   return (
     <div className="flash-success">
       <div className="flash success">
-          <button type="button" onClick={ handleClick }></button>
-          <div>{ success }</div>
-        </div>
+        <div>{ success }</div>
+        <button className="img" onClick={ handleClick }></button>
+      </div>
     </div>
   )
 }

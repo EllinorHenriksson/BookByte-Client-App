@@ -67,9 +67,9 @@ export function BookList (props) {
               { book.authors && <p>Authors: { book.authors?.join(', ') }</p> }
             </div>
             <div>
-              <button className="info" title="Info" onClick={ handleClickInfo }></button>
-              { !isLoading && <button className="delete" title="Delete" onClick={ handleClickDelete }></button> }
-              { isLoading && <button className="loading" title="Loading" disabled></button> }
+              <button className="img info" title="Info" onClick={ handleClickInfo }></button>
+              { !isLoading && <button className="img delete" title="Delete" onClick={ handleClickDelete }></button> }
+              { isLoading && <button className="img loading" title="Loading" disabled></button> }
             </div>
           </div>
         )) }

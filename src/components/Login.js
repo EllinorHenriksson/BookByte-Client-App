@@ -80,8 +80,10 @@ function Login (props) {
           required>
         </input>I agree to the use of cookies</label>
         <Link to="./cookies">Cookies</Link>
-        { !isLoading && <button type="submit">Login</button> }
-        { isLoading && <button type="submit" disabled>Loading...</button> }
+        <div className='button-container'>
+          { !isLoading && <button className='text' type="submit">Login</button> }
+          { isLoading && <button className='text' type="submit" disabled>Loading...</button> }
+        </div>
       </form>
     </div>
   )

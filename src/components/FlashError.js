@@ -18,9 +18,9 @@ function FlashError ({ error, setError }) {
   return (
     <div className="flash-error">
       <div className="flash error">
-          <button type="button" onClick={ handleClick }></button>
-          <div>{ error }</div>
-        </div>
+        <div>{ error }</div>
+        <button className="img" onClick={ handleClick }></button>
+      </div>
     </div>
   )
 }

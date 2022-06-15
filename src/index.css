@@ -16,8 +16,69 @@ a {
   text-decoration: none;
 }
 
+/* Styling of all button tags */
 button:hover {
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: progress;
+}
+
+/* Styling of button tags with text and button-looking a tags */
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+button.text, a.button {
+  border: 2px solid rgb(111, 136, 111);
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background-color: rgb(111, 136, 111);
+  width: max-content;
+  min-width: 100px;
+  color:rgb(250, 248, 240);
+  font-size: 1rem;
+  text-align: center;
+}
+
+button.text.delete {
+  border: 2px solid rgb(209, 97, 97);
+  background-color: rgb(209, 97, 97);
+}
+
+a.button:link, a.button:visited {
+  color:rgb(250, 248, 240)
+}
+
+button.text:hover, button.text:active, button.text[disabled], a.button:hover, a.button:active {
+  background-color: rgb(250, 248, 240);
+  color: rgb(111, 136, 111);
+}
+
+button.text.delete:hover, button.text.delete:active, button.text.delete[disabled] {
+  background-color: rgb(250, 248, 240);
+  color: rgb(209, 97, 97);
+}
+
+.navbar button.text {
+  padding: 7px;
+  font-size: 0.9rem;
+  margin: auto 10px;
+  min-width: max-content;
+}
+
+/* Styling of button tags with images */
+button.img {
+  border: none;
+}
+
+button.img:hover, button.img:active, button.img[disabled] {
+  opacity: 0.7;
 }
 
 /* Styling of navbar */
@@ -87,24 +148,6 @@ button:hover {
   overflow: auto;
 }
 
-.navbar button {
-  height: max-content;
-  border: 2px solid rgb(111, 136, 111);
-  border-radius: 10px;
-  padding: 7px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  background-color: rgb(111, 136, 111);
-  margin: auto 10px;
-  color:rgb(250, 248, 240)
-}
-
-.navbar button:hover, .navbar button:active {
-  border: 2px solid rgb(111, 136, 111);
-  background-color: rgb(250, 248, 240);
-  color: rgb(111, 136, 111);
-}
-
 .content h2 {
   color: rgb(111, 136, 111);
 }
@@ -128,8 +171,49 @@ button:hover {
   text-decoration: underline;
 }
 
-/* Styling of home page for anonymous users */
+/* Styling of flash-messages */
+.flash {
+  display: flex;
+  padding: 5px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+}
 
+.flash div {
+  white-space: nowrap;
+  overflow: auto;
+}
+
+.flash.success {
+  background-color: rgb(181, 196, 181);
+  color: rgb(36, 63, 36);
+}
+
+.flash.error {
+  background-color: rgb(219, 136, 136);
+  color: rgb(90, 24, 24);
+}
+
+.flash button {
+  width: 13px;
+  height: 13px;
+  /*display: block;
+  margin: 0 0 0 auto;*/
+}
+
+.flash.success button {
+  background: no-repeat center/80% url("/public/images/cross-dark-green.png");
+}
+
+.flash.error button {
+  background: no-repeat center/80% url("/public/images/cross-dark-red.png");
+}
+
+/* Styling of home page for anonymous users */
 .home-anonymous {
   height: calc(100vh - 100px);
   overflow: auto;
@@ -141,28 +225,6 @@ button:hover {
 
 .home-anonymous p {
   font-size: 1.5rem;
-}
-
-.home-anonymous a {
-  display: inline-block;
-  border: 2px solid rgb(111, 136, 111);
-  border-radius: 10px;
-  padding: 10px;
-  font-weight: bold;
-  background-color: rgb(111, 136, 111);
-  margin: 5px;
-  width: 100px;
-  text-align: center;
-}
-
-.home-anonymous a:link, .home-anonymous a:visited {
-  color:rgb(250, 248, 240)
-}
-
-.home-anonymous a:hover, .home-anonymous a:active {
-  border: 2px solid rgb(111, 136, 111);
-  background-color: rgb(250, 248, 240);
-  color: rgb(111, 136, 111);
 }
 
 .home-anonymous img {
@@ -198,26 +260,6 @@ button:hover {
   font-size: 0.9rem;
 }
 
-.auth button[type="submit"] {
-  display: block;
-  margin: 0 auto;
-  border: 2px solid rgb(111, 136, 111);
-  border-radius: 10px;
-  padding: 10px;
-  font-weight: bold;
-  background-color: rgb(111, 136, 111);
-  width: 100px;
-  color:rgb(250, 248, 240);
-  font-size: 1rem;
-  margin-top: 10px;
-}
-
-.auth button[type="submit"]:hover {
-  border: 2px solid rgb(111, 136, 111);
-  background-color: rgb(250, 248, 240);
-  color: rgb(111, 136, 111);
-}
-
 .auth a {
   font-size: 0.9rem;
   display: block;
@@ -231,48 +273,6 @@ button:hover {
 
 .auth a:hover, .auth a:active {
   text-decoration: underline;
-}
-
-/* Styling of flash-messages */
-.flash {
-  max-width: 500px;
-  padding: 10px;
-  border-radius: 5px;
-  z-index: 1;
-  position: absolute;
-  top: 60px;
-  right: 10px;
-}
-
-.flash.success {
-  background-color: rgb(181, 196, 181);
-  color: rgb(36, 63, 36);
-}
-
-.flash.error {
-  background-color: rgb(219, 136, 136);
-  color: rgb(90, 24, 24);
-}
-
-.flash button[type="button"] {
-  width: 13px;
-  height: 13px;
-  background-color: none;
-  border: none;
-  display: block;
-  margin: 0 0 0 auto;
-}
-
-.flash.success button[type="button"] {
-  background: no-repeat center/80% url("/public/images/cross-dark-green.png");
-}
-
-.flash.error button[type="button"] {
-  background: no-repeat center/80% url("/public/images/cross-dark-red.png");
-}
-
-.flash button[type="button"]:hover {
-  opacity: 0.7;
 }
 
 /* Styling of content for authenticated users */
@@ -346,48 +346,26 @@ button:hover {
   margin: 5px;
 }
 
-.swapper img {
-  width: 50px;
-  border-radius: 50%;
-}
-
 .swapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+}
+
+.swapper img {
+  width: 50px;
+  border-radius: 50%;
 }
 
 .swap-book button {
   width: 30px;
   height: 30px;
   background: no-repeat center/80% url("/public/images/info-green.png");
-  background-color: none;
-  border: none;
   position: absolute;
   bottom: 10px;
   right: 10px;
-}
-
-.swap-book button:hover, .swap-book button:active {
-  opacity: 0.7;
-}
-
-.swapper button {
-  border: 2px solid rgb(111, 136, 111);
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 1rem;
-  font-weight: bold;
-  background-color: rgb(111, 136, 111);
-  color:rgb(250, 248, 240);
-  margin: 10px;
-}
-
-.swapper button:hover, .swapper button:active {
-  border: 2px solid rgb(111, 136, 111);
-  background-color: rgb(250, 248, 240);
-  color: rgb(111, 136, 111);
 }
 
 .swaps-content {
@@ -433,12 +411,6 @@ button:hover {
   width: 20px;
   height: 20px;
   background: no-repeat center/80% url("/public/images/cross-green.png");
-  background-color: none;
-  border: none;
-}
-
-.book-info button:hover, .swapper-info button:hover {
-  opacity: 0.7;
 }
 
 .swapper-info a:link,  .swapper-info a:visited {
@@ -446,7 +418,7 @@ button:hover {
 }
 
 .swapper-info a:hover,  .swapper-info a:active {
-  opacity: 0.7;
+  text-decoration: underline;
 }
 
 .book-info img {
@@ -458,7 +430,7 @@ button:hover {
   border-radius: 50%;
 }
 
-/* Styling of Wishlist and BookList component */
+/* Styling of Wishlist component */
 .wishlist > p {
   max-width: 500px;
 }
@@ -475,6 +447,8 @@ button:hover {
   color: rgb(111, 136, 111);
   font-weight: bold;
 }
+
+/* Styling of BookList component */
 
 .book-list {
   width: max-content;
@@ -520,8 +494,6 @@ button:hover {
 .book-item button {
   width: 30px;
   height: 30px;
-  background-color: rgba(250, 248, 240);
-  border: none;
 }
 
 .book-item button.info {
@@ -536,14 +508,38 @@ button:hover {
   background: no-repeat center/80% url("/public/images/delete-green.png");
 }
 
-.book-item button:hover, .book-item button:active {
-  opacity: 0.7;
-}
-
 /* Styling of SearchTool */
 .search-tool {
   max-width: 500px;
   margin: 20px auto;
+}
+
+.search-tool form {
+  display: flex;
+  gap: 10px;
+}
+
+.search-tool form input {
+  width: 250px;
+  padding: 3px;
+  font-size: 0.9rem;
+}
+
+.search-tool form button {
+  width: 30px;
+  height: 30px;
+}
+
+.search-tool form button.search {
+  background: no-repeat center/80% url("/public/images/search-green.png");
+}
+
+.search-tool form button.loading {
+  background: no-repeat center/80% url("/public/images/loading-green.png");
+}
+
+.search-tool form button.close {
+  background: no-repeat center/80% url("/public/images/cross-green.png");
 }
 
 .search-list {
@@ -578,10 +574,6 @@ button:hover {
   max-height: 100%;
 }
 
-.search-item img {
-  height: 100%;
-}
-
 .search-item div:last-child {
   display: flex;
   flex-wrap: nowrap;
@@ -590,8 +582,6 @@ button:hover {
 .search-item button {
   width: 20px;
   height: 20px;
-  background-color: rgba(250, 248, 240);
-  border: none;
 }
 
 .search-item button.info {
@@ -606,47 +596,12 @@ button:hover {
   background: no-repeat center/80% url("/public/images/plus-green.png");
 }
 
-.search-item button:hover, .search-item button:active {
-  opacity: 0.7;
-}
-
-.search-tool form button {
-  width: 30px;
-  height: 30px;
-  background-color: rgba(250, 248, 240);
-  border: none;
-}
-
-.search-tool form button.search {
-  background: no-repeat center/80% url("/public/images/search-green.png");
-}
-
-.search-tool form button.loading {
-  background: no-repeat center/80% url("/public/images/loading-green.png");
-}
-
-.search-tool form button.close {
-  background: no-repeat center/80% url("/public/images/cross-green.png");
-}
-
-.search-tool form {
-  display: flex;
-  gap: 10px;
-}
-
-.search-tool form input {
-  width: 250px;
-  padding: 3px;
-  font-size: 0.9rem;
-}
-
-/* Styling of Bookshelf */
-
+/* Styling of Bookshelf page */
 .bookshelf > p {
   max-width: 500px;
 }
 
-/* Styling of Profile */
+/* Styling of Profile page */
 .profile .show-info {
   width: max-content;
   margin: 0 auto;
@@ -655,6 +610,8 @@ button:hover {
 
 .profile .user-info {
   margin: 20px;
+  max-width: 500px;
+  word-break: break-all;
 }
 
 .profile .user-info img {
@@ -666,42 +623,12 @@ button:hover {
   font-weight: bold;
 }
 
-.profile .show-info button {
-  display: block;
-  margin: 10px auto;
-  border: 2px solid rgb(111, 136, 111);
-  border-radius: 10px;
-  padding: 10px;
-  font-weight: bold;
-  background-color: rgb(111, 136, 111);
-  width: max-content;
-  min-width: 100px;
-  color:rgb(250, 248, 240);
-  font-size: 1rem;
-  margin-top: 10px;
-}
-
-.profile .show-info button.delete-account {
-  border: 2px solid rgb(209, 97, 97);
-  background-color: rgb(209, 97, 97);
-}
-
-.profile .show-info button:hover {
-  background-color: rgb(250, 248, 240);
-  color: rgb(111, 136, 111);
-}
-
-.profile .show-info button.delete-account:hover {
-  background-color: rgb(250, 248, 240);
-  color: rgb(209, 97, 97);
-}
-
-.update form {
+.edit-profile form {
   width: 300px;
   margin: 0 auto;
 }
 
-.update fieldset {
+.edit-profile fieldset {
   margin: 10px 0;
   padding: 20px;
   display: flex;
@@ -711,45 +638,21 @@ button:hover {
   background-color: rgb(245, 242, 229);
 }
 
-.update legend {
+.edit-profile legend {
   font-weight: bold;
   color: rgb(111, 136, 111);
 }
 
-.update form div {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.update form button {
-  border: 2px solid rgb(111, 136, 111);
-  border-radius: 10px;
-  padding: 10px;
-  font-weight: bold;
-  background-color: rgb(111, 136, 111);
-  width: max-content;
-  min-width: 100px;
-  color:rgb(250, 248, 240);
-  font-size: 1rem;
-  margin-top: 10px;
-}
-
-.update form button:hover {
-  background-color: rgb(250, 248, 240);
-  color: rgb(111, 136, 111);
-}
-
-.update label {
+.edit-profile label {
   margin-top: 5px;
 }
 
-.update input {
+.edit-profile input {
   padding: 3px;
   font-size: 0.9rem;
 }
 
-.profile .delete {
+.delete-account {
   max-width: 400px;
   min-width: 300px;
   height: max-content;
@@ -765,11 +668,6 @@ button:hover {
   text-align: center;
 }
 
-.profile .delete div {
-  display: flex;
-  gap: 10px;
-}
-
 /* Styling of Not Found page */
 .not-found {
   display: flex;
@@ -777,4 +675,3 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
-

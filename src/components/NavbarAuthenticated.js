@@ -53,8 +53,8 @@ function NavbarAuthenticated (props) {
       <div>
         <p>{ user.username }</p>
         <NavLink to="/profile" className={({ isActive }) => (isActive ? 'link-active' : 'link')} title="Profile"><img alt="Profile" src={ url } /></NavLink>
-        { !isLoading && <button onClick={ handleClick }>Logout</button> }
-        { isLoading && <button disabled>Loading...</button> }
+        { !isLoading && <button className='text' onClick={ handleClick }>Logout</button> }
+        { isLoading && <button className='text' disabled>Loading...</button> }
       </div>
     </div>
   )

@@ -16,9 +16,9 @@ function HomeAnonymous (props) {
       <h1>Welcome to BookByte</h1>
       <img alt="Illustration of books" src="images/book-byte.png"></img>
       <p>Makes book swapping easy!</p>
-      <div>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+      <div className='button-container'>
+        <Link to="/login" className='button'>Login</Link>
+        <Link to="/register" className='button'>Register</Link>
       </div>
     </div>
   )

@@ -92,7 +92,7 @@ function Swaps (props) {
    * @param {Event} e - The event object.
    */
   const handleClickSwapper = (e) => {
-    const i = parseInt(e.target.parentElement.parentElement.getAttribute('id'))
+    const i = parseInt(e.target.parentElement.parentElement.parentElement.getAttribute('id'))
     setSwapper(swaps[i].otherUser)
   }
 
@@ -118,7 +118,7 @@ function Swaps (props) {
                   <h3>{ swap.toGet.title }</h3>
                   <h4>{ swap.toGet.subtitle }</h4>
                   { swap.toGet.authors && <p>Authors: { swap.toGet.authors?.join(', ') }</p> }
-                  <button className="to-get" title="Info" onClick={ handleClickBook }></button>
+                  <button className="to-get img" title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swap-book">
                   <div>
@@ -129,12 +129,14 @@ function Swaps (props) {
                   <h3>{ swap.toGive.title }</h3>
                   <h4>{ swap.toGive.subtitle }</h4>
                   { swap.toGive.authors && <p>Authors: { swap.toGive.authors?.join(', ') }</p> }
-                  <button className='to-give' title="Info" onClick={ handleClickBook }></button>
+                  <button className='to-give img' title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swapper">
                   <img alt="Profile" src={ `https://gravatar.com/avatar/${md5(swap.otherUser.email.trim().toLowerCase())}?s=50&d=mp` } />
                   <p>Swapper: <b>{ swap.otherUser.username }</b></p>
-                  <button onClick={ handleClickSwapper }>Contact</button>
+                  <div className='button-container'>
+                    <button className='text' onClick={ handleClickSwapper }>Contact</button>
+                  </div>
                 </div>
               </div>
             )) }

@@ -103,8 +103,10 @@ function Register (props) {
           onChange={ (e) => setPassword(e.target.value) }>
         </input>
         <Link to="./privacy-policy">Privacy Policy</Link>
-        { !isLoading && <button type="submit">Register</button> }
-        { isLoading && <button type="submit" disabled>Loading...</button> }
+        <div className='button-container'>
+          { !isLoading && <button type="submit" className='text'>Register</button> }
+          { isLoading && <button type="submit" className='text' disabled>Loading...</button> }
+        </div>
       </form>
     </div>
   )

@@ -1,8 +1,8 @@
 import { useRedirect } from '../hooks/useRedirect.js'
 import { useState } from 'react'
-import Update from './Update.js'
+import EditProfile from './EditProfile.js'
 import { useGravatarUrl } from '../hooks/useGravatarUrl.js'
-import { Delete } from './Delete.js'
+import { DeleteAccount } from './DeleteAccount.js'
 
 /**
  * The Profile component.
@@ -44,14 +44,15 @@ function Profile (props) {
           <p>{ user?.givenName } { user?.familyName }</p>
           <p>{ user?.email }</p>
         </div>
-        <div>
-          <button onClick={ handleClickEdit }>Edit</button>
-          <button className='delete-account' onClick={ handleClickWillDelete }>Delete account</button>
+        <div className='button-container'>
+          <button className='text' onClick={ handleClickEdit }>Edit</button>
+          <button className="text delete" onClick={ handleClickWillDelete }>Delete</button>
         </div>
       </div> }
 
-      { isDeleting && <Delete setUser={ setUser } setIsDeleting={ setIsDeleting } setSuccess={ setSuccess } setError={ setError }></Delete> }
-      { isEditing && <Update user={ user } setUser={ setUser } setIsEditing={ setIsEditing } setSuccess={ setSuccess } setError={ setError }></Update> }
+      { isEditing && <EditProfile user={ user } setUser={ setUser } setIsEditing={ setIsEditing } setSuccess={ setSuccess } setError={ setError }></EditProfile> }
+      { isDeleting && <DeleteAccount setUser={ setUser } setIsDeleting={ setIsDeleting } setSuccess={ setSuccess } setError={ setError }></DeleteAccount> }
+
     </div>
   )
 }

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
  * @param {object} props - The props object.
  * @returns {object} The jsx html template.
  */
-export function Delete (props) {
+export function DeleteAccount (props) {
   const { setUser, setIsDeleting, setSuccess, setError } = props
   const [isLoading, setIsLoading] = useState(false)
 
@@ -46,15 +46,15 @@ export function Delete (props) {
   }
 
   return (
-    <div className="delete">
+    <div className="delete-account">
         <p>Are you sure you want to delete your account? All stored data will be lost.</p>
-        { !isLoading && <div>
-          <button onClick={ handleClickDelete }>Delete</button>
-          <button onClick={ handleClickCancel }>Cancel</button>
+        { !isLoading && <div className='button-container'>
+          <button className="text delete" onClick={ handleClickDelete }>Delete</button>
+          <button className='text' onClick={ handleClickCancel }>Cancel</button>
         </div> }
-        { isLoading && <div>
-          <button disabled>Loading...</button>
-          <button disabled>Cancel</button>
+        { isLoading && <div className='button-container'>
+          <button className='text delete' disabled>Loading...</button>
+          <button className='text' disabled>Cancel</button>
         </div> }
       </div>
   )

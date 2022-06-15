@@ -28,7 +28,7 @@ export function SwapperInfo (props) {
         <p><b>{ swapper.username }</b></p>
         <p>{ swapper.givenName } { swapper.familyName }</p>
         <p><a href={ `mailto: ${swapper.email}` }>Send email</a></p>
-        <button onClick={ handleClickClose } />
+        <button className='img' onClick={ handleClickClose } />
       </div>
     </div>
   )

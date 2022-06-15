@@ -110,9 +110,9 @@ export function SearchTool (props) {
           value={ searchTerm }
           onChange={ (e) => setSearchTerm(e.target.value) }>
         </input>
-        { (!isLoadingSearch && !searchTerm) && <button className='search' title="Search"></button> }
-        { (!isLoadingSearch && searchTerm) && <button className='close' title="Close"></button> }
-        { isLoadingSearch && <button className="loading" disabled title="Loading"></button> }
+        { (!isLoadingSearch && !searchTerm) && <button className='img search' title="Search"></button> }
+        { (!isLoadingSearch && searchTerm) && <button className='img close' title="Close"></button> }
+        { isLoadingSearch && <button className="img loading" disabled title="Loading"></button> }
       </form>
       { (books && searchTerm) &&
       <div className='search-list'>
@@ -122,9 +122,9 @@ export function SearchTool (props) {
             { !book.volumeInfo.imageLinks?.smallThumbnail && <img alt="Book cover" src='images/book-byte.png'></img> }
             <div>{ book.volumeInfo.title }</div>
             <div>
-              <button className="info" title="Info" onClick={ handleClickInfo }></button>
-              { !isLoadingAdd && <button className='add' title="Add" onClick={ handleClickAdd }></button> }
-              { isLoadingAdd && <button className='loading' title="Loading" disabled></button> }
+              <button className="img info" title="Info" onClick={ handleClickInfo }></button>
+              { !isLoadingAdd && <button className='img add' title="Add" onClick={ handleClickAdd }></button> }
+              { isLoadingAdd && <button className='img loading' title="Loading" disabled></button> }
             </div>
           </div>
         )) }
