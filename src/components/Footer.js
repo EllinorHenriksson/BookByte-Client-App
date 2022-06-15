@@ -13,14 +13,13 @@ function Footer (props) {
    * Handles click events on the button.
    */
   const handleClick = () => {
-    console.log('click')
     setShowCookies(true)
   }
 
   return (
     <div className="footer">
       <Link to="/privacy-policy">Privacy Policy</Link>
-      <button onClick={ handleClick }>Cookie Settings</button>
+      <button onClick={ handleClick } className="img"></button>
     </div>
   )
 }

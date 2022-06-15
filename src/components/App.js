@@ -53,33 +53,6 @@ function App () {
   }, [])
 
   useEffect(() => {
-    (async () => {
-      localStorage.setItem('bookbyte', JSON.stringify({ cookies }))
-      if (!cookies && user) {
-        /*
-        setIsLoading(true)
-        try {
-          await axiosAuthService.get('logout')
-          setIsLoading(false)
-          setUser(null)
-          setSuccess('Logged out due to changed cookie setting.')
-          navigate('/', { state: { success: true } })
-        } catch (error) {
-          setIsLoading(false)
-          if (error.response?.status === 401) {
-            setUser(null)
-            setError('Logged out due to broken authentication.')
-            navigate('/', { state: { error: true } })
-          } else {
-            setError('Log out failed, please try again later.')
-          }
-        }
-        */
-      }
-    })()
-  }, [cookies, user])
-
-  useEffect(() => {
     if (success) {
       setError(null)
     }
@@ -94,7 +67,7 @@ function App () {
   return (
     <Router>
       <div className="app">
-        { showCookies && <CookieSettings setCookies={ setCookies } setShowCookies={ setShowCookies }></CookieSettings> }
+        { showCookies && <CookieSettings setCookies={ setCookies } setShowCookies={ setShowCookies } user={ user } setUser={ setUser } setSuccess={ setSuccess } setError={ setError }></CookieSettings> }
 
         { !user && <NavbarAnonymous cookies={ cookies } /> }
         { user && <NavbarAuthenticated user={ user } setUser={ setUser } setSuccess={ setSuccess } setError={ setError }/> }
@@ -103,7 +76,7 @@ function App () {
           { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
           { error && <FlashError error={ error } setError={setError}></FlashError> }
           <Routes>
-            { !user && <Route path="/" element={<HomeAnonymous setSuccess={ setSuccess } setError={ setError } cookies={ cookies } /> }/>}
+            { !user && <Route path="/" element={<HomeAnonymous setSuccess={ setSuccess } setError={ setError } /> }/>}
             { user && <Route path="/" element={<HomeAuthenticated setSuccess={ setSuccess } setError={ setError }/> }/>}
             { !user && <Route path="/about" element={ <About /> }/> }
             { (!user && cookies) && <Route path="/login" element={ <Login setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }

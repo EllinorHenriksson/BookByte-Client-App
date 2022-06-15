@@ -33,7 +33,7 @@ button:disabled {
   align-items: center;
 }
 
-button.text, a.button {
+button.text {
   border: 2px solid rgb(111, 136, 111);
   border-radius: 10px;
   padding: 10px;
@@ -51,11 +51,7 @@ button.text.delete {
   background-color: rgb(209, 97, 97);
 }
 
-a.button:link, a.button:visited {
-  color:rgb(250, 248, 240)
-}
-
-button.text:hover, button.text:active, button.text[disabled], a.button:hover, a.button:active {
+button.text:hover, button.text:active, button.text[disabled] {
   background-color: rgb(250, 248, 240);
   color: rgb(111, 136, 111);
 }
@@ -171,6 +167,12 @@ button.img:hover, button.img:active, button.img[disabled] {
   text-decoration: underline;
 }
 
+.footer button {
+  background: no-repeat center/100% url("/public/images/cookies-light.png");
+  width: 30px;
+  height: 30px;
+}
+
 /* Styling of flash-messages */
 .flash {
   display: flex;
@@ -215,8 +217,6 @@ button.img:hover, button.img:active, button.img[disabled] {
 /* Styling of Cookie Settings*/
 .cookie-settings {
   position: absolute;
-  top: 50vh;
-  left: 50vw;
   transform: translate(-50%, -50%);
   z-index: 30;
   width: 500px;
@@ -272,7 +272,7 @@ button.img:hover, button.img:active, button.img[disabled] {
   margin-top: 5px;
 }
 
-.auth input:not([type="checkbox"]) {
+.auth input {
   width: 250px;
   padding: 3px;
   font-size: 0.9rem;
@@ -286,11 +286,15 @@ button.img:hover, button.img:active, button.img[disabled] {
 }
 
 .auth a:link, .auth a:visited {
-  color: rgb(51, 51, 51)
+  color: rgb(51, 51, 51);
 }
 
 .auth a:hover, .auth a:active {
   text-decoration: underline;
+}
+
+.auth button {
+  margin-top: 10px;
 }
 
 /* Styling of content for authenticated users */

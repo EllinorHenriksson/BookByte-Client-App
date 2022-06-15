@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useRedirect } from '../hooks/useRedirect.js'
 import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
@@ -74,12 +74,6 @@ function Login (props) {
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }>
         </input>
-        <label>
-        <input
-          type="checkbox"
-          required>
-        </input>I agree to the use of cookies</label>
-        <Link to="./cookies">Cookies</Link>
         <div className='button-container'>
           { !isLoading && <button className='text' type="submit">Login</button> }
           { isLoading && <button className='text' type="submit" disabled>Loading...</button> }
