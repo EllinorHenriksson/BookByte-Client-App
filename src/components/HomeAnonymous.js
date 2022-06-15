@@ -8,7 +8,7 @@ import { useRedirect } from '../hooks/useRedirect.js'
  * @returns {object} The jsx html template.
  */
 function HomeAnonymous (props) {
-  const { setSuccess, setError } = props
+  const { setSuccess, setError, cookies } = props
   useRedirect(setSuccess, setError)
 
   return (
@@ -17,8 +17,9 @@ function HomeAnonymous (props) {
       <img alt="Illustration of books" src="images/book-byte.png"></img>
       <p>Makes book swapping easy!</p>
       <div className='button-container'>
-        <Link to="/login" className='button'>Login</Link>
-        <Link to="/register" className='button'>Register</Link>
+        { !cookies && <Link to="/about" className='button'>About</Link>}
+        { cookies && <Link to="/login" className='button'>Login</Link> }
+        { cookies && <Link to="/register" className='button'>Register</Link> }
       </div>
     </div>
   )

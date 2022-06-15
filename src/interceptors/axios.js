@@ -33,9 +33,6 @@ const handleError = async (err) => {
   if (err.response?.status === 401 && !refresh) {
     refresh = true
 
-    // Remove user info from local storage.
-    localStorage.removeItem('bookbyte')
-
     const response = await axiosAuthService.get('refresh')
 
     // Next 3 lines are executed if the request was successfull.

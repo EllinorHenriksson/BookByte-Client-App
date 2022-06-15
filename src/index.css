@@ -90,7 +90,7 @@ button.img:hover, button.img:active, button.img[disabled] {
   top: 0;
   border-bottom: 2px solid rgb(111, 136, 111);
   background-color: rgb(250, 248, 240);
-  z-index: 2;
+  z-index: 20;
 }
 
 .navbar div {
@@ -181,6 +181,7 @@ button.img:hover, button.img:active, button.img[disabled] {
   align-items: center;
   position: fixed;
   width: 100%;
+  z-index: 20;
 }
 
 .flash div {
@@ -201,8 +202,6 @@ button.img:hover, button.img:active, button.img[disabled] {
 .flash button {
   width: 13px;
   height: 13px;
-  /*display: block;
-  margin: 0 0 0 auto;*/
 }
 
 .flash.success button {
@@ -211,6 +210,25 @@ button.img:hover, button.img:active, button.img[disabled] {
 
 .flash.error button {
   background: no-repeat center/80% url("/public/images/cross-dark-red.png");
+}
+
+/* Styling of Cookie Settings*/
+.cookie-settings {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  width: 500px;
+  background-color: rgb(245, 242, 229);
+  border: 1px solid rgb(111, 136, 111);
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
+
+.cookie-settings h3 {
+  color: rgb(111, 136, 111);
 }
 
 /* Styling of home page for anonymous users */
@@ -385,7 +403,7 @@ button.img:hover, button.img:active, button.img[disabled] {
 
 /* Styling of info boxes for books and swapper */
 .book-info, .swapper-info {
-  z-index: 3;
+  z-index: 30;
   position: absolute;
   top: 0;
   left: 0;

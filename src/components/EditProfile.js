@@ -58,7 +58,6 @@ const EditProfile = (props) => {
       await axiosAuthService.patch('/account', data)
       setIsLoading(false)
       setSuccess('Profile was successfully updated!')
-      localStorage.setItem('bookbyte', JSON.stringify({ username, givenName, familyName, email }))
       setUser({ username, givenName, familyName, email })
       setIsEditing(false)
     } catch (error) {

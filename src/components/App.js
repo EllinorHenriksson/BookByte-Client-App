@@ -6,7 +6,6 @@ import NavbarAnonymous from './NavbarAnonymous.js'
 import Login from './Login.js'
 import Register from './Register.js'
 import Policy from './PrivacyPolicy.js'
-import Cookies from './Cookies.js'
 import NotFound from './NotFound.js'
 import Footer from './Footer.js'
 import HomeAnonymous from './HomeAnonymous.js'
@@ -18,6 +17,8 @@ import Profile from './Profile.js'
 import FlashSuccess from './FlashSuccess.js'
 import FlashError from './FlashError.js'
 import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
+import { About } from './About.js'
+import { CookieSettings } from './CookieSettings.js'
 
 /**
  * The App component.
@@ -26,21 +27,57 @@ import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js
  */
 function App () {
   const [user, setUser] = useState(null)
+  const [showCookies, setShowCookies] = useState(true)
+  const [cookies, setCookies] = useState(false)
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
 
   useEffect(() => {
     (async () => {
-      try {
-        const response = await axiosAuthService.get('refresh')
-        axiosAuthService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
-        axiosResourceService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
-        setUser(response.data.user)
-      } catch (error) {
-        setUser(null)
+      if (JSON.parse(localStorage.getItem('bookbyte'))?.cookies) {
+        setCookies(true)
+        setShowCookies(false)
+        try {
+          const response = await axiosAuthService.get('refresh')
+          axiosAuthService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
+          axiosResourceService.defaults.headers.common.authorization = `Bearer ${response.data.jwt}`
+          setUser(response.data.user)
+        } catch (error) {
+          setUser(null)
+        }
+      } else {
+        setCookies(false)
+        setShowCookies(true)
       }
     })()
   }, [])
+
+  useEffect(() => {
+    (async () => {
+      localStorage.setItem('bookbyte', JSON.stringify({ cookies }))
+      if (!cookies && user) {
+        /*
+        setIsLoading(true)
+        try {
+          await axiosAuthService.get('logout')
+          setIsLoading(false)
+          setUser(null)
+          setSuccess('Logged out due to changed cookie setting.')
+          navigate('/', { state: { success: true } })
+        } catch (error) {
+          setIsLoading(false)
+          if (error.response?.status === 401) {
+            setUser(null)
+            setError('Logged out due to broken authentication.')
+            navigate('/', { state: { error: true } })
+          } else {
+            setError('Log out failed, please try again later.')
+          }
+        }
+        */
+      }
+    })()
+  }, [cookies, user])
 
   useEffect(() => {
     if (success) {
@@ -57,26 +94,29 @@ function App () {
   return (
     <Router>
       <div className="app">
-        { !user && <NavbarAnonymous /> }
+        { showCookies && <CookieSettings setCookies={ setCookies } setShowCookies={ setShowCookies }></CookieSettings> }
+
+        { !user && <NavbarAnonymous cookies={ cookies } /> }
         { user && <NavbarAuthenticated user={ user } setUser={ setUser } setSuccess={ setSuccess } setError={ setError }/> }
+
         <div className="content">
           { success && <FlashSuccess success={ success } setSuccess={setSuccess}></FlashSuccess> }
           { error && <FlashError error={ error } setError={setError}></FlashError> }
           <Routes>
-            { !user && <Route path="/" element={<HomeAnonymous setSuccess={ setSuccess } setError={ setError }/> }/>}
+            { !user && <Route path="/" element={<HomeAnonymous setSuccess={ setSuccess } setError={ setError } cookies={ cookies } /> }/>}
             { user && <Route path="/" element={<HomeAuthenticated setSuccess={ setSuccess } setError={ setError }/> }/>}
-            { !user && <Route path="/login" element={ <Login setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
-            { !user && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
+            { !user && <Route path="/about" element={ <About /> }/> }
+            { (!user && cookies) && <Route path="/login" element={ <Login setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
+            { (!user && cookies) && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
             { user && <Route path="/swaps" element={ <Swaps setUser={ setUser } setSuccess={ setSuccess } setError={ setError }/> }/> }
             { user && <Route path="/wishlist" element={ <Wishlist setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
             { user && <Route path="/bookshelf" element={ <Bookshelf setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
             { user && <Route path="/profile" element={ <Profile user={ user } setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
             <Route path="/privacy-policy" element={<Policy setSuccess={ setSuccess } setError={ setError } />} />
-            <Route path="/cookies" element={<Cookies setSuccess={ setSuccess } setError={ setError } />} />
             <Route path="*" element={<NotFound setSuccess={ setSuccess } setError={ setError } />} />
           </Routes>
         </div>
-        <Footer />
+        <Footer setShowCookies={ setShowCookies } />
       </div>
     </Router>
   )
