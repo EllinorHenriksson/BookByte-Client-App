@@ -12,7 +12,12 @@ function PrivacyPolicy (props) {
 
   return (
     <div className="privacy-policy">
-      <h2>Privacy Policy</h2>
+      <header>
+        <h2>Privacy Policy</h2>
+      </header>
+      <main>
+        <p>Privacy policy</p>
+      </main>
     </div>
   )
 }

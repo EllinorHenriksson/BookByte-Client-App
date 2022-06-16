@@ -5,6 +5,7 @@ import { BookInfo } from './BookInfo.js'
 import { SwapperInfo } from './SwapperInfo.js'
 import { axiosAuthService, axiosResourceService } from '../interceptors/axios.js'
 import md5 from 'md5'
+import { InfoHeader } from './InfoHeader.js'
 
 /**
  * The Swaps component.
@@ -96,10 +97,12 @@ function Swaps (props) {
     setSwapper(swaps[i].otherUser)
   }
 
+  const heading = 'Swaps'
+  const text = 'This page shows a list of possible swaps to make with another user: what book to get, what book to give and what user to swap with. To suggest a swap, simply send the other user an email.'
+
   return (
     <div className="swaps">
-      <h2>Swaps</h2>
-      <p>This page shows a list of possible swaps to make with another user: what book to get, what book to give and what user to swap with. To suggest a swap, simply send the other user an email.</p>
+      <InfoHeader heading={ heading } text={ text } />
       <div className="swaps-content">
         { book && <BookInfo book={ book } setBook={ setBook } /> }
         { swapper && <SwapperInfo swapper={ swapper } setSwapper={ setSwapper } /> }
@@ -118,7 +121,7 @@ function Swaps (props) {
                   <h3>{ swap.toGet.title }</h3>
                   <h4>{ swap.toGet.subtitle }</h4>
                   { swap.toGet.authors && <p>Authors: { swap.toGet.authors?.join(', ') }</p> }
-                  <button className="to-get img" title="Info" onClick={ handleClickBook }></button>
+                  <button className="to-get img info" title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swap-book">
                   <div>
@@ -129,7 +132,7 @@ function Swaps (props) {
                   <h3>{ swap.toGive.title }</h3>
                   <h4>{ swap.toGive.subtitle }</h4>
                   { swap.toGive.authors && <p>Authors: { swap.toGive.authors?.join(', ') }</p> }
-                  <button className='to-give img' title="Info" onClick={ handleClickBook }></button>
+                  <button className='to-give img info' title="Info" onClick={ handleClickBook }></button>
                 </div>
                 <div className="swapper">
                   <img alt="Profile" src={ `https://gravatar.com/avatar/${md5(swap.otherUser.email.trim().toLowerCase())}?s=50&d=mp` } />

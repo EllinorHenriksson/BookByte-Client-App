@@ -78,7 +78,7 @@ function App () {
           <Routes>
             { !user && <Route path="/" element={<HomeAnonymous setSuccess={ setSuccess } setError={ setError } /> }/>}
             { user && <Route path="/" element={<HomeAuthenticated setSuccess={ setSuccess } setError={ setError }/> }/>}
-            { !user && <Route path="/about" element={ <About /> }/> }
+            { !user && <Route path="/about" element={ <About setSuccess={ setSuccess } setError={ setError } /> }/> }
             { (!user && cookies) && <Route path="/login" element={ <Login setUser={ setUser } setSuccess={ setSuccess } setError={ setError } /> }/> }
             { (!user && cookies) && <Route path="/register" element={ <Register setSuccess={ setSuccess } setError={ setError }/> }/> }
             { user && <Route path="/swaps" element={ <Swaps setUser={ setUser } setSuccess={ setSuccess } setError={ setError }/> }/> }

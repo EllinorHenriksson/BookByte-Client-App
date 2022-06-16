@@ -4,6 +4,7 @@ import { useRedirect } from '../hooks/useRedirect.js'
 import { BookList } from './BookList.js'
 import { SearchTool } from './SearchTool.js'
 import { axiosResourceService } from '../interceptors/axios.js'
+import { InfoHeader } from './InfoHeader.js'
 
 /**
  * The Bookshelf component.
@@ -45,10 +46,12 @@ function Bookshelf (props) {
     })()
   }, [setUser, setError, navigate, update])
 
+  const heading = 'Bookshelf'
+  const text = 'The bookshelf is where you manage the books you own and want to swap. Together with the books in your wishlist, the system can match you against other users find possible swaps for you.'
+
   return (
     <div className="bookshelf">
-      <h2>Bookshelf</h2>
-      <p>The bookshelf is where you manage the books you own and want to swap. Together with the books in your wishlist, the system can match you against other users find possible swaps for you.</p>
+      <InfoHeader heading={ heading } text={ text } />
       <SearchTool setUser={ setUser } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate } type="owned"></SearchTool>
       <div className='wishlist-content'>
         { isLoading && <p>Loading...</p> }

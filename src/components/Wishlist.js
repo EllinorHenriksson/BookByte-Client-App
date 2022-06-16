@@ -4,6 +4,7 @@ import { useRedirect } from '../hooks/useRedirect.js'
 import { BookList } from './BookList.js'
 import { SearchTool } from './SearchTool.js'
 import { axiosResourceService } from '../interceptors/axios.js'
+import { InfoHeader } from './InfoHeader.js'
 
 /**
  * The Whishlist component.
@@ -45,10 +46,12 @@ function Wishlist (props) {
     })()
   }, [setUser, setError, navigate, update])
 
+  const heading = 'Wishlist'
+  const text = 'The wishlist is where you manage the books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you.'
+
   return (
     <div className="wishlist">
-      <h2>Wishlist</h2>
-      <p>The wishlist is where you manage the books you want to read. Together with the books on your bookshelf, the system can match you against other users find possible swaps for you.</p>
+      <InfoHeader heading={ heading } text={ text } />
       <SearchTool setUser={ setUser } setSuccess={ setSuccess } setError={ setError } setUpdate={ setUpdate } type="wanted"></SearchTool>
       <div className='wishlist-content'>
         { isLoading && <p>Loading...</p> }

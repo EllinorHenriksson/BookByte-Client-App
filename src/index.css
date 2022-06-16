@@ -12,6 +12,13 @@ body {
   color: rgb(51, 51, 51)
 }
 
+/* Styling of h2 tags*/
+h2 {
+  color: rgb(111, 136, 111);
+}
+
+/* Styling of a tags */
+
 a {
   text-decoration: none;
 }
@@ -25,7 +32,7 @@ button:disabled {
   cursor: progress;
 }
 
-/* Styling of button tags with text and button-looking a tags */
+/* Styling of button tags with text */
 .button-container {
   display: flex;
   gap: 10px;
@@ -75,6 +82,30 @@ button.img {
 
 button.img:hover, button.img:active, button.img[disabled] {
   opacity: 0.7;
+}
+
+button.img.info {
+  background: no-repeat center/80% url("/public/images/info-green.png");
+}
+
+button.img.loading {
+  background: no-repeat center/80% url("/public/images/loading-green.png");
+}
+
+button.img.delete {
+  background: no-repeat center/80% url("/public/images/delete-green.png");
+}
+
+button.img.add {
+  background: no-repeat center/80% url("/public/images/plus-green.png");
+}
+
+button.img.search {
+  background: no-repeat center/80% url("/public/images/search-green.png");
+}
+
+button.img.close {
+  background: no-repeat center/80% url("/public/images/cross-green.png");
 }
 
 /* Styling of navbar */
@@ -142,10 +173,6 @@ button.img:hover, button.img:active, button.img[disabled] {
   max-width: 200px;
   text-align: end;
   overflow: auto;
-}
-
-.content h2 {
-  color: rgb(111, 136, 111);
 }
 
 /* Styling of footer */
@@ -231,10 +258,15 @@ button.img:hover, button.img:active, button.img[disabled] {
   color: rgb(111, 136, 111);
 }
 
+/* Styling of content */
+.home-anonymous, .home-authenticated, .about, .auth, .swaps, .wishlist, .bookshelf, .profile, .privacy-policy, .not-found {
+  min-height: calc(100vh - 100px);
+  width: 100vw;
+  padding: 20px;
+}
+
 /* Styling of home page for anonymous users */
 .home-anonymous {
-  height: calc(100vh - 100px);
-  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -250,12 +282,26 @@ button.img:hover, button.img:active, button.img[disabled] {
   min-height: 150px;
 }
 
+/* Styling of About page */
+.about main {
+  max-width: 700px;
+  text-align: center;
+  margin: auto auto;
+}
+
+.about h3 {
+  color: rgb(111, 136, 111);
+}
+
+.about ul {
+  list-style-position: inside;
+  list-style-type: circle;
+}
+
 /* Styling for registration and login page */
-.auth {
-  min-height: calc(100vh - 100px);
+.auth main {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .auth form {
@@ -297,18 +343,26 @@ button.img:hover, button.img:active, button.img[disabled] {
   margin-top: 10px;
 }
 
-/* Styling of content for authenticated users */
-.swaps, .wishlist, .bookshelf, .profile, .not-found {
-  min-height: calc(100vh - 100px);
-  width: 100vw;
-  padding: 20px;
+/* Styling of InfoHeader component */
+.info-header h2 {
+  display: inline-block;
+}
+
+.info-header button {
+  width: 20px;
+  height: 20px;
+  margin: auto 5px;
+}
+
+.info-header div {
+  width: 500px;
+  background-color: rgb(245, 242, 229);
+  border: 1px solid rgb(111, 136, 111);
+  padding: 10px;
+  text-align: justify;
 }
 
 /* Styling of swaps page */
-.swaps > p {
-  max-width: 500px;
-}
-
 .swap-list {
   display: flex;
   flex-direction: column;
@@ -384,7 +438,6 @@ button.img:hover, button.img:active, button.img[disabled] {
 .swap-book button {
   width: 30px;
   height: 30px;
-  background: no-repeat center/80% url("/public/images/info-green.png");
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -432,7 +485,6 @@ button.img:hover, button.img:active, button.img[disabled] {
 .book-info button, .swapper-info button {
   width: 20px;
   height: 20px;
-  background: no-repeat center/80% url("/public/images/cross-green.png");
 }
 
 .swapper-info a:link,  .swapper-info a:visited {
@@ -518,27 +570,17 @@ button.img:hover, button.img:active, button.img[disabled] {
   height: 30px;
 }
 
-.book-item button.info {
-  background: no-repeat center/80% url("/public/images/info-green.png");
-}
-
-.book-item button.loading {
-  background: no-repeat center/80% url("/public/images/loading-green.png");
-}
-
-.book-item button.delete {
-  background: no-repeat center/80% url("/public/images/delete-green.png");
-}
-
 /* Styling of SearchTool */
 .search-tool {
-  max-width: 500px;
-  margin: 20px auto;
+  width: max-content;
+  margin: auto auto;
 }
 
 .search-tool form {
   display: flex;
   gap: 10px;
+  width: max-content;
+  margin: 10px auto;
 }
 
 .search-tool form input {
@@ -552,18 +594,6 @@ button.img:hover, button.img:active, button.img[disabled] {
   height: 30px;
 }
 
-.search-tool form button.search {
-  background: no-repeat center/80% url("/public/images/search-green.png");
-}
-
-.search-tool form button.loading {
-  background: no-repeat center/80% url("/public/images/loading-green.png");
-}
-
-.search-tool form button.close {
-  background: no-repeat center/80% url("/public/images/cross-green.png");
-}
-
 .search-list {
   display: flex;
   flex-direction: column;
@@ -573,6 +603,7 @@ button.img:hover, button.img:active, button.img[disabled] {
 }
 
 .search-item {
+  width: 500px;
   height: 75px;
   display: flex;
   justify-content: space-between;
@@ -604,18 +635,6 @@ button.img:hover, button.img:active, button.img[disabled] {
 .search-item button {
   width: 20px;
   height: 20px;
-}
-
-.search-item button.info {
-  background: no-repeat center/80% url("/public/images/info-green.png");
-}
-
-.search-item button.loading {
-  background: no-repeat center/80% url("/public/images/loading-green.png");
-}
-
-.search-item button.add {
-  background: no-repeat center/80% url("/public/images/plus-green.png");
 }
 
 /* Styling of Bookshelf page */

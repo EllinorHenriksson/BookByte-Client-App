@@ -58,56 +58,61 @@ function Register (props) {
 
   return (
     <div className="register auth">
-      <form
-        onSubmit={ handleSubmit }>
-        <label>Username:</label>
-        <input
-          type="text"
-          required
-          pattern="[A-Za-z][A-Za-z0-9_-]{2,255}"
-          title="Must be at least 3 characters long and may only contain a/A-z/Z, 0-9 and _."
-          value={ username }
-          onChange={ (e) => setUsername(e.target.value) }>
-        </input>
-        <label>Given name:</label>
-        <input
-          type="text"
-          required
-          value={ givenName }
-          onChange={ (e) => setGivenName(e.target.value) }>
-        </input>
-        <label>Family name:</label>
-        <input
-          type="text"
-          required
-          value={ familyName }
-          onChange={ (e) => setFamilyName(e.target.value)}>
-        </input>
-        <label>Email:</label>
-        <input
-          type="email"
-          required
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-          title="example@example.com"
-          value={ email }
-          onChange={ (e) => setEmail(e.target.value) }>
-        </input>
-        <label>Password:</label>
-        <input
-          type="password"
-          required
-          minLength="10"
-          maxLength="256"
-          title="Must be at least 10 characters long."
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }>
-        </input>
-        <Link to="./privacy-policy">Privacy Policy</Link>
-        <div className='button-container'>
-          { !isLoading && <button type="submit" className='text'>Register</button> }
-          { isLoading && <button type="submit" className='text' disabled>Loading...</button> }
-        </div>
-      </form>
+      <header>
+        <h2>Register</h2>
+      </header>
+      <main>
+        <form
+          onSubmit={ handleSubmit }>
+          <label>Username:</label>
+          <input
+            type="text"
+            required
+            pattern="[A-Za-z][A-Za-z0-9_-]{2,255}"
+            title="Must be at least 3 characters long and may only contain a/A-z/Z, 0-9 and _."
+            value={ username }
+            onChange={ (e) => setUsername(e.target.value) }>
+          </input>
+          <label>Given name:</label>
+          <input
+            type="text"
+            required
+            value={ givenName }
+            onChange={ (e) => setGivenName(e.target.value) }>
+          </input>
+          <label>Family name:</label>
+          <input
+            type="text"
+            required
+            value={ familyName }
+            onChange={ (e) => setFamilyName(e.target.value)}>
+          </input>
+          <label>Email:</label>
+          <input
+            type="email"
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            title="example@example.com"
+            value={ email }
+            onChange={ (e) => setEmail(e.target.value) }>
+          </input>
+          <label>Password:</label>
+          <input
+            type="password"
+            required
+            minLength="10"
+            maxLength="256"
+            title="Must be at least 10 characters long."
+            value={ password }
+            onChange={ (e) => setPassword(e.target.value) }>
+          </input>
+          <Link to="./privacy-policy">Privacy Policy</Link>
+          <div className='button-container'>
+            { !isLoading && <button type="submit" className='text'>Register</button> }
+            { isLoading && <button type="submit" className='text' disabled>Loading...</button> }
+          </div>
+        </form>
+      </main>
     </div>
   )
 }

@@ -58,27 +58,32 @@ function Login (props) {
 
   return (
     <div className='login auth'>
-      <form
-        onSubmit={ handleSubmit }>
-        <label>Username:</label>
-        <input
-          type="text"
-          required
-          value={ username }
-          onChange={ (e) => setUsername(e.target.value) }>
-        </input>
-        <label>Password:</label>
-        <input
-          type="password"
-          required
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }>
-        </input>
-        <div className='button-container'>
-          { !isLoading && <button className='text' type="submit">Login</button> }
-          { isLoading && <button className='text' type="submit" disabled>Loading...</button> }
-        </div>
-      </form>
+      <header>
+        <h2>Login</h2>
+      </header>
+      <main>
+        <form
+          onSubmit={ handleSubmit }>
+          <label>Username:</label>
+          <input
+            type="text"
+            required
+            value={ username }
+            onChange={ (e) => setUsername(e.target.value) }>
+          </input>
+          <label>Password:</label>
+          <input
+            type="password"
+            required
+            value={ password }
+            onChange={ (e) => setPassword(e.target.value) }>
+          </input>
+          <div className='button-container'>
+            { !isLoading && <button className='text' type="submit">Login</button> }
+            { isLoading && <button className='text' type="submit" disabled>Loading...</button> }
+          </div>
+        </form>
+      </main>
     </div>
   )
 }
