@@ -158,7 +158,7 @@ const EditProfile = (props) => {
             </input>
           </fieldset>
         { !isLoading && <div className='button-container'>
-          <button className='text' type="submit">Update</button>
+          <button className='text' type="submit">Edit</button>
           <button className='text' onClick={ handleClick }>Cancel</button>
         </div> }
         { isLoading && <div className='button-container'>
