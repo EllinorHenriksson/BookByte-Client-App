@@ -85,23 +85,23 @@ button.img:hover, button.img:active, button.img[disabled] {
 }
 
 button.img.info {
-  background: no-repeat center/80% url("/public/images/info-green.png");
+  background: no-repeat center/80% url("/public/images/info.png");
 }
 
 button.img.loading {
-  background: no-repeat center/80% url("/public/images/loading-green.png");
+  background: no-repeat center/80% url("/public/images/loading.png");
 }
 
 button.img.delete {
-  background: no-repeat center/80% url("/public/images/delete-green.png");
+  background: no-repeat center/80% url("/public/images/delete.png");
 }
 
 button.img.add {
-  background: no-repeat center/80% url("/public/images/plus-green.png");
+  background: no-repeat center/80% url("/public/images/plus.png");
 }
 
 button.img.search {
-  background: no-repeat center/80% url("/public/images/search-green.png");
+  background: no-repeat center/80% url("/public/images/search.png");
 }
 
 button.img.close {
@@ -195,7 +195,7 @@ button.img.close {
 }
 
 .footer button {
-  background: no-repeat center/100% url("/public/images/cookies-light.png");
+  background: no-repeat center/100% url("/public/images/cookies.png");
   width: 30px;
   height: 30px;
 }
