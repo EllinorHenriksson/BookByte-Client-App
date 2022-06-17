@@ -281,20 +281,34 @@ button.img.close {
   min-height: 150px;
 }
 
-/* Styling of About page */
-.about main {
+/* Styling of About page and Privacy policy */
+.about main, .privacy-policy main {
   max-width: 700px;
   text-align: center;
   margin: auto auto;
 }
 
-.about h3 {
+.about h3, .privacy-policy h3 {
   color: rgb(111, 136, 111);
 }
 
 .about ul {
   list-style-position: inside;
   list-style-type: circle;
+}
+
+.privacy-policy img {
+  width: 20px;
+  vertical-align: bottom;
+  margin-right: 3px;
+}
+
+.privacy-policy a:link, .privacy-policy a:visited {
+  color: rgb(111, 136, 111);
+}
+
+.privacy-policy a:hover, .privacy-policy a:active {
+  text-decoration: underline;
 }
 
 /* Styling for registration and login page */
