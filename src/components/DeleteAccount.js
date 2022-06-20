@@ -20,7 +20,7 @@ export function DeleteAccount (props) {
   const handleClickDelete = async () => {
     setIsLoading(true)
     try {
-      await axiosResourceService.delete()
+      await axiosResourceService.delete('.')
       await axiosAuthService.delete('account')
       setIsLoading(false)
       setUser(null)

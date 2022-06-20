@@ -542,6 +542,7 @@ button.img.close {
   height: max-content;
   display: flex;
   flex-direction: column;
+  margin: 20px;
 }
 
 .book-item {

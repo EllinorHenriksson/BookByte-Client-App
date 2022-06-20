@@ -28,7 +28,7 @@ function Bookshelf (props) {
       setIsLoading(true)
       setBooks(null)
       try {
-        const { data } = await axiosResourceService.get()
+        const { data } = await axiosResourceService.get('.')
         setIsLoading(false)
         setBooks(data.owned)
       } catch (error) {
