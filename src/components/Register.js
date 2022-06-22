@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useRedirect } from '../hooks/useRedirect.js'
 import { axiosAuthService } from '../interceptors/axios.js'
 
@@ -106,7 +106,7 @@ function Register (props) {
             value={ password }
             onChange={ (e) => setPassword(e.target.value) }>
           </input>
-          <Link to="./privacy-policy">Privacy Policy</Link>
+          <NavLink to="/privacy-policy">Privacy Policy</NavLink>
           <div className='button-container'>
             { !isLoading && <button type="submit" className='text'>Register</button> }
             { isLoading && <button type="submit" className='text' disabled>Loading...</button> }
